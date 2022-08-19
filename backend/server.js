@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config({path: './config/.env'})
 const app = express()
 const connectDB = require('./config/database')
+const productRoutes = require('./routes/products')
 
 // middleware
 app.use(express.json())
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
 })
 
 // middleware routes
-
+app.use('/products', productRoutes)
 
 connectDB()
 app.listen(process.env.PORT || 4141, () => [
