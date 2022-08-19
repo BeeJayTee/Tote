@@ -1,0 +1,69 @@
+import { useState } from "react";
+
+const AddProduct = () => {
+    const [producerID, setProducerID] = useState('test id')
+    const [name, setName] = useState('')
+    const [type, setType] = useState('')
+    const [amount, setAmount] = useState('')
+    const [unit, setUnit] = useState('')
+    const [minPurchase, setMinPurchase] = useState('')
+    const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        
+        const product = {producerID, name, type, amount, unit, minPurchase}
+
+        const response = await fetch('http://localhost:4141/products/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(product)
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+            setError(data.error)
+            setEmptyFields(data.emptyFields)
+        }
+    }
+
+    return (
+        <form className="add-product-form" onSubmit={handleSubmit}>
+            <h3>Add a New Product</h3>
+            <label>Product Name: </label>
+            <input 
+                type='text'
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+            />
+            <label>Product Type: </label>
+            <input 
+                type='text'
+                onChange={(e) => setType(e.target.value)}
+                value={type}
+            />
+            <label>Amount Available for Sale: </label>
+            <input 
+                type='number'
+                onChange={(e) => setAmount(e.target.value)}
+                value={amount}
+            />
+            <select value={unit} onChange={(e) => setUnit(e.target.value)}>
+                <option value=''>select unit</option>
+                <option value="lbs">lbs</option>
+            </select>
+            <label>Minimum Purchase Amount: </label>
+            <input 
+                type='number'
+                onChange={(e) => setMinPurchase(e.target.value)}
+                value={minPurchase}
+            />
+            <button>Add Product</button>
+            {error && <div className="error">{error}</div>}
+        </form>
+    )
+}
+
+export default AddProduct

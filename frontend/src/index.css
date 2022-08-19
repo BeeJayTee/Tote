@@ -1,13 +1,48 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --main: #90AFC5;
+  --dark-gray: #3E363F;
+  --light-gray: #bdb4be;
+  --light: #C4DFE6;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-family: 'Fira Sans', sans-serif;
+  color: var(--dark-gray)
+}
+
+.dashboard-menu-container {
+  margin-top: 3%;
+}
+
+.container {
+  margin: 0 5%;
+}
+
+.home.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.home .main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  padding: 2% 5%;
+  background: rgb(250, 250, 250);
+}
+
+.home .products {
+  flex-basis: 70%;
+}
+
+.home .add-product-form {
+  flex-basis: 20%;
+}
+
+.home table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--light-gray);
+
 }

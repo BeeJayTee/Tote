@@ -45,7 +45,6 @@ const getProduct = async (req, res) => {
 // add a new product
 const addProduct = async (req, res) => {
     const {producerID, name, type, amount, unit, minPurchase} = req.body
-
     let emptyFields = []
 
     if (!producerID) {
@@ -65,6 +64,10 @@ const addProduct = async (req, res) => {
     }
     if (!minPurchase) {
         emptyFields.push('minPurchase')
+    }
+    if (emptyFields.length > 0) {
+        console.log(emptyFields)
+        return res.status(400).json({ error: 'Please Fill in all empty fields', emptyFields })
     }
 
     try {
