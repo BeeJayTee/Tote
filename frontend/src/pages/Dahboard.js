@@ -17,7 +17,6 @@ const Home = () => {
             
             if (response.ok) {
                 setProducts(products)
-                console.log(products)
             }
         }
 

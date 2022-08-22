@@ -7,6 +7,7 @@ const AddProduct = () => {
     const [type, setType] = useState('')
     const [amount, setAmount] = useState('')
     const [unit, setUnit] = useState('')
+    const [pricePerUnit, setPricePerUnit] = useState('')
     const [minPurchase, setMinPurchase] = useState('')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
@@ -14,7 +15,8 @@ const AddProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        const product = {producerID, name, type, amount, unit, minPurchase}
+        const product = {producerID, name, type, amount, unit, pricePerUnit, minPurchase}
+        console.log(product)
 
         const response = await fetch('http://localhost:4141/products/', {
             method: 'POST',
@@ -35,8 +37,11 @@ const AddProduct = () => {
             setName('')
             setType('')
             setUnit('')
+            setPricePerUnit('')
             setAmount('')
             setMinPurchase('')
+            // this is temporary, should add createContext so the chart updates automatically
+            window.location.reload()
         }
     }
 
@@ -51,19 +56,25 @@ const AddProduct = () => {
                 className={emptyFields.includes('name') ? 'error-input' : ''}
             />
             <label>Product Type: </label>
-            <input 
-                type='text'
-                onChange={(e) => setType(e.target.value)}
+            <select
                 value={type}
-                className={emptyFields.includes('type') ? 'error-input' : ''}
-            />
-            <label>Amount Available for Sale: </label>
+                onChange={(e) => setType(e.target.value)}
+                className={emptyFields.includes('unit') ? 'error-input' : ''}
+            >
+                <option value=''>select type</option>
+                <option value="produce">produce</option>
+                <option value="meat">meat</option>
+                <option value="dairy">dairy</option>
+                <option value="other">other</option>
+            </select>
+            <label>Amount Availbale: </label>
             <input 
                 type='number'
                 onChange={(e) => setAmount(e.target.value)}
                 value={amount}
                 className={emptyFields.includes('amount') ? 'error-input' : ''}
             />
+            <label>Unit: </label>
             <select
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
@@ -71,7 +82,17 @@ const AddProduct = () => {
             >
                 <option value=''>select unit</option>
                 <option value="lbs">lbs</option>
+                <option value="bunches">bunches</option>
+                <option value="kg">kg</option>
+                <option value="each">each</option>
             </select>
+            <label>Price Per Unit: </label>
+            <input 
+                type='number'
+                onChange={(e) => setPricePerUnit(e.target.value)}
+                value={pricePerUnit}
+                className={emptyFields.includes('pricePerUnit') ? 'error-input' : ''}
+            />
             <label>Minimum Purchase Amount: </label>
             <input 
                 type='number'

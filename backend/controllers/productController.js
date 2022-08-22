@@ -44,7 +44,7 @@ const getProduct = async (req, res) => {
 
 // add a new product
 const addProduct = async (req, res) => {
-    const {producerID, name, type, amount, unit, minPurchase} = req.body
+    const {producerID, name, type, amount, unit, pricePerUnit, minPurchase} = req.body
     let emptyFields = []
 
     if (!producerID) {
@@ -62,6 +62,9 @@ const addProduct = async (req, res) => {
     if (!unit) {
         emptyFields.push('unit')
     }
+    if (!pricePerUnit) {
+        emptyFields.push('pricePerUnit')
+    }
     if (!minPurchase) {
         emptyFields.push('minPurchase')
     }
@@ -70,7 +73,7 @@ const addProduct = async (req, res) => {
     }
 
     try {
-        const product = await Product.create({producerID, name, type, amount, unit, minPurchase})
+        const product = await Product.create({producerID, name, type, amount, unit, pricePerUnit, minPurchase})
         res.status(200).json(product)
     } catch (err) {
         res.status(400).json({ error: err.message })

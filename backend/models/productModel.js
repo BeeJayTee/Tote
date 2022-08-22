@@ -23,6 +23,10 @@ const productSchema = new Schema({
         type: String,
         require: true
     }, 
+    pricePerUnit: {
+        type: Number,
+        require: true
+    }, 
     minPurchase: {
         type: Number,
         required: true
