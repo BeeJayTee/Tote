@@ -99,21 +99,41 @@ const deleteProduct = async (req, res) => {
 
 // update product
 const updateProduct = async (req, res) => {
-    const {id} = req.params
+    const {producerID, productID, name, type, amount, unit, pricePerUnit, minPurchase} = req.body
+    console.log(req.body)
+    let emptyFields = []
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({msg: 'id is not valid'})
+    if (!producerID) {
+        emptyFields.push('producerID')
+    }
+    if (!name) {
+        emptyFields.push('name')
+    }
+    if (!type) {
+        emptyFields.push('type')
+    }
+    if (!amount) {
+        emptyFields.push('amount')
+    }
+    if (!unit) {
+        emptyFields.push('unit')
+    }
+    if (!pricePerUnit) {
+        emptyFields.push('pricePerUnit')
+    }
+    if (!minPurchase) {
+        emptyFields.push('minPurchase')
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please Fill in all empty fields', emptyFields })
     }
 
-    const product = await Product.findByIdAndUpdate(id, {
-        ...req.body
-    })
-
-    if (!product) {
-        return res.status(404).json({msg: 'no such product'})
+    try {
+        const product = await Product.findByIdAndUpdate(productID, {producerID, name, type, amount, unit, pricePerUnit, minPurchase})
+        res.status(200).json(product)
+    } catch (err) {
+        res.status(400).json({ error: err.message })
     }
-
-    res.status(200).json(product)
 }
 
 module.exports = {

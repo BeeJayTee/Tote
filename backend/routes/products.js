@@ -21,6 +21,6 @@ router.post('/', addProduct)
 router.delete('/:id', deleteProduct)
 
 // update a product
-router.patch('/:id', updateProduct)
+router.put('/', updateProduct)
 
 module.exports = router

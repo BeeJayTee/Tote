@@ -1,8 +1,30 @@
-
+import EditModal from './EditModal'
+import { useState } from "react"
 
 const ProducerProduct = ({products}) => {
+    const [show, setShow] = useState(false)
+    const [product, setProduct] = useState({})
+
+    const handleEditClick = (e, currentProduct) => {
+        setShow(true)
+        setProduct(currentProduct)
+    }
+
+    const handleDeleteClick = async (e, id) => {
+        const response = await fetch('http://localhost:4141/products/' + id, {
+            method: 'DELETE'
+        })
+        const data = await response.json()
+        console.log(data)
+        if (response.ok) {
+            window.location.reload()
+        }
+
+    }
+
     return (
         <div className="producer-products">
+            <EditModal onClose={() => setShow(false)} show={show} product={product} />
             <table>
                 <thead>
                     <tr>
@@ -22,7 +44,7 @@ const ProducerProduct = ({products}) => {
                             <td>{product.amount} {product.unit}</td>
                             <td>{product.pricePerUnit}</td>
                             <td>{product.minPurchase}</td>
-                            <td>edit | delete</td>
+                            <td><button onClick={(e) => handleEditClick(e, product)}>Edit</button> | <button onClick={(e) => handleDeleteClick(e, product._id)}>Delete</button></td>
                         </tr>
                     ))}
                 </tbody>
