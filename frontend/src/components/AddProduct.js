@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const AddProduct = () => {
+    // producer id needs to be a dynamic value from the logged in user after auth set up
     const [producerID, setProducerID] = useState('test id')
     const [name, setName] = useState('')
     const [type, setType] = useState('')
@@ -27,6 +28,16 @@ const AddProduct = () => {
             setError(data.error)
             setEmptyFields(data.emptyFields)
         }
+
+        if (response.ok) {
+            setEmptyFields([])
+            setError(null)
+            setName('')
+            setType('')
+            setUnit('')
+            setAmount('')
+            setMinPurchase('')
+        }
     }
 
     return (
@@ -37,20 +48,27 @@ const AddProduct = () => {
                 type='text'
                 onChange={(e) => setName(e.target.value)}
                 value={name}
+                className={emptyFields.includes('name') ? 'error-input' : ''}
             />
             <label>Product Type: </label>
             <input 
                 type='text'
                 onChange={(e) => setType(e.target.value)}
                 value={type}
+                className={emptyFields.includes('type') ? 'error-input' : ''}
             />
             <label>Amount Available for Sale: </label>
             <input 
                 type='number'
                 onChange={(e) => setAmount(e.target.value)}
                 value={amount}
+                className={emptyFields.includes('amount') ? 'error-input' : ''}
             />
-            <select value={unit} onChange={(e) => setUnit(e.target.value)}>
+            <select
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                className={emptyFields.includes('unit') ? 'error-input' : ''}
+            >
                 <option value=''>select unit</option>
                 <option value="lbs">lbs</option>
             </select>
@@ -59,6 +77,7 @@ const AddProduct = () => {
                 type='number'
                 onChange={(e) => setMinPurchase(e.target.value)}
                 value={minPurchase}
+                className={emptyFields.includes('minPurchase') ? 'error-input' : ''}
             />
             <button>Add Product</button>
             {error && <div className="error">{error}</div>}

@@ -11,8 +11,8 @@ const ProducerProduct = ({products}) => {
                     <th>Minimum</th>
                     <th>&nbsp;</th>
                 </tr>
-                {products.map(product => (
-                    <tr>
+                {products.map((product, index) => (
+                    <tr key={product._id} className={index % 2 === 0 ? 'dark-row' : ''}>
                         <td>{product.name}</td>
                         <td>{product.type}</td>
                         <td>{product.amount} {product.unit}</td>

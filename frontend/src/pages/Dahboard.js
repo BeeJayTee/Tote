@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import AddProduct from '../components/AddProduct'
 import DashboardMenu from '../components/DashboardMenu'
 import ProducerProduct from '../components/ProducerProduct'
+import './styles/dashboard.css'
 
 const Home = () => {
     const [products, setProducts] = useState(null)

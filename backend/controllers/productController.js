@@ -66,7 +66,6 @@ const addProduct = async (req, res) => {
         emptyFields.push('minPurchase')
     }
     if (emptyFields.length > 0) {
-        console.log(emptyFields)
         return res.status(400).json({ error: 'Please Fill in all empty fields', emptyFields })
     }
 

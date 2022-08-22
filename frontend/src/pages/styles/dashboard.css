@@ -15,15 +15,11 @@ html {
 }
 
 .container {
-  margin: 0 5%;
-}
-
-.home.container {
   max-width: 1200px;
   margin: auto;
 }
 
-.home .main {
+.main {
   display: flex;
   justify-content: space-between;
   margin-top: 5rem;
@@ -31,18 +27,58 @@ html {
   background: rgb(250, 250, 250);
 }
 
-.home .products {
+.products {
   flex-basis: 70%;
 }
 
-.home .add-product-form {
+.add-product-form {
   flex-basis: 20%;
 }
 
-.home table {
+table {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--light-gray);
+}
 
+th, td {
+  padding: 20px;
+}
+
+th {
+  text-align: left;
+}
+
+.dark-row {
+  background: rgb(235, 235, 235);
+}
+
+/* form */
+
+label, input {
+  display: block;
+}
+
+input {
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+form button {
+  background: var(--dark-gray);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-input {
+  border-color: red;
+}
+
+.error {
+  color: red;
 }
