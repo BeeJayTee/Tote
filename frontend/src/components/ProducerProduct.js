@@ -1,9 +1,11 @@
 import EditModal from './EditModal'
 import { useState } from "react"
+import { useProductsContext } from '../hooks/useProductsContext'
 
-const ProducerProduct = ({products}) => {
+const ProducerProduct = () => {
     const [show, setShow] = useState(false)
     const [product, setProduct] = useState({})
+    const {products, dispatch} = useProductsContext()
 
     const handleEditClick = (e, currentProduct) => {
         setShow(true)
@@ -14,17 +16,19 @@ const ProducerProduct = ({products}) => {
         const response = await fetch('http://localhost:4141/products/' + id, {
             method: 'DELETE'
         })
-        const data = await response.json()
-        console.log(data)
+        const json = await response.json()
         if (response.ok) {
-            window.location.reload()
+            dispatch({type: 'DELETE_PRODUCT', payload: json})
         }
+    }
 
+    const setShowFalse = () => {
+        setShow(false)
     }
 
     return (
         <div className="producer-products">
-            <EditModal onClose={() => setShow(false)} show={show} product={product} />
+            <EditModal onClose={() => setShow(false)} show={show} product={product} setShowFalse={setShowFalse}/>
             <table>
                 <thead>
                     <tr>

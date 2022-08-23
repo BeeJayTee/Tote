@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import AddProduct from '../components/AddProduct'
 import DashboardMenu from '../components/DashboardMenu'
 import ProducerProduct from '../components/ProducerProduct'
+import { useProductsContext } from '../hooks/useProductsContext'
 import './styles/dashboard.css'
 
 const Home = () => {
-    const [products, setProducts] = useState(null)
+    const {products, dispatch} = useProductsContext()
 
     useEffect(() => {
         // test id for testing. Need to replace with current user ID after auth added
@@ -13,10 +14,10 @@ const Home = () => {
 
         const fetchProducts = async () => {
             const response = await fetch('http://localhost:4141/products/producer/' + producerID)
-            const products = await response.json()
+            const json = await response.json()
             
             if (response.ok) {
-                setProducts(products)
+                dispatch({type: 'SET_PRODUCTS', payload: json})
             }
         }
 
@@ -30,7 +31,7 @@ const Home = () => {
             </nav>
             <div className="main">
                 <div className="products">
-                    {products && <ProducerProduct products={products} />}
+                    {products && <ProducerProduct />}
                 </div>
                 <AddProduct />
             </div>

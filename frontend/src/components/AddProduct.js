@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useProductsContext } from "../hooks/useProductsContext";
 
 const AddProduct = () => {
+    const {products, dispatch} = useProductsContext()
     // producer id needs to be a dynamic value from the logged in user after auth set up
     const [producerID, setProducerID] = useState('test id')
     const [name, setName] = useState('')
@@ -24,11 +26,11 @@ const AddProduct = () => {
             body: JSON.stringify(product)
         })
 
-        const data = await response.json()
+        const json = await response.json()
 
         if (!response.ok) {
-            setError(data.error)
-            setEmptyFields(data.emptyFields)
+            setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
 
         if (response.ok) {
@@ -40,8 +42,7 @@ const AddProduct = () => {
             setPricePerUnit('')
             setAmount('')
             setMinPurchase('')
-            // this is temporary, should add createContext so the chart updates automatically
-            window.location.reload()
+            dispatch({type: 'CREATE_PRODUCT', payload: json})
         }
     }
 

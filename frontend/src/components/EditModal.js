@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import { useProductsContext } from "../hooks/useProductsContext"
 
 const EditModal = (props) => {
+    const {products, dispatch} = useProductsContext()
     const [producerID, setProducerID] = useState('test id')
     const [productID, setProductID] = useState('a value')
     const [name, setName] = useState('a value')
@@ -28,19 +30,18 @@ const EditModal = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        const product = {producerID, productID, name, type, amount, unit, pricePerUnit, minPurchase}
-        console.log(product)
+        const product = {producerID, _id: productID, name, type, amount, unit, pricePerUnit, minPurchase}
         const response = await fetch('http://localhost:4141/products/', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(product)
         })
 
-        const data = await response.json()
+        const json = await response.json()
 
         if (!response.ok) {
-            setError(data.error)
-            setEmptyFields(data.emptyFields)
+            setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
 
         if (response.ok) {
@@ -52,8 +53,9 @@ const EditModal = (props) => {
             setPricePerUnit('')
             setAmount('')
             setMinPurchase('')
-
-            window.location.reload()
+            dispatch({type: 'EDIT_PRODUCT', payload: product})
+            // remove the modal from the screen
+            props.setShowFalse()
         }
     }
 
