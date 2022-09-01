@@ -100,7 +100,6 @@ const deleteProduct = async (req, res) => {
 // update product
 const updateProduct = async (req, res) => {
     const {producerID, productID, name, type, amount, unit, pricePerUnit, minPurchase} = req.body
-    console.log(req.body)
     let emptyFields = []
 
     if (!producerID) {

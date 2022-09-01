@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useProductsContext } from "../hooks/useProductsContext"
 
 const EditModal = (props) => {
-    const {products, dispatch} = useProductsContext()
+    const {dispatch} = useProductsContext()
     const [producerID, setProducerID] = useState('test id')
     const [productID, setProductID] = useState('a value')
     const [name, setName] = useState('a value')

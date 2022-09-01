@@ -22,7 +22,7 @@ const Home = () => {
         }
 
         fetchProducts()
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="home container">
