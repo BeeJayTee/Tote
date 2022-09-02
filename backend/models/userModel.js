@@ -16,37 +16,48 @@ const userSchema = new Schema({
     organization: {
         type: String,
         required: false,
-        unique: true
+        unique: true,
+        default: null
     },
     address: {
         street: {
             type: String,
-            required: false
+            required: false,
+            default: null
         },
         apt: {
             type: String,
-            required: false
+            required: false,
+            default: null
         },
         postalCode: {
             type: String,
-            required: false
+            required: false,
+            default: null
         },
         province: {
             type: String,
-            required: false
+            required: false,
+            default: null
         }
     },
     phone: {
         type: Number,
-        required: false
+        required: false,
+        default: null
     },
     isBuyer: {
         type: Boolean,
-        required: false
+        required: true,
+        default: false
     },
     isSeller: {
         type: Boolean,
-        required: false
+        required: true,
+        default: false
+    },
+    isAdmin: {
+        type: Boolean
     }
 })
 

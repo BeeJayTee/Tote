@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
-const Login = () => {
+const Signup = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [retypePassword, setRetypePassword] = useState()
+    const [passwordMatchError, setPasswordMatchError] = useState()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -10,8 +12,8 @@ const Login = () => {
     }
 
     return (
-        <form className="login-form" onSubmit={handleSubmit}>
-            <h3>Log In</h3>
+        <form className="signup-form" onSubmit={handleSubmit}>
+            <h3>Sign Up</h3>
 
             <label>Email:</label>
             <input
@@ -25,9 +27,16 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}    
             />
-            <button>Log In</button>
+            <label>Retype Password:</label>
+            <input
+                type="password"
+                onChange={(e) => setRetypePassword(e.target.value)}
+                value={retypePassword}    
+            />
+            {passwordMatchError && <p>{passwordMatchError}</p>}
+            <button>Submit</button>
         </form>
     )
 }
 
-export default Login
+export default Signup
