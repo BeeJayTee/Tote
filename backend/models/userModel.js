@@ -15,9 +15,8 @@ const userSchema = new Schema({
     },
     organization: {
         type: String,
-        required: false,
-        unique: true,
-        default: null
+        required: true,
+        unique: true
     },
     address: {
         street: {
@@ -62,9 +61,9 @@ const userSchema = new Schema({
 })
 
 // static signup method
-userSchema.statics.signup = async function (email, password, organization, address, phone, isBuyer, isSeller) {
+userSchema.statics.signup = async function (email, password, retypePassword, organization, address, phone, isBuyer, isSeller) {
     // validation
-    if (!email || !password) {
+    if (!email || !password || !organization || (!isBuyer && !isSeller)) {
         throw Error('All fields must be filled')
     }
 
@@ -72,14 +71,24 @@ userSchema.statics.signup = async function (email, password, organization, addre
         throw Error('Email is not valid')
     }
 
+    if (password !== retypePassword) {
+        throw Error('Passwords do not match')
+    }
+
     if (!validator.isStrongPassword(password)) {
         throw Error('Password not strong enough')
     }
 
-    const exists = await this.findOne({ email })
-
-    if (exists) {
+    // check to see if email exists
+    const emailExists = await this.findOne({ email })
+    if (emailExists) {
         throw Error('Email already in use')
+    }
+
+    // check to see if organization exists
+    const orgExists = await this.findOne({ organization })
+    if (orgExists) {
+        throw Error('Organization already exists in system')
     }
 
     const salt = await bcrypt.genSalt(10)
