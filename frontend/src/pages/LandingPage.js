@@ -9,9 +9,7 @@ const LandingPage = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="landingPageForm">
-            <button>Login</button>
-        </form>
+        <h1>Wlcome to the Farm to Chef</h1>
     )
 }
 

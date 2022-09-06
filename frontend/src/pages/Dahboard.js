@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import AddProduct from '../components/AddProduct'
-import DashboardMenu from '../components/DashboardMenu'
 import ProducerProduct from '../components/ProducerProduct'
 import { useProductsContext } from '../hooks/useProductsContext'
 import './styles/dashboard.css'
@@ -26,9 +25,6 @@ const Home = () => {
 
     return (
         <div className="home container">
-            <nav>
-                <DashboardMenu />
-            </nav>
             <div className="main">
                 <div className="products">
                     {products && <ProducerProduct />}

@@ -5,11 +5,13 @@ import LandingPage from './pages/LandingPage'
 import Dashboard from './pages/Dahboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <div className="pages">
           <Routes>
             <Route
