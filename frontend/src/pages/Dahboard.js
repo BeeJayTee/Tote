@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import AddProduct from '../components/AddProduct'
 import ProducerProduct from '../components/ProducerProduct'
 import { useProductsContext } from '../hooks/useProductsContext'

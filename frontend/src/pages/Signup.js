@@ -6,7 +6,6 @@ const Signup = () => {
     const [organization, setOrganization] = useState('')
     const [password, setPassword] = useState('')
     const [retypePassword, setRetypePassword] = useState('')
-    const [passwordMatchError, setPasswordMatchError] = useState(null)
     const [isBuyer, setIsBuyer] = useState(false)
     const [isSeller, setIsSeller] = useState(false)
     const {signup, error, isLoading} = useSignup()
@@ -76,7 +75,6 @@ const Signup = () => {
                 onChange={(e) => setRetypePassword(e.target.value)}
                 value={retypePassword}    
             />
-            {passwordMatchError && <div className='error'>{passwordMatchError}</div>}
             {error && <div className='error'>{error}</div>}
             <button disabled={isLoading}>Submit</button>
         </form>
