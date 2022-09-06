@@ -1,8 +1,14 @@
 const express = require('express')
 
 const { getProducts, getProducerProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../controllers/productController')
+const requireAuth = require('../middleware/requireAuth')
+
+
 
 const router = express.Router()
+
+// require auth for all product routes
+router.use(requireAuth)
 
 // get all products in database (not used very often)
 // just for dev purposes probably
