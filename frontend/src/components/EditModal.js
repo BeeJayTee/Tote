@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useProductsContext } from "../hooks/useProductsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const EditModal = (props) => {
     const {dispatch} = useProductsContext()
@@ -13,6 +14,7 @@ const EditModal = (props) => {
     const [minPurchase, setMinPurchase] = useState('a value')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
+    const {user} = useAuthContext()
 
     const product = props.product
 
@@ -25,7 +27,7 @@ const EditModal = (props) => {
         setUnit(product.unit)
         setPricePerUnit(product.pricePerUnit)
         setMinPurchase(product.minPurchase)
-    }, [props.show])
+    }, [props.show, product.producerID, product._id, product.name, product.type, product.amount, product.unit, product.pricePerUnit, product.minPurchase])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,7 +35,10 @@ const EditModal = (props) => {
         const product = {producerID, _id: productID, name, type, amount, unit, pricePerUnit, minPurchase}
         const response = await fetch('http://localhost:4141/products/', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
             body: JSON.stringify(product)
         })
 

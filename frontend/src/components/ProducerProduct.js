@@ -1,11 +1,13 @@
 import EditModal from './EditModal'
 import { useState } from "react"
 import { useProductsContext } from '../hooks/useProductsContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const ProducerProduct = () => {
     const [show, setShow] = useState(false)
     const [product, setProduct] = useState({})
     const {products, dispatch} = useProductsContext()
+    const {user} = useAuthContext()
 
     const handleEditClick = (e, currentProduct) => {
         setShow(true)
@@ -14,7 +16,12 @@ const ProducerProduct = () => {
 
     const handleDeleteClick = async (e, id) => {
         const response = await fetch('http://localhost:4141/products/' + id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify({userToken: user.token})
+            
         })
         const json = await response.json()
         if (response.ok) {

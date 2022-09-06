@@ -1,5 +1,6 @@
 const Product = require('../models/productModel')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 // get all products
 const getProducts = async (req, res) => {
@@ -10,15 +11,9 @@ const getProducts = async (req, res) => {
 
 // get all products for a producer
 const getProducerProducts = async (req, res) => {
-    // get producer id
-    const {id} = req.params
+    const _id = req.user._id
 
-    // //////// Commented Out for testing purposes!!!
-    // if (!mongoose.Types.ObjectId.isValid(id)) {
-    //     return res.status(404).json({error: 'invalid id'})
-    // }
-
-    const products = await Product.find({producerID: id}).sort({createdAt: -1})
+    const products = await Product.find({producerID: _id}).sort({createdAt: -1})
     if (!products) {
         return res.status(404).json({error: 'no products listed for producer'})
     }
@@ -44,12 +39,12 @@ const getProduct = async (req, res) => {
 
 // add a new product
 const addProduct = async (req, res) => {
-    const {producerID, name, type, amount, unit, pricePerUnit, minPurchase} = req.body
+    const {name, type, amount, unit, pricePerUnit, minPurchase} = req.body
+
+    const _id = req.user._id
+
     let emptyFields = []
 
-    if (!producerID) {
-        emptyFields.push('producerID')
-    }
     if (!name) {
         emptyFields.push('name')
     }
@@ -73,7 +68,7 @@ const addProduct = async (req, res) => {
     }
 
     try {
-        const product = await Product.create({producerID, name, type, amount, unit, pricePerUnit, minPurchase})
+        const product = await Product.create({producerID: _id, name, type, amount, unit, pricePerUnit, minPurchase})
         res.status(200).json(product)
     } catch (err) {
         res.status(400).json({ error: err.message })
@@ -82,13 +77,16 @@ const addProduct = async (req, res) => {
 
 // delete single product
 const deleteProduct = async (req, res) => {
-    const {id} = req.params
+    const { productID } = req.params
+    const producerID = req.user._id
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    // check to make sure product id is a legit mongodb id
+    if (!mongoose.Types.ObjectId.isValid(productID)) {
         return res.status(404).json({error: 'not a valid id'})
     }
 
-    const product = await Product.findByIdAndDelete(id)
+    const product = await Product.findOneAndDelete({_id: productID, producerID: producerID})
+    console.log(product)
 
     if(!product) {
         return res.status(404).json({msg: 'no such product'})

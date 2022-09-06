@@ -24,7 +24,7 @@ router.get('/:id', getProduct)
 router.post('/', addProduct)
 
 // delete a product
-router.delete('/:id', deleteProduct)
+router.delete('/:productID', deleteProduct)
 
 // update a product
 router.put('/', updateProduct)

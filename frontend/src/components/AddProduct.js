@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const AddProduct = () => {
-    const {products, dispatch} = useProductsContext()
+    const {dispatch} = useProductsContext()
     // producer id needs to be a dynamic value from the logged in user after auth set up
-    const [producerID, setProducerID] = useState('test id')
     const [name, setName] = useState('')
     const [type, setType] = useState('')
     const [amount, setAmount] = useState('')
@@ -13,16 +13,24 @@ const AddProduct = () => {
     const [minPurchase, setMinPurchase] = useState('')
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
+    const {user} = useAuthContext()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
         
-        const product = {producerID, name, type, amount, unit, pricePerUnit, minPurchase}
-        console.log(product)
+        const product = {name, type, amount, unit, pricePerUnit, minPurchase}
 
         const response = await fetch('http://localhost:4141/products/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
             body: JSON.stringify(product)
         })
 
