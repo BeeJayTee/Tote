@@ -5,7 +5,7 @@ import { useProductsContext } from '../hooks/useProductsContext'
 import './styles/dashboard.css'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-const Home = () => {
+const SellerDashboard = () => {
     const {products, dispatch} = useProductsContext()
     const {user} = useAuthContext()
 
@@ -43,4 +43,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default SellerDashboard
