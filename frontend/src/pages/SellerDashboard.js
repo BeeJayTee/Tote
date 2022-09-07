@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import AddProduct from '../components/AddProduct'
 import ProducerProduct from '../components/ProducerProduct'
 import { useProductsContext } from '../hooks/useProductsContext'
-import './styles/dashboard.css'
+import './styles/seller-dashboard.css'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const SellerDashboard = () => {
@@ -31,7 +31,7 @@ const SellerDashboard = () => {
     }, [dispatch, user])
 
     return (
-        <div className="home container">
+        <div className="SellerDashboard container">
             <div className="main">
                 <div className="products">
                     {products && <ProducerProduct />}
