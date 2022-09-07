@@ -30,10 +30,13 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(email, password, retypePassword, organization, address, phone, isBuyer, isSeller)
 
+        // identify type of user (buyer or seller)
+        const userType = user.isBuyer ? process.env.BUYER_ID : process.env.SELLER_ID
+
         // create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email, organization, token})
+        res.status(200).json({email, token, userType})
     } catch (error) {
         res.status(400).json({error: error.message})
     }

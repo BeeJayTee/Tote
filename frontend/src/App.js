@@ -11,13 +11,11 @@ import Navbar from './components/Navbar'
 
 function App() {
   const { user } = useAuthContext()
-  console.log(user)
   
   return (
     <div className="App">
       <Router>
         <Navbar />
-        <p>here: {process.env.REACT_APP_BUYER_ID}</p>
         <div className="pages">
           <Routes>
             <Route
@@ -34,11 +32,7 @@ function App() {
             />
             <Route
               path="/dashboard"
-              element={user && user.userType === process.env.REACT_APP_SELLER_ID ? <SellerDashboard /> : user && user.userType === process.env.REACT_APP_BUYER_ID ? <BuyerDashboard /> :<Navigate to="/login" />}
-            />
-            <Route
-              path="/dashboard"
-              element={user ? <SellerDashboard /> : <Navigate to="/login" />}
+              element={user && user.userType === process.env.REACT_APP_SELLER_ID ? <SellerDashboard /> : user && user.userType === process.env.REACT_APP_BUYER_ID ? <BuyerDashboard /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>

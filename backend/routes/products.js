@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getProducts, getProducerProducts, getProduct, addProduct, deleteProduct, updateProduct } = require('../controllers/productController')
+const { getProducts, getProducerProducts, getProducers, getProduct, addProduct, deleteProduct, updateProduct } = require('../controllers/productController')
 const requireAuth = require('../middleware/requireAuth')
 
 
@@ -16,6 +16,9 @@ router.get('/', getProducts)
 
 // get all products for a specific producer
 router.get('/producer/:id', getProducerProducts)
+
+// get all producer names for filter dropdown
+router.get('/producers', getProducers)
 
 // get single product
 router.get('/:id', getProduct)

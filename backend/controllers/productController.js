@@ -1,4 +1,5 @@
 const Product = require('../models/productModel')
+const User = require('../models/userModel')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
@@ -19,6 +20,18 @@ const getProducerProducts = async (req, res) => {
     }
 
     res.status(200).json(products)
+}
+
+// get all producer names for filter dropdown
+const getProducers = async (req, res) => {
+    const producers = await User.find({isSeller: true})
+    
+    if (!producers) {
+        return res.status(404).json({error: 'no producers available'})
+    }
+
+    res.status(200).json(producers)
+
 }
 
 // get a single product
@@ -136,6 +149,7 @@ const updateProduct = async (req, res) => {
 module.exports = {
     getProducts,
     getProducerProducts,
+    getProducers,
     getProduct,
     addProduct,
     deleteProduct,

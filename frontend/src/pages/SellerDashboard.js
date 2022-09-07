@@ -10,7 +10,6 @@ const SellerDashboard = () => {
     const {user} = useAuthContext()
 
     useEffect(() => {
-        // test id for testing. Need to replace with current user ID after auth added
         const producerID = JSON.parse(localStorage.getItem('user')).token
 
         const fetchProducts = async () => {
