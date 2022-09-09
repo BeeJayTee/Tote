@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
+import ProductTypesContext from '../context/ProductTypesContext'
 
 const BuyerDashboard = () => {
     const [allProducts, setAllProducts] = useState([])
     const [producerNames, setProducerNames] = useState([])
-    const [producerName, setProducerName] = useState('poop')
+    const [producerName, setProducerName] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
 
     const { user } = useAuthContext()
+    const { types } = useContext(ProductTypesContext)
 
     useEffect(() => {
+        console.log(types)
         const fetchProducts = async () => {
             const response = await fetch('http://localhost:4141/products', {
                 headers: {
@@ -47,11 +51,20 @@ const BuyerDashboard = () => {
     return (
         <div className="BuyerDashboard">
             <form>
-                <select name="producers" id="producer-select">
-                    <option value="">No Producer Selected</option>
-                    {producerNames.map(producer => (
-                        <option key={producer.id} value={producer.name}>{producer.name}</option>
-                    ))}
+                <input
+                    type="text"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={searchQuery}
+                />
+                <select
+                    name="producers"
+                    id="producer-select"
+                    onChange={(e) => setProducerName(e.target.value)}
+                >
+                        <option value="">No Producer Selected</option>
+                        {producerNames.map(producer => (
+                            <option key={producer.id} value={producer.name}>{producer.name}</option>
+                        ))}
                 </select>
             </form>
         </div>

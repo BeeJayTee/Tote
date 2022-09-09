@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
+
 // pages and components
 import LandingPage from './pages/LandingPage'
 import SellerDashboard from './pages/SellerDashboard'

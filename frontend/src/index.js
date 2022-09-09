@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ProductsContextProvider } from './context/ProductContext';
 import { AuthContextProvider } from './context/AuthContext';
+import { ProductTypesProvider } from './context/ProductTypesContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -10,7 +11,9 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <ProductsContextProvider>
-        <App />
+        <ProductTypesProvider>
+          <App />
+        </ProductTypesProvider>
       </ProductsContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
