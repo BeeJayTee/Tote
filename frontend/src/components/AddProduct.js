@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import { useAuthContext } from '../hooks/useAuthContext'
+import productTypes from "../data/productTypes";
 
 const AddProduct = () => {
     const {dispatch} = useProductsContext()
@@ -71,10 +72,9 @@ const AddProduct = () => {
                 className={emptyFields.includes('unit') ? 'error-input' : ''}
             >
                 <option value=''>select type</option>
-                <option value="produce">produce</option>
-                <option value="meat">meat</option>
-                <option value="dairy">dairy</option>
-                <option value="other">other</option>
+                {productTypes.map(productType => (
+                    <option value={productType}>{productType}</option>
+                ))}
             </select>
             <label>Amount Availbale: </label>
             <input 
