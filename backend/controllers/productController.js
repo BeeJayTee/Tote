@@ -50,6 +50,20 @@ const getProduct = async (req, res) => {
     res.status(200).json(product)
 }
 
+// update product count
+const updateProductCount = async (req, res) => {
+    const {id} = req.params
+    const {updateNumber} = req.body
+    console.log(id, updateNumber)
+
+    try {
+        const product = await Product.findByIdAndUpdate(id, {$inc: {amount: -updateNumber}})
+        res.status(200).json(product)
+    } catch (err) {
+        res.status(400).json({ error: err.message })
+    }
+}
+
 // add a new product
 const addProduct = async (req, res) => {
     const {name, type, amount, unit, pricePerUnit, minPurchase} = req.body
@@ -153,5 +167,6 @@ module.exports = {
     getProduct,
     addProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    updateProductCount
 }

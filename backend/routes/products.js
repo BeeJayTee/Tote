@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getProducts, getProducerProducts, getProducers, getProduct, addProduct, deleteProduct, updateProduct } = require('../controllers/productController')
+const { getProducts, getProducerProducts, getProducers, getProduct, updateProductCount, addProduct, deleteProduct, updateProduct } = require('../controllers/productController')
 const requireAuth = require('../middleware/requireAuth')
 
 
@@ -22,6 +22,9 @@ router.get('/producers', getProducers)
 
 // get single product
 router.get('/:id', getProduct)
+
+// update a product count
+router.patch('/:id', updateProductCount)
 
 // post a new product
 router.post('/', addProduct)
