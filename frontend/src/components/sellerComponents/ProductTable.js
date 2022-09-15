@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
 
 const ProductTable = ({products}) => {
+    const [error, setError] = useState(null)
+    const [errorIDs, setErrorIDs] = useState([])
+
     const { user } = useAuthContext()
 
-    const handleSubmit = async (e, id) => {
+    const handleSubmit = async (e, id, minPurchase) => {
+        if (e.target[0].value < minPurchase) {
+            e.preventDefault()
+            setErrorIDs([...errorIDs, id])
+            setError(`You must order at least ${minPurchase}.`)
+            return
+        }
+        setError(null)
         const updateNumber = e.target[0].value
         const response = await fetch('http://localhost:4141/products/' + id, {
             method: 'PATCH',
@@ -14,7 +25,6 @@ const ProductTable = ({products}) => {
             body: JSON.stringify({updateNumber: updateNumber})
         })
         const json = await response.json()
-        console.log(json)
     }
 
     return (
@@ -38,9 +48,10 @@ const ProductTable = ({products}) => {
                             <td>{product.pricePerUnit}</td>
                             <td>{product.minPurchase}</td>
                             <td>
-                                <form onSubmit={(e) => handleSubmit(e, product._id)}>
+                                <form onSubmit={(e) => handleSubmit(e, product._id, product.minPurchase)}>
                                     <input type="number" name="number" />
                                     <button>Add to cart</button>
+                                    {error && errorIDs.includes(product._id) && <div className='error'>{error}</div>}
                                 </form>
                             </td>
                         </tr>

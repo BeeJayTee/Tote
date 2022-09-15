@@ -79,7 +79,7 @@ const BuyerDashboard = () => {
                         ))}
                 </select>
             </form>
-            <ProductTable products={allProducts}/>
+            <ProductTable products={allProducts} />
         </div>
     )
 }
