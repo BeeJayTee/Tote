@@ -29,8 +29,14 @@ const getProducers = async (req, res) => {
     if (!producers) {
         return res.status(404).json({error: 'no producers available'})
     }
-
-    res.status(200).json(producers)
+    const newProducers = producers.map(producer => {
+        const id = producer._id
+        const producerObj = {}
+        producerObj[id] = producer.organization
+        producerObj['_id'] = producer._id
+        return producerObj
+    })
+    res.status(200).json(newProducers)
 
 }
 
@@ -69,6 +75,7 @@ const addProduct = async (req, res) => {
     const {name, type, amount, unit, pricePerUnit, minPurchase} = req.body
 
     const _id = req.user._id
+    const organization = req.user.organization
 
     let emptyFields = []
 
@@ -95,7 +102,7 @@ const addProduct = async (req, res) => {
     }
 
     try {
-        const product = await Product.create({producerID: _id, name, type, amount, unit, pricePerUnit, minPurchase})
+        const product = await Product.create({producerID: _id, organization, name, type, amount, unit, pricePerUnit, minPurchase})
         res.status(200).json(product)
     } catch (err) {
         res.status(400).json({ error: err.message })

@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import ProductTypesContext from '../context/ProductTypesContext'
-import productTypes from '../data/productTypes'
 import ProductTable from '../components/sellerComponents/ProductTable'
 
 const BuyerDashboard = () => {
@@ -32,14 +31,7 @@ const BuyerDashboard = () => {
                 }  
             })
             const json = await response.json()
-            const producersArr = []
-            json.forEach(producer => {
-                const obj = {}
-                obj.id = producer._id
-                obj.name = producer.organization
-                producersArr.push(obj)
-            })
-            setProducerNames(producersArr)
+            setProducerNames(json)
         }
 
 
@@ -58,6 +50,8 @@ const BuyerDashboard = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     value={searchQuery}
                 />
+
+                {/* producer name dropdown */}
                 <label>Producer</label>
                 <select
                     name="producers"
@@ -65,21 +59,23 @@ const BuyerDashboard = () => {
                 >
                         <option value="">No Producer Selected</option>
                         {producerNames.map(producer => (
-                            <option key={producer.id} value={producer.name}>{producer.name}</option>
+                            <option key={producer._id} value={producer._id}>{producer[producer._id]}</option>
                         ))}
                 </select>
+
+                {/* product type dropdown */}
                 <label>Product Type</label>
                 <select
                     name="productTypes"
-                    onChange={(e) => setProducerName(e.target.value)}
+                    onChange={(e) => setProductType(e.target.value)}
                 >
                         <option value="">No Product Type Selected</option>
-                        {productTypes.map(product => (
-                            <option key={product} value={product}>{product}</option>
+                        {types.map(type => (
+                            <option key={type} value={type}>{type}</option>
                         ))}
                 </select>
             </form>
-            <ProductTable products={allProducts} />
+            <ProductTable products={allProducts}/>
         </div>
     )
 }

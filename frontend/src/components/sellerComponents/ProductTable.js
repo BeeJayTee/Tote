@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
 
 const ProductTable = ({products}) => {
@@ -25,6 +25,7 @@ const ProductTable = ({products}) => {
             body: JSON.stringify({updateNumber: updateNumber})
         })
         const json = await response.json()
+        console.log(json)
     }
 
     return (
@@ -36,6 +37,7 @@ const ProductTable = ({products}) => {
                         <th>Amount</th>
                         <th>Price per Unit</th>
                         <th>Minimum</th>
+                        <th>Producer</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -47,6 +49,7 @@ const ProductTable = ({products}) => {
                             <td>{product.amount} {product.unit}</td>
                             <td>{product.pricePerUnit}</td>
                             <td>{product.minPurchase}</td>
+                            <td>{product.organization}</td>
                             <td>
                                 <form onSubmit={(e) => handleSubmit(e, product._id, product.minPurchase)}>
                                     <input type="number" name="number" />
