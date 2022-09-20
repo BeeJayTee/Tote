@@ -5,10 +5,12 @@ import ProductTable from '../components/sellerComponents/ProductTable'
 
 const BuyerDashboard = () => {
     const [allProducts, setAllProducts] = useState([])
+    const [displayProducts, setDisplayProducts] = useState([])
     const [producerNames, setProducerNames] = useState([])
     const [producerName, setProducerName] = useState('')
     const [searchQuery, setSearchQuery] = useState('')
     const [productType, setProductType] = useState('')
+    const [productsMessage, setProductsMessage] = useState(null)
 
     const { user } = useAuthContext()
     const { types } = useContext(ProductTypesContext)
@@ -22,6 +24,7 @@ const BuyerDashboard = () => {
             })
             const json = await response.json()
             setAllProducts(json)
+            setDisplayProducts(json)
         }
 
         const fetchProducers = async () => {
@@ -41,13 +44,55 @@ const BuyerDashboard = () => {
         }
     }, [user])
 
+    const handleChange = (type, input) => {
+        const setDisplayProductsReducer = (query=null, producer=null, type=null) => {
+            let products = allProducts
+            if (query.length) {
+                products = products.filter(product => {
+                    return product.name.startsWith(query)
+                })
+            }
+            if (producer) {
+                products = products.filter(product => {
+                    return product.producerID === producer
+                })
+            }
+            if (type) {
+                products = products.filter(product => {
+                    return product.type === type
+                })
+            }
+            setDisplayProducts(products)
+        }
+
+        switch(type) {
+            case 'query':
+                if (input === '') {
+                    console.log('it empty')
+                    setDisplayProducts(allProducts)
+                    break
+                }
+                setDisplayProductsReducer(input, producerName, productType)
+                break
+            case 'producer':
+                setDisplayProductsReducer(searchQuery, input, productType)
+                break
+            case 'type':
+                setDisplayProductsReducer(searchQuery, producerName, input)
+                break
+        }
+    }
+
 
     return (
         <div className="BuyerDashboard">
             <form>
                 <input
                     type="text"
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                        setSearchQuery(e.target.value)
+                        handleChange('query', e.target.value)
+                    }}
                     value={searchQuery}
                 />
 
@@ -55,7 +100,10 @@ const BuyerDashboard = () => {
                 <label>Producer</label>
                 <select
                     name="producers"
-                    onChange={(e) => setProducerName(e.target.value)}
+                    onChange={(e) => {
+                        setProducerName(e.target.value)
+                        handleChange('producer', e.target.value)
+                    }}
                 >
                         <option value="">No Producer Selected</option>
                         {producerNames.map(producer => (
@@ -67,7 +115,10 @@ const BuyerDashboard = () => {
                 <label>Product Type</label>
                 <select
                     name="productTypes"
-                    onChange={(e) => setProductType(e.target.value)}
+                    onChange={(e) => {
+                        setProductType(e.target.value)
+                        handleChange('type', e.target.value)
+                    }}
                 >
                         <option value="">No Product Type Selected</option>
                         {types.map(type => (
@@ -75,7 +126,7 @@ const BuyerDashboard = () => {
                         ))}
                 </select>
             </form>
-            <ProductTable products={allProducts}/>
+            <ProductTable products={displayProducts}/>
         </div>
     )
 }
