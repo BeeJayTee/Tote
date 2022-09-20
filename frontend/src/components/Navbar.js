@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { useLogout } from "../hooks/useLogout"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 
 const Navbar = () => {
@@ -18,8 +20,16 @@ const Navbar = () => {
                     Home
                 </Link>
                 <nav>
+                    {/* displays for all logged in users */}
                     {user && (
                         <div>
+                            {/* displays if logged in user is a buyer user type */}
+                            {user.userType === process.env.REACT_APP_BUYER_ID && (
+                                <div>
+                                    <FontAwesomeIcon icon={faCartShopping} />
+                                    <span>0</span>
+                                </div>
+                            )}
                             <span>{user.email}</span>
                             <button onClick={handleClick}>Logout</button>
                         </div>

@@ -51,16 +51,22 @@ const BuyerDashboard = () => {
                 products = products.filter(product => {
                     return product.name.startsWith(query)
                 })
+                setProductsMessage(null)
             }
             if (producer) {
                 products = products.filter(product => {
                     return product.producerID === producer
                 })
+                setProductsMessage(null)
             }
             if (type) {
                 products = products.filter(product => {
                     return product.type === type
                 })
+                setProductsMessage(null)
+            }
+            if (!products.length) {
+                setProductsMessage('No Products Matching Your Search Parameters')
             }
             setDisplayProducts(products)
         }
@@ -68,7 +74,6 @@ const BuyerDashboard = () => {
         switch(type) {
             case 'query':
                 if (input === '') {
-                    console.log('it empty')
                     setDisplayProducts(allProducts)
                     break
                 }
@@ -126,7 +131,7 @@ const BuyerDashboard = () => {
                         ))}
                 </select>
             </form>
-            <ProductTable products={displayProducts}/>
+            <ProductTable products={displayProducts} productsMessage={productsMessage}/>
         </div>
     )
 }

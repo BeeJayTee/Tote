@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
 
-const ProductTable = ({products}) => {
+const ProductTable = ({products, productsMessage}) => {
     const [error, setError] = useState(null)
     const [errorIDs, setErrorIDs] = useState([])
 
@@ -41,6 +41,7 @@ const ProductTable = ({products}) => {
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
+                {productsMessage && <div>{productsMessage}</div>}
                 <tbody>
                     {products.map((product, index) => (
                         <tr key={product._id} className={index % 2 === 0 ? 'dark-row' : ''}>
