@@ -8,12 +8,13 @@ const Signup = () => {
     const [retypePassword, setRetypePassword] = useState('')
     const [isBuyer, setIsBuyer] = useState(false)
     const [isSeller, setIsSeller] = useState(false)
+    const [marketID, setMarketID] = useState('')
     const {signup, error, isLoading} = useSignup()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        await signup(email, password, retypePassword, organization, isBuyer, isSeller)
+        await signup(email, password, retypePassword, organization, isBuyer, isSeller, marketID)
     }
 
     const handleChange = (e) => {
@@ -37,12 +38,7 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}    
             />
-            <label>Business/Organization Name:</label>
-            <input
-                type="text"
-                onChange={(e) => setOrganization(e.target.value)}
-                value={organization}    
-            />
+
             <div>
                 <input
                     type="radio"
@@ -51,7 +47,7 @@ const Signup = () => {
                     id="isBuyer"
                     onChange={handleChange}
                     checked={isBuyer === true}/>
-                <label htmlFor='isBuyer'>Restaurant / Buyer</label>
+                <label htmlFor='isBuyer'>Buyer</label>
             </div>
             <div>
                 <input 
@@ -63,6 +59,22 @@ const Signup = () => {
                     checked={isSeller === true}/>
                 <label htmlFor='isSeller'>Farmer / Producer</label>
             </div>
+            {isSeller && (
+                <div>
+                    <label>Business/Organization Name:</label>
+                    <input
+                        type="text"
+                        onChange={(e) => setOrganization(e.target.value)}
+                        value={organization}    
+                    />
+                    <label>Market ID Code:</label>
+                    <input
+                        type="text"
+                        onChange={(e) => setMarketID(e.target.value)}
+                        value={marketID}    
+                    />
+                </div>
+            )}
             <label>Password:</label>
             <input
                 type="password"

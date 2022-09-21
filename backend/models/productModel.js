@@ -2,10 +2,18 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
+let date = new Date(Date.now())
+date.setDate(date.getDate()+8)
+
 const productSchema = new Schema({
     producerID: {
         type: String,
         required: true
+    },
+    marketID: {
+        type: String,
+        required: true,
+        default: '12345'
     },
     organization: {
         type: String,
@@ -34,7 +42,18 @@ const productSchema = new Schema({
     minPurchase: {
         type: Number,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    expireAt: {
+        type: Date,
+        // set expiry for 8 days
+        expires: 691200,
+        default: date
     }
-}, { timestamps: true })
+})
+
 
 module.exports = mongoose.model('Product', productSchema)

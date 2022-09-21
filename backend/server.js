@@ -4,6 +4,7 @@ const app = express()
 const connectDB = require('./config/database')
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/user')
+const marketRoutes = require('./routes/markets')
 const cors = require('cors')
 
 // middleware
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 // middleware routes
 app.use('/products', productRoutes)
 app.use('/user', userRoutes)
+app.use('/markets', marketRoutes)
 
 connectDB()
 app.listen(process.env.PORT || 4141, () => [

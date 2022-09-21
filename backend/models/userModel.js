@@ -15,8 +15,7 @@ const userSchema = new Schema({
     },
     organization: {
         type: String,
-        required: true,
-        unique: true
+        unique: true,
     },
     address: {
         street: {
@@ -55,15 +54,15 @@ const userSchema = new Schema({
         required: true,
         default: false
     },
-    isAdmin: {
-        type: Boolean
-    }
+    sellerMarketIDs: [{
+        type: String
+    }]
 })
 
 // static signup method
-userSchema.statics.signup = async function (email, password, retypePassword, organization, address, phone, isBuyer, isSeller) {
+userSchema.statics.signup = async function (email, password, retypePassword, organization, address, phone, isBuyer, isSeller, marketID) {
     // validation
-    if (!email || !password || !organization || (!isBuyer && !isSeller)) {
+    if (!email || !password || (isSeller && !organization) || (!isBuyer && !isSeller) || (isSeller && !marketID)) {
         throw Error('All fields must be filled')
     }
 
@@ -94,7 +93,7 @@ userSchema.statics.signup = async function (email, password, retypePassword, org
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-
+    console.log(marketID)
     const user = await this.create({
         email,
         password: hash,
@@ -102,7 +101,8 @@ userSchema.statics.signup = async function (email, password, retypePassword, org
         address,
         phone,
         isBuyer,
-        isSeller
+        isSeller,
+        sellerMarketIDs: [marketID]
     })
 
     return user
