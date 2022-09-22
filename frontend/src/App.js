@@ -9,8 +9,10 @@ import BuyerDashboard from './pages/BuyerDashboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
-import AdminLogin from './pages/AdminLogin'
-import AdminDashboard from './pages/AdminDashboard'
+import AdminLogin from './pages/Admin/AdminLogin'
+import AdminDashboard from './pages/Admin/AdminDashboard'
+import MarketManager from './pages/Admin/MarketManager'
+import AdminManager from './pages/Admin/AdminManager'
 
 function App() {
   const { user } = useAuthContext()
@@ -44,6 +46,14 @@ function App() {
             <Route 
               path="/admin-dashboard"
               element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <AdminDashboard /> : <Navigate to="/admin" />}
+            />
+            <Route 
+              path="/market-manager"
+              element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <MarketManager /> : <Navigate to="/admin" />}
+            />
+            <Route 
+              path="/admin-manager"
+              element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <AdminManager /> : <Navigate to="/admin" />}
             />
           </Routes>
         </div>

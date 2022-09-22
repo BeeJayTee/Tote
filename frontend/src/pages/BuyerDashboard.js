@@ -85,6 +85,8 @@ const BuyerDashboard = () => {
             case 'type':
                 setDisplayProductsReducer(searchQuery, producerName, input)
                 break
+            default:
+                break
         }
     }
 

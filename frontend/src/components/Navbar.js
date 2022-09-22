@@ -33,8 +33,8 @@ const Navbar = () => {
                             {/* displays for admins */}
                             {user && user.userType === process.env.REACT_APP_ADMIN_ID && (
                                 <ul>
-                                    <li><Link to="/add-market">Add Market</Link></li>
-                                    <li><Link to="/add-admin">Add Admin</Link></li>
+                                    <li><Link to="/market-manager">Market Manager</Link></li>
+                                    <li><Link to="/admin-manager">Admin Manager</Link></li>
                                 </ul>
                             )}
                             <span>{user.email}</span>

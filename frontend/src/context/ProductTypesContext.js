@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import productTypes from '../data/productTypes'
 
 const ProductTypesContext = createContext()
