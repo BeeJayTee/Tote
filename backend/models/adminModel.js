@@ -34,4 +34,11 @@ adminSchema.statics.login = async function (email, password) {
     return user
 }
 
+// create admin
+adminSchema.statics.signup = async function(email, password) {
+    if (!email || !password) {
+        throw Error('All fields must be filled')
+    }
+}
+
 module.exports = mongoose.model('Admin', adminSchema)

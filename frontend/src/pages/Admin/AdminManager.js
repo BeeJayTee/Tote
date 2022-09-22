@@ -14,6 +14,9 @@ const AdminManager = () => {
 
         if (password === retypePassword) {
             setPasswordError(null)
+            setEmail('')
+            setPassword('')
+            setRetypePassword('')
             adminSignup(email, password)
         } else {
             setPasswordError('passwords do not match')

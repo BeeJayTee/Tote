@@ -25,7 +25,6 @@ const loginUser = async (req, res) => {
 
 // signup user
 const signupUser = async (req, res) => {
-    console.log(req.body)
     const { email, password, retypePassword, organization, address, phone, isBuyer, isSeller, marketID } = req.body
     try {
         const user = await User.signup(email, password, retypePassword, organization, address, phone, isBuyer, isSeller, marketID)

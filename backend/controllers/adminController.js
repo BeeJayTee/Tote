@@ -8,7 +8,6 @@ const createToken = (_id) => {
 // login admin
 const loginAdmin = async (req, res) => {
     const {email, password} = req.body
-    console.log(email, password)
     try {
         const admin = await Admin.login(email, password)
         const token = createToken(admin._id)
@@ -21,9 +20,15 @@ const loginAdmin = async (req, res) => {
     }
 }
 
-// signup admin
+// create admin
 const signupAdmin = async (req, res) => {
-    console.log(req.body)
+    const { email, password } = req.body
+
+    try {
+        const admin = await Admin.signup(email, password)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 }
 
 module.exports = { loginAdmin, signupAdmin }
