@@ -18,6 +18,7 @@ export const useAdminSignup = () => {
             setIsLoading(false)
             setError(json.error)
         }
+        return json
     }
 
     return { adminSignup, isLoading, error }

@@ -93,7 +93,6 @@ userSchema.statics.signup = async function (email, password, retypePassword, org
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    console.log(marketID)
     const user = await this.create({
         email,
         password: hash,

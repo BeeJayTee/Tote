@@ -26,6 +26,9 @@ const signupAdmin = async (req, res) => {
 
     try {
         const admin = await Admin.signup(email, password)
+        console.log(admin)
+
+        res.status(200).json(admin)
     } catch (error) {
         res.status(400).json({error: error.message})
     }

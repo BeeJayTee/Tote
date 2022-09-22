@@ -9,15 +9,18 @@ const AdminManager = () => {
 
     const {adminSignup, isLoading, error} = useAdminSignup()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (password === retypePassword) {
-            setPasswordError(null)
-            setEmail('')
-            setPassword('')
-            setRetypePassword('')
-            adminSignup(email, password)
+            const data = await adminSignup(email, password)
+            if (data.email) {
+                setPasswordError(null)
+                setEmail('')
+                setPassword('')
+                setRetypePassword('')
+            }
+            console.log(data)
         } else {
             setPasswordError('passwords do not match')
             setPassword('')
