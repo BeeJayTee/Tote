@@ -9,6 +9,7 @@ import BuyerDashboard from './pages/BuyerDashboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
+import AdminLogin from './pages/AdminLogin'
 
 function App() {
   const { user } = useAuthContext()
@@ -34,6 +35,10 @@ function App() {
             <Route
               path="/dashboard"
               element={user && user.userType === process.env.REACT_APP_SELLER_ID ? <SellerDashboard /> : user && user.userType === process.env.REACT_APP_BUYER_ID ? <BuyerDashboard /> : <Navigate to="/login" />}
+            />
+            <Route 
+              path="/admin"
+              element={<AdminLogin />}
             />
           </Routes>
         </div>

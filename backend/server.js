@@ -4,6 +4,7 @@ const app = express()
 const connectDB = require('./config/database')
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/user')
+const adminRoutes = require('./routes/admin')
 const marketRoutes = require('./routes/markets')
 const cors = require('cors')
 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 // middleware routes
 app.use('/products', productRoutes)
 app.use('/user', userRoutes)
+app.use('/admin', adminRoutes)
 app.use('/markets', marketRoutes)
 
 connectDB()
