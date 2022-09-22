@@ -21,9 +21,13 @@ adminSchema.statics.login = async function (email, password) {
     }
 
     const user = await this.findOne({ email })
+    if (!user) {
+        throw Error('Email and/or password does not match or the account does not exist')
+    }
+
     const match = await bcrypt.compare(password, user.password)
 
-    if (!user || !match) {
+    if (!match) {
         throw Error('Email and/or password does not match or the account does not exist')
     }
 

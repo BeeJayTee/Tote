@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
-const requireAuth = async (req, res, next) => {
+const requireAdminAuth = async (req, res, next) => {
 
     // verify that user is authenticated
     const { authorization } = req.headers
@@ -13,7 +13,7 @@ const requireAuth = async (req, res, next) => {
     const token = authorization.split(' ')[1]
 
     try {
-        const {_id} = jwt.verify(token, process.env.SECRET)
+        const {_id} = jwt.verify(token, process.env.ADMIN_SECRET)
         req.user = await User.findOne({ _id })
         next()
     } catch (error) {
@@ -22,4 +22,4 @@ const requireAuth = async (req, res, next) => {
     }
 }
 
-module.exports = requireAuth
+module.exports = requireAdminAuth

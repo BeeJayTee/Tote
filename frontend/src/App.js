@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
 
 function App() {
   const { user } = useAuthContext()
@@ -38,7 +39,11 @@ function App() {
             />
             <Route 
               path="/admin"
-              element={<AdminLogin />}
+              element={!user ? <AdminLogin /> : <Navigate to="/admin-dashboard" />}
+            />
+            <Route 
+              path="/admin-dashboard"
+              element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <AdminDashboard /> : <Navigate to="/admin" />}
             />
           </Routes>
         </div>

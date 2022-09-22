@@ -24,11 +24,18 @@ const Navbar = () => {
                     {user && (
                         <div>
                             {/* displays if logged in user is a buyer user type */}
-                            {user.userType === process.env.REACT_APP_BUYER_ID && (
+                            {user && user.userType === process.env.REACT_APP_BUYER_ID && (
                                 <div>
                                     <FontAwesomeIcon icon={faCartShopping} />
                                     <span>0</span>
                                 </div>
+                            )}
+                            {/* displays for admins */}
+                            {user && user.userType === process.env.REACT_APP_ADMIN_ID && (
+                                <ul>
+                                    <li><Link to="/add-market">Add Market</Link></li>
+                                    <li><Link to="/add-admin">Add Admin</Link></li>
+                                </ul>
                             )}
                             <span>{user.email}</span>
                             <button onClick={handleClick}>Logout</button>
