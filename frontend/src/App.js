@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
+// global styles
+import "./pages/styles/app.css"
+
 
 // pages and components
 import LandingPage from './pages/LandingPage'

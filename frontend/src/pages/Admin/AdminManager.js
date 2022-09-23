@@ -20,7 +20,6 @@ const AdminManager = () => {
                 setPassword('')
                 setRetypePassword('')
             }
-            console.log(data)
         } else {
             setPasswordError('passwords do not match')
             setPassword('')
