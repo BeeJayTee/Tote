@@ -17,6 +17,11 @@ const marketModel = new Schema ({
         requrired: true,
         default: null
     },
+    adminEmail: {
+        type: String,
+        requrired: true,
+        default: null
+    },
     marketName: {
         type: String,
         required: true,
@@ -72,5 +77,20 @@ const marketModel = new Schema ({
         default: null
     },
 })
+
+marketModel.statics.add = async function(adminName, adminEmail, marketName, marketAddress, mailingAddress, phone) {
+    if (!adminName || !adminEmail || !marketName || !marketAddress, !mailingAddress || !phone) {
+        throw Error('All fields must be filled')
+    }
+
+    const admin = await this.create({
+        adminName,
+        adminEmail,
+        marketName,
+        marketAddress,
+        mailingAddress,
+        phone
+    })
+}
 
 module.exports = mongoose.model('Market', marketModel)

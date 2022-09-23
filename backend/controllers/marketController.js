@@ -1,8 +1,9 @@
 const Market = require('../models/marketModel')
 
 // create market
-const createMarket = async (req, res) => {
+const addMarket = async (req, res) => {
+    const {adminName, adminEmail, marketName, marketAddress, mailingAddress, phone} = req.body
     Market.create()
 }
 
-module.exports = {createMarket}
+module.exports = {addMarket}
