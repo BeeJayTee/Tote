@@ -6,6 +6,7 @@ const AdminManager = () => {
     const [password, setPassword] = useState('')
     const [retypePassword, setRetypePassword] = useState('')
     const [passwordError, setPasswordError] = useState(null)
+    const [message, setMessage] = useState(null)
 
     const {adminSignup, isLoading, error} = useAdminSignup()
 
@@ -19,6 +20,7 @@ const AdminManager = () => {
                 setEmail('')
                 setPassword('')
                 setRetypePassword('')
+                adminAdded()
             }
         } else {
             setPasswordError('passwords do not match')
@@ -27,6 +29,13 @@ const AdminManager = () => {
         }
     }
     
+    const adminAdded = () => {
+        setMessage('Admin Added')
+        setTimeout(() => {
+            setMessage(null)
+        }, 5000)
+    }
+
     return (
         <div>
             <h1>Admin Manager</h1>
@@ -53,6 +62,7 @@ const AdminManager = () => {
                 <button disabled={isLoading}>Add New Admin</button>
                 {error && <div className='error'>{error}</div>}
                 {passwordError && <div className='error'>{passwordError}</div>}
+                {message && <div>{message}</div>}
             </form>
         </div>
     );

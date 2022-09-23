@@ -37,6 +37,7 @@ const AdminLogin = () => {
 
     return (
         <div>
+            <h3>Admin Login</h3>
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
