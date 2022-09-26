@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAddMarket } from '../../hooks/useAddMarket'
 import { Countries } from 'country-and-province'
+import '../styles/market-manager.css'
 
 const MarketManager = () => {
     const [adminName, setAdminName] = useState('')
@@ -16,7 +17,7 @@ const MarketManager = () => {
     const [marketCountry, setMarketCountry] = useState('')
     const [marketProvDisabled, setMarketProvDisabled] = useState(true)
 
-    const [mailingHidden, setMailingHidden] = useState(false)
+    const [mailingHidden, setMailingHidden] = useState('')
     const [mailingStreetAddress, setMailingStreetAddress] = useState('')
     const [mailingStreetAddressSec, setMailingStreetAddressSec] = useState('')
     const [mailingCity, setMailingCity] = useState('')
@@ -41,7 +42,7 @@ const MarketManager = () => {
             country: marketCountry,
             postalCode: marketPostal
         }
-        if (mailingHidden) {
+        if (mailingHidden.length > 0) {
             const data = await addMarket(adminName, adminEmail, marketName, marketAddressObj, marketAddressObj, phone)
             if (data.adminName) {
                 marketAdded()
@@ -129,9 +130,9 @@ const MarketManager = () => {
 
     const handleCheckboxChange = (e) => {
         if (e.target.checked) {
-            setMailingHidden(true)
+            setMailingHidden('hidden')
         } else if (!e.target.checked) {
-            setMailingHidden(false)
+            setMailingHidden('')
         }
     }
 
@@ -140,125 +141,131 @@ const MarketManager = () => {
             <h1>Market Manager</h1>
             <h3>Add New Market</h3>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        value={adminName}
-                        onChange={(e) => setAdminName(e.target.value)}
-                        placeholder="Market Director"
-                    />
-                    <input
-                        type="text"
-                        value={adminEmail}
-                        onChange={(e) => setAdminEmail(e.target.value)}
-                        placeholder="Market Director Email"
-                    />
-                    <input
-                        type="text"
-                        value={marketName}
-                        onChange={(e) => setMarketName(e.target.value)}
-                        placeholder="Market Name"
-                    />
-                    <input
-                        type="text"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Phone Number"
-                    />
-                </div>
-
-                <div>
-                    <input
-                        type="text"
-                        value={marketStreetAddress}
-                        onChange={(e) => setMarketStreetAddress(e.target.value)}
-                        placeholder="Market Street Address"
-                    />
-                    <input
-                        type="text"
-                        value={marketStreetAddressSec}
-                        onChange={(e) => setMarketStreetAddressSec(e.target.value)}
-                        placeholder="Market Street Adress Cont'd"
-                    />
-                    <select
-                        onChange={handleMarketCountryChange}
-                        value={marketCountry}
-                    >
-                        <option value="">Select The Country</option>
-                        <option value="canada">Canada</option>
-                        <option value="united states">United States</option>
-                    </select>
-                    <input
-                        type="text"
-                        value={marketCity}
-                        onChange={(e) => setMarketCity(e.target.value)}
-                        placeholder="Market City"
-                    />
-                    <select
-                        disabled={marketProvDisabled}
-                        onChange={(e) => setMarketProv(e.target.value)}
-                        value={marketProv}
-                    >
-                        <option value="">Select State / Province</option>
-                        {marketDisplayProv}
-                    </select>
-                    <input
-                        type="text"
-                        value={marketPostal}
-                        onChange={(e) => setMarketPostal(e.target.value)}
-                        placeholder="Market Postal Code"
-                    />
-                    <div className='same-address-container'>
+                <div className="form-container">
+                    <div>
+                        <legend>Contact Info</legend>
                         <input
-                            type="checkbox"
-                            name='same-address'
-                            onChange={handleCheckboxChange}
+                            type="text"
+                            value={adminName}
+                            onChange={(e) => setAdminName(e.target.value)}
+                            placeholder="Market Director"
                         />
-                        <label htmlFor='same-address'>Mailing addess is same as market address?</label>
+                        <input
+                            type="text"
+                            value={adminEmail}
+                            onChange={(e) => setAdminEmail(e.target.value)}
+                            placeholder="Market Director Email"
+                        />
+                        <input
+                            type="text"
+                            value={marketName}
+                            onChange={(e) => setMarketName(e.target.value)}
+                            placeholder="Market Name"
+                        />
+                        <input
+                            type="text"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="Phone Number"
+                        />
                     </div>
-                </div>
 
-                <div hidden={mailingHidden}>
-                    <input
-                        type="text"
-                        value={mailingStreetAddress}
-                        onChange={(e) => setMailingStreetAddress(e.target.value)}
-                        placeholder="Mailing Street Address"
-                    />
-                    <input
-                        type="text"
-                        value={mailingStreetAddressSec}
-                        onChange={(e) => setMailingStreetAddressSec(e.target.value)}
-                        placeholder="Mailing Street Adress Cont'd"
-                    />
-                    <select
-                        onChange={handleMailingCountryChange}
-                        value={mailingCountry}
-                    >
-                        <option value="">Select The Country</option>
-                        <option value="canada">Canada</option>
-                        <option value="united states">United States</option>
-                    </select>
-                    <input
-                        type="text"
-                        value={mailingCity}
-                        onChange={(e) => setMailingCity(e.target.value)}
-                        placeholder="Mailing City"
-                    />
-                    <select
-                        disabled={mailingProvDisabled}
-                        onChange={(e) => setMailingProv(e.target.value)}
-                        value={mailingProv}
-                    >
-                        <option value="">Select State / Province</option>
-                        {mailingDisplayProv}
-                    </select>
-                    <input
-                        type="text"
-                        value={mailingPostal}
-                        onChange={(e) => setMailingPostal(e.target.value)}
-                        placeholder="Mailing Postal Code"
-                    />
+                    <div>
+                        <legend>Market Address</legend>
+                        <input
+                            type="text"
+                            value={marketStreetAddress}
+                            onChange={(e) => setMarketStreetAddress(e.target.value)}
+                            placeholder="Market Street Address"
+                        />
+                        <input
+                            type="text"
+                            value={marketStreetAddressSec}
+                            onChange={(e) => setMarketStreetAddressSec(e.target.value)}
+                            placeholder="Market Street Adress Cont'd"
+                        />
+                        <select
+                            onChange={handleMarketCountryChange}
+                            value={marketCountry}
+                        >
+                            <option value="">Select The Country</option>
+                            <option value="canada">Canada</option>
+                            <option value="united states">United States</option>
+                        </select>
+                        <input
+                            type="text"
+                            value={marketCity}
+                            onChange={(e) => setMarketCity(e.target.value)}
+                            placeholder="Market City"
+                        />
+                        <select
+                            disabled={marketProvDisabled}
+                            onChange={(e) => setMarketProv(e.target.value)}
+                            value={marketProv}
+                        >
+                            <option value="">Select State / Province</option>
+                            {marketDisplayProv}
+                        </select>
+                        <input
+                            type="text"
+                            value={marketPostal}
+                            onChange={(e) => setMarketPostal(e.target.value)}
+                            placeholder="Market Postal Code"
+                        />
+                        <div id='same-address-container'>
+                            <input
+                                type="checkbox"
+                                name='same-address'
+                                id='same-address'
+                                onChange={handleCheckboxChange}
+                            />
+                            <label htmlFor='same-address'>Mailing addess is same as market address?</label>
+                        </div>
+                    </div>
+
+                    <div className={mailingHidden}>
+                        <legend>Mailing Address</legend>
+                        <input
+                            type="text"
+                            value={mailingStreetAddress}
+                            onChange={(e) => setMailingStreetAddress(e.target.value)}
+                            placeholder="Mailing Street Address"
+                        />
+                        <input
+                            type="text"
+                            value={mailingStreetAddressSec}
+                            onChange={(e) => setMailingStreetAddressSec(e.target.value)}
+                            placeholder="Mailing Street Adress Cont'd"
+                        />
+                        <select
+                            onChange={handleMailingCountryChange}
+                            value={mailingCountry}
+                        >
+                            <option value="">Select The Country</option>
+                            <option value="canada">Canada</option>
+                            <option value="united states">United States</option>
+                        </select>
+                        <input
+                            type="text"
+                            value={mailingCity}
+                            onChange={(e) => setMailingCity(e.target.value)}
+                            placeholder="Mailing City"
+                        />
+                        <select
+                            disabled={mailingProvDisabled}
+                            onChange={(e) => setMailingProv(e.target.value)}
+                            value={mailingProv}
+                        >
+                            <option value="">Select State / Province</option>
+                            {mailingDisplayProv}
+                        </select>
+                        <input
+                            type="text"
+                            value={mailingPostal}
+                            onChange={(e) => setMailingPostal(e.target.value)}
+                            placeholder="Mailing Postal Code"
+                        />
+                    </div>
                 </div>
 
                 <button disabled={isLoading}>Add New Market</button>
