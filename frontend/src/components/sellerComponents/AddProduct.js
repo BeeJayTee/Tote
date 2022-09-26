@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useProductsContext } from "../hooks/useProductsContext";
-import { useAuthContext } from '../hooks/useAuthContext'
-import productTypes from "../data/productTypes";
+import { useProductsContext } from "../../hooks/useProductsContext";
+import { useAuthContext } from '../../hooks/useAuthContext'
+import productTypes from "../../data/productTypes";
 
 const AddProduct = () => {
     const {dispatch} = useProductsContext()

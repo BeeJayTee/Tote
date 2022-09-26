@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { useProductsContext } from "../hooks/useProductsContext"
-import { useAuthContext } from "../hooks/useAuthContext"
+import { useProductsContext } from "../../hooks/useProductsContext"
+import { useAuthContext } from "../../hooks/useAuthContext"
 
 const EditModal = (props) => {
     const {dispatch} = useProductsContext()

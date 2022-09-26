@@ -1,7 +1,7 @@
 import EditModal from './EditModal'
 import { useState } from "react"
-import { useProductsContext } from '../hooks/useProductsContext'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useProductsContext } from '../../hooks/useProductsContext'
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 const ProducerProduct = () => {
     const [show, setShow] = useState(false)

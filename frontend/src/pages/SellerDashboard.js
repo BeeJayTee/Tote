@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import AddProduct from '../components/AddProduct'
-import ProducerProduct from '../components/ProducerProduct'
+import AddProduct from '../components/sellerComponents/AddProduct'
+import ProducerProduct from '../components/sellerComponents/ProducerProduct'
+import MarketSelect from '../components/sellerComponents/MarketSelect'
 import { useProductsContext } from '../hooks/useProductsContext'
 import './styles/seller-dashboard.css'
 import { useAuthContext } from '../hooks/useAuthContext'
@@ -31,6 +32,7 @@ const SellerDashboard = () => {
 
     return (
         <div className="SellerDashboard container">
+            <MarketSelect />
             <div className="main">
                 <div className="products">
                     {products && <ProducerProduct />}

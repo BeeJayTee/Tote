@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import ProductTypesContext from '../context/ProductTypesContext'
-import ProductTable from '../components/sellerComponents/ProductTable'
+import ProductTable from '../components/buyerComponents/ProductTable'
 
 const BuyerDashboard = () => {
     const [allProducts, setAllProducts] = useState([])
