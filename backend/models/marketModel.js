@@ -38,7 +38,11 @@ const marketModel = new Schema ({
             required: true,
             default: null
         },
-        postalCode: {
+        streetSec: {
+            type: String,
+            required: false
+        },
+        city: {
             type: String,
             required: true,
             default: null
@@ -46,6 +50,16 @@ const marketModel = new Schema ({
         province: {
             type: String,
             required: false,
+            default: null
+        },
+        country: {
+            type: String,
+            required: true,
+            default: null
+        },
+        postalCode: {
+            type: String,
+            required: true,
             default: null
         }
     },
@@ -55,12 +69,11 @@ const marketModel = new Schema ({
             required: true,
             default: null
         },
-        unit: {
+        streetSec: {
             type: String,
-            required: false,
-            default: null
+            required: false
         },
-        postalCode: {
+        city: {
             type: String,
             required: true,
             default: null
@@ -69,10 +82,20 @@ const marketModel = new Schema ({
             type: String,
             required: false,
             default: null
+        },
+        country: {
+            type: String,
+            required: true,
+            default: null
+        },
+        postalCode: {
+            type: String,
+            required: true,
+            default: null
         }
     },
     phone: {
-        type: Number,
+        type: String,
         required: false,
         default: null
     },
@@ -83,7 +106,7 @@ marketModel.statics.add = async function(adminName, adminEmail, marketName, mark
         throw Error('All fields must be filled')
     }
 
-    const admin = await this.create({
+    const market = await this.create({
         adminName,
         adminEmail,
         marketName,
@@ -91,6 +114,7 @@ marketModel.statics.add = async function(adminName, adminEmail, marketName, mark
         mailingAddress,
         phone
     })
+    return market
 }
 
 module.exports = mongoose.model('Market', marketModel)

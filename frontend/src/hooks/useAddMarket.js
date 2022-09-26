@@ -14,6 +14,7 @@ export const useAddMarket = () => {
             body: JSON.stringify({adminName, adminEmail, marketName, marketAddress, mailingAddress, phone})
         })
         const json = await response.json()
+        console.log('poop', json)
         if (!response.ok) {
             setIsLoading(false)
             setError(json.error)
