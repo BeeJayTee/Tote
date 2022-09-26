@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
 const Schema = mongoose.Schema
+const Market = require('../models/marketModel')
 
 const userSchema = new Schema({
     email: {
@@ -88,6 +89,12 @@ userSchema.statics.signup = async function (email, password, retypePassword, org
     const orgExists = await this.findOne({ organization })
     if (orgExists) {
         throw Error('Organization already exists in system')
+    }
+
+    // check to see if market ID exists
+    const marketExists = await Market.findOne({ marketID: marketID })
+    if (!marketExists) {
+        throw Error('Market Does not exist, please check market ID: ', marketID)
     }
 
     const salt = await bcrypt.genSalt(10)

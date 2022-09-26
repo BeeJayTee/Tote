@@ -140,7 +140,7 @@ const MarketManager = () => {
         <div>
             <h1>Market Manager</h1>
             <h3>Add New Market</h3>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="add-market-form">
                 <div className="form-container">
                     <div>
                         <legend>Contact Info</legend>

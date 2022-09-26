@@ -40,53 +40,65 @@ const Signup = () => {
             />
 
             <div>
-                <input
-                    type="radio"
-                    name="org-type"
-                    value="isBuyer" 
-                    id="isBuyer"
-                    onChange={handleChange}
-                    checked={isBuyer === true}/>
-                <label htmlFor='isBuyer'>Buyer</label>
+                <label>
+                    <input
+                        type="radio"
+                        name="org-type"
+                        value="isBuyer" 
+                        id="isBuyer"
+                        onChange={handleChange}
+                        checked={isBuyer === true}/>
+                        Shopper
+                    </label>
             </div>
             <div>
-                <input 
-                    type="radio" 
-                    name="org-type"
-                    value="isSeller"
-                    id="isSeller"
-                    onChange={handleChange}
-                    checked={isSeller === true}/>
-                <label htmlFor='isSeller'>Farmer / Producer</label>
+                <label>
+                    <input 
+                        type="radio" 
+                        name="org-type"
+                        value="isSeller"
+                        id="isSeller"
+                        onChange={handleChange}
+                        checked={isSeller === true}/>
+                        Seller
+                        </label>
             </div>
             {isSeller && (
                 <div>
-                    <label>Business/Organization Name:</label>
-                    <input
-                        type="text"
-                        onChange={(e) => setOrganization(e.target.value)}
-                        value={organization}    
-                    />
-                    <label>Market ID Code:</label>
-                    <input
-                        type="text"
-                        onChange={(e) => setMarketID(e.target.value)}
-                        value={marketID}    
-                    />
+                    <label>
+                        Business/Organization Name:
+                        <input
+                            type="text"
+                            onChange={(e) => setOrganization(e.target.value)}
+                            value={organization}    
+                        />
+                    </label>
+                    <label>
+                        Market ID Code:
+                        <input
+                            type="text"
+                            onChange={(e) => setMarketID(e.target.value)}
+                            value={marketID}    
+                        />
+                    </label>
                 </div>
             )}
-            <label>Password:</label>
-            <input
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}    
-            />
-            <label>Retype Password:</label>
-            <input
-                type="password"
-                onChange={(e) => setRetypePassword(e.target.value)}
-                value={retypePassword}    
-            />
+            <label>
+                Password:
+                <input
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}    
+                />
+            </label>
+            <label>
+                Retype Password:
+                <input
+                    type="password"
+                    onChange={(e) => setRetypePassword(e.target.value)}
+                    value={retypePassword}    
+                />
+            </label>
             {error && <div className='error'>{error}</div>}
             <button disabled={isLoading}>Submit</button>
         </form>
