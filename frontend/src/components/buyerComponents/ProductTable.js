@@ -29,39 +29,41 @@ const ProductTable = ({products, productsMessage}) => {
     }
 
     return (
-        <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Price per Unit</th>
-                        <th>Minimum</th>
-                        <th>Producer</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
+        <div className="ProductTable">
+            <table>
                 {productsMessage && <div>{productsMessage}</div>}
-                <tbody>
-                    {products.map((product, index) => (
-                        <tr key={product._id} className={index % 2 === 0 ? 'dark-row' : ''}>
-                            <td>{product.name}</td>
-                            <td>{product.type}</td>
-                            <td>{product.amount} {product.unit}</td>
-                            <td>{product.pricePerUnit}</td>
-                            <td>{product.minPurchase}</td>
-                            <td>{product.organization}</td>
-                            <td>
-                                <form onSubmit={(e) => handleSubmit(e, product._id, product.minPurchase)}>
-                                    <input type="number" name="number" />
-                                    <button>Add to cart</button>
-                                    {error && errorIDs.includes(product._id) && <div className='error'>{error}</div>}
-                                </form>
-                            </td>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Price per Unit</th>
+                            <th>Minimum</th>
+                            <th>Producer</th>
+                            <th>&nbsp;</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {products.map((product, index) => (
+                            <tr key={product._id} className={index % 2 === 0 ? 'dark-row' : ''}>
+                                <td>{product.name}</td>
+                                <td>{product.type}</td>
+                                <td>{product.amount} {product.unit}</td>
+                                <td>{product.pricePerUnit}</td>
+                                <td>{product.minPurchase}</td>
+                                <td>{product.organization}</td>
+                                <td>
+                                    <form onSubmit={(e) => handleSubmit(e, product._id, product.minPurchase)}>
+                                        <input type="number" name="number" />
+                                        <button>Add to cart</button>
+                                        {error && errorIDs.includes(product._id) && <div className='error'>{error}</div>}
+                                    </form>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
     )
 }
 

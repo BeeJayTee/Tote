@@ -65,8 +65,11 @@ const BuyerDashboard = () => {
                 })
                 setProductsMessage(null)
             }
-            if (!products.length) {
+            console.log(products)
+            if (products.length === 0) {
                 setProductsMessage('No Products Matching Your Search Parameters')
+            } else {
+                setProductsMessage(null)
             }
             setDisplayProducts(products)
         }
