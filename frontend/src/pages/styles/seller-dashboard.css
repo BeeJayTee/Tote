@@ -114,3 +114,21 @@ form button {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
+
+/* select market stylings */
+.add-new-market {
+  color: var(--main);
+}
+
+.add-market-icon-container {
+  border: 1px solid var(--main);
+  width: fit-content;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.add-market-icon-container:hover {
+  background: var(--main);
+  color: white;
+}

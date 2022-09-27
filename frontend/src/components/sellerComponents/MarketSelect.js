@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShop, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 const MarketSelect = ({user, setMarketID}) => {
     const [sellerMarkets, setSellerMarkets] = useState([])
     const [markets, setMarkets] = useState([])
+    const [addMarketID, setAddMarketID] = useState('')
+    const [addMarketDisplay, setAddMarketDisplay] = useState(true)
+    const [icon, setIcon] = useState(faPlus)
 
     useEffect(() => {
         const fetchSellerMarkets = async () => {
@@ -28,21 +33,42 @@ const MarketSelect = ({user, setMarketID}) => {
         setMarketID(e.target.value)
     }
 
+    const handleMarketClick = () => {
+        setAddMarketDisplay(false)
+        setIcon(faXmark)
+    }
+
     return (
-        <form className='select-market-form'>
-            <label>
-                Select Market: 
-                <select
-                onChange={handleChange}
-                >
-                    {markets.map((market, index) => {
-                        if (sellerMarkets.includes(market.marketID)) {
-                            return <option key={index} value={market.marketID}>{market.marketName}</option>
-                        } else return ''
-                    })}
-                </select>
-            </label>
-        </form>
+        <div className='market-select'>
+            <form className='select-market-form'>
+                <label>
+                    Select Market: 
+                    <select
+                    onChange={handleChange}
+                    >
+                        {markets.map((market, index) => {
+                            if (sellerMarkets.includes(market.marketID)) {
+                                return <option key={index} value={market.marketID}>{market.marketName}</option>
+                            } else return ''
+                        })}
+                    </select>
+                </label>
+            </form>
+            <div className="add-new-market">
+                <div className='add-market-icon-container' onClick={handleMarketClick}>
+                    <FontAwesomeIcon icon={faShop} />
+                    <FontAwesomeIcon icon={icon} />
+                </div>
+                <form hidden={addMarketDisplay}>
+                        <input 
+                        type="text"
+                        value={addMarketID}
+                        onChange={(e) => setAddMarketID(e.target.value)}
+                        />
+                        <button>Add Market</button>
+                    </form>
+            </div>
+        </div>
     );
 }
  
