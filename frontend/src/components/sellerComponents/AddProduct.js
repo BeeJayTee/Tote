@@ -3,7 +3,7 @@ import { useProductsContext } from "../../hooks/useProductsContext";
 import { useAuthContext } from '../../hooks/useAuthContext'
 import productTypes from "../../data/productTypes";
 
-const AddProduct = () => {
+const AddProduct = ({ marketID }) => {
     const {dispatch} = useProductsContext()
     // producer id needs to be a dynamic value from the logged in user after auth set up
     const [name, setName] = useState('')
@@ -72,8 +72,8 @@ const AddProduct = () => {
                 className={emptyFields.includes('unit') ? 'error-input' : ''}
             >
                 <option value=''>select type</option>
-                {productTypes.map(productType => (
-                    <option value={productType}>{productType}</option>
+                {productTypes.map((productType, index) => (
+                    <option key={index} value={productType}>{productType}</option>
                 ))}
             </select>
             <label>Amount Availbale: </label>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import AddProduct from '../components/sellerComponents/AddProduct'
 import ProducerProduct from '../components/sellerComponents/ProducerProduct'
 import MarketSelect from '../components/sellerComponents/MarketSelect'
@@ -7,6 +7,8 @@ import './styles/seller-dashboard.css'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const SellerDashboard = () => {
+    const [marketID, setMarketID] = useState('')
+
     const {products, dispatch} = useProductsContext()
     const {user} = useAuthContext()
 
@@ -32,12 +34,12 @@ const SellerDashboard = () => {
 
     return (
         <div className="SellerDashboard container">
-            <MarketSelect />
+            <MarketSelect user={user} setMarketID={setMarketID}/>
             <div className="main">
                 <div className="products">
                     {products && <ProducerProduct />}
                 </div>
-                <AddProduct />
+                <AddProduct marketID={marketID} />
             </div>
         </div>
 
