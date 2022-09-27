@@ -1,7 +1,8 @@
 const express = require('express')
+const requireAuth = require('../middleware/requireAuth')
 
 // controller functions
-const { signupUser, loginUser } = require('../controllers/userController')
+const { signupUser, loginUser, getUserMarkets } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -10,5 +11,8 @@ router.post('/login', loginUser)
 
 // signup route
 router.post('/signup', signupUser)
+
+// get user markets
+router.get('/markets', requireAuth, getUserMarkets)
 
 module.exports = router

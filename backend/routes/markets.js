@@ -1,8 +1,11 @@
 const express = require('express')
 
-const { addMarket } = require('../controllers/marketController')
+const { addMarket, getMarkets } = require('../controllers/marketController')
 
 const router = express.Router()
+
+// get all markets
+router.get('/', getMarkets)
 
 // create market
 router.post('/add', addMarket)

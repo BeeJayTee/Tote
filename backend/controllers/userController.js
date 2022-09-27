@@ -41,7 +41,19 @@ const signupUser = async (req, res) => {
     }
 }
 
+// get user markets
+const getUserMarkets = async (req, res) => {
+    const id = req.user._id
+    const user = await User.findById(id)
+    const userMarkets = user.sellerMarketIDs
+    if (userMarkets.length > 0) {
+        return res.status(200).json({ markets: userMarkets })
+    }
+    res.status(404).json({ msg: 'Could not find markets for this user' })
+}
+
 module.exports = {
     signupUser,
-    loginUser
+    loginUser,
+    getUserMarkets
 }
