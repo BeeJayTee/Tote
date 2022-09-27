@@ -12,8 +12,7 @@ const productSchema = new Schema({
     },
     marketID: {
         type: String,
-        required: true,
-        default: '12345'
+        required: true
     },
     organization: {
         type: String,

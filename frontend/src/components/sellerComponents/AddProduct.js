@@ -24,7 +24,7 @@ const AddProduct = ({ marketID }) => {
             return
         }
         
-        const product = {name, type, amount, unit, pricePerUnit, minPurchase}
+        const product = {name, type, amount, unit, pricePerUnit, minPurchase, marketID}
 
         const response = await fetch('http://localhost:4141/products/', {
             method: 'POST',
@@ -36,6 +36,7 @@ const AddProduct = ({ marketID }) => {
         })
 
         const json = await response.json()
+        console.log(json)
 
         if (!response.ok) {
             setError(json.error)

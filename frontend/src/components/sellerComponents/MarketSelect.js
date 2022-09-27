@@ -18,10 +18,11 @@ const MarketSelect = ({user, setMarketID}) => {
             })
             const json = await response.json()
             setMarkets(json)
+            setMarketID(json[0].marketID)
         }
         fetchSellerMarkets()
         fetchAllMarkets()
-    }, [user.token])
+    }, [user.token, setMarketID])
     
     const handleChange = (e) => {
         setMarketID(e.target.value)

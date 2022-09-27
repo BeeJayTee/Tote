@@ -72,7 +72,7 @@ const updateProductCount = async (req, res) => {
 
 // add a new product
 const addProduct = async (req, res) => {
-    const {name, type, amount, unit, pricePerUnit, minPurchase} = req.body
+    const {name, type, amount, unit, pricePerUnit, minPurchase, marketID} = req.body
 
     const _id = req.user._id
     const organization = req.user.organization
@@ -102,7 +102,7 @@ const addProduct = async (req, res) => {
     }
 
     try {
-        const product = await Product.create({producerID: _id, organization, name, type, amount, unit, pricePerUnit, minPurchase})
+        const product = await Product.create({producerID: _id, organization, name, type, amount, unit, pricePerUnit, minPurchase, marketID})
         res.status(200).json(product)
     } catch (err) {
         res.status(400).json({ error: err.message })
