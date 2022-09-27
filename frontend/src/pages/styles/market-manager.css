@@ -35,7 +35,7 @@
     width: max-content;
 }
 
-.add-market-form select, input[type="text"] {
+.add-market-form select, .add-market-form input[type="text"] {
     padding: 10px 15px;
     margin: 0;
     margin-top: 10px;

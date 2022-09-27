@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const Market = require('../models/marketModel')
 const jwt = require('jsonwebtoken')
 
 const createToken = (_id) => {
@@ -52,8 +53,25 @@ const getUserMarkets = async (req, res) => {
     res.status(404).json({ msg: 'Could not find markets for this user' })
 }
 
+// add user market
+const addUserMarket = async (req, res) => {
+    const { marketID } = req.body
+    const userID = req.user._id
+    const market = await Market.findOne({ marketID: marketID })
+    if (!market) {
+        return res.status(404).json({ error: 'market not found' })
+    }
+    const userCheck = await User.findById(userID)
+    if (userCheck.sellerMarketIDs.includes(marketID)) {
+        return res.status(409).json({ error: 'market already exists' })
+    }
+    const user = await User.findByIdAndUpdate(userID, {$push: { sellerMarketIDs: marketID }})
+    res.status(200).json(user)
+}
+
 module.exports = {
     signupUser,
     loginUser,
-    getUserMarkets
+    getUserMarkets,
+    addUserMarket
 }

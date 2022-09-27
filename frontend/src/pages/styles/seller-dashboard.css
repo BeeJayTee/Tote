@@ -56,17 +56,17 @@ th {
 
 /* form */
 
-label, input {
+.add-product-form label, .add-product-form input {
   display: block;
 }
 
-input {
+.add-product-form input {
   padding: 5px;
   margin-top: 5px;
   margin-bottom: 10px;
 }
 
-form button {
+.add-product-form button {
   background: var(--dark-gray);
   border: 0;
   color: #fff;
@@ -131,4 +131,8 @@ form button {
 .add-market-icon-container:hover {
   background: var(--main);
   color: white;
+}
+
+.hidden {
+  visibility: hidden;
 }
