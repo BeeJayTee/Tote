@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const MarketSelect = ({ marketID, setMarketID }) => {
-  const [markets, setMarkets] = useState("");
+  const [markets, setMarkets] = useState([]);
+  const [marketName, setMarketName] = useState(null);
   const { user } = useAuthContext();
 
   useEffect(() => {
@@ -17,11 +18,22 @@ const MarketSelect = ({ marketID, setMarketID }) => {
     fetchMarkets();
   }, [user.token]);
 
+  const handleClick = (e) => {
+    setMarketID(e.target.value);
+    const market = markets.filter((market) => {
+      return market.marketID === e.target.value;
+    });
+    setMarketName(market[0].marketName);
+  };
+
   return (
     <div className="MarketSelect">
-      <form>
+      <div className="dropdown-container">
         <div className="dropdown dropdown-hover">
-          <label tabIndex={0} className="btn m-1">
+          <label
+            tabIndex={0}
+            className="btn m-1 bg-primary hover:bg-primary-focus"
+          >
             Select Market
           </label>
           <ul
@@ -30,28 +42,23 @@ const MarketSelect = ({ marketID, setMarketID }) => {
           >
             {markets &&
               markets.map((market, index) => (
-                <li>
-                  <option
-                    key={index}
-                    value={market.marketID}
-                    onClick={(e) => setMarketID(e.target.value)}
-                  >
+                <li key={index}>
+                  <option value={market.marketID} onClick={handleClick}>
                     {market.marketName}
                   </option>
                 </li>
               ))}
           </ul>
         </div>
-        {/* <select value={marketID} onChange={(e) => setMarketID(e.target.value)}>
-          <option value="">Select A Market</option>
-          {markets &&
-            markets.map((market, index) => (
-              <option key={index} value={market.marketID}>
-                {market.marketName}
-              </option>
-            ))}
-        </select> */}
-      </form>
+        <div className="market-viewing-container w-fit border-2 border-primary px-10 py-10 m-auto mt-5 rounded">
+          {marketName && (
+            <p className="text-base">
+              You are currently viewing products for:{" "}
+            </p>
+          )}
+          <h2 className="text-lg font-bold text-neutral">{marketName}</h2>
+        </div>
+      </div>
     </div>
   );
 };

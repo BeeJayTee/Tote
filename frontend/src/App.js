@@ -1,34 +1,46 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthContext } from './hooks/useAuthContext'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 // global styles
-import "./pages/styles/app.css"
-
+import "./styles/app.css";
 
 // pages and components
-import LandingPage from './pages/LandingPage'
-import SellerDashboard from './pages/SellerDashboard'
-import BuyerDashboard from './pages/BuyerDashboard'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Navbar from './components/Navbar'
-import AdminLogin from './pages/Admin/AdminLogin'
-import AdminDashboard from './pages/Admin/AdminDashboard'
-import MarketManager from './pages/Admin/MarketManager'
-import AdminManager from './pages/Admin/AdminManager'
+import LandingPage from "./pages/LandingPage";
+import SellerDashboard from "./pages/SellerDashboard";
+import BuyerDashboard from "./pages/BuyerDashboard";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Navbar from "./components/Navbar";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import MarketManager from "./pages/Admin/MarketManager";
+import AdminManager from "./pages/Admin/AdminManager";
 
 function App() {
-  const { user } = useAuthContext()
-  
+  const { user } = useAuthContext();
+
   return (
-    <div className="App">
+    <div className="App container">
       <Router>
         <Navbar />
         <div className="pages">
           <Routes>
             <Route
               path="/"
-              element={!user ? <LandingPage /> : user.userType === process.env.REACT_APP_ADMIN_ID ? <Navigate to="/admin-dashboard" /> : <Navigate to="/dashboard" />}
+              element={
+                !user ? (
+                  <LandingPage />
+                ) : user.userType === process.env.REACT_APP_ADMIN_ID ? (
+                  <Navigate to="/admin-dashboard" />
+                ) : (
+                  <Navigate to="/dashboard" />
+                )
+              }
             />
             <Route
               path="/login"
@@ -40,23 +52,51 @@ function App() {
             />
             <Route
               path="/dashboard"
-              element={user && user.userType === process.env.REACT_APP_SELLER_ID ? <SellerDashboard /> : user && user.userType === process.env.REACT_APP_BUYER_ID ? <BuyerDashboard /> : <Navigate to="/login" />}
+              element={
+                user && user.userType === process.env.REACT_APP_SELLER_ID ? (
+                  <SellerDashboard />
+                ) : user && user.userType === process.env.REACT_APP_BUYER_ID ? (
+                  <BuyerDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
             />
-            <Route 
+            <Route
               path="/admin"
-              element={!user ? <AdminLogin /> : <Navigate to="/admin-dashboard" />}
+              element={
+                !user ? <AdminLogin /> : <Navigate to="/admin-dashboard" />
+              }
             />
-            <Route 
+            <Route
               path="/admin-dashboard"
-              element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <AdminDashboard /> : <Navigate to="/admin" />}
+              element={
+                user && user.userType === process.env.REACT_APP_ADMIN_ID ? (
+                  <AdminDashboard />
+                ) : (
+                  <Navigate to="/admin" />
+                )
+              }
             />
-            <Route 
+            <Route
               path="/market-manager"
-              element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <MarketManager /> : <Navigate to="/admin" />}
+              element={
+                user && user.userType === process.env.REACT_APP_ADMIN_ID ? (
+                  <MarketManager />
+                ) : (
+                  <Navigate to="/admin" />
+                )
+              }
             />
-            <Route 
+            <Route
               path="/admin-manager"
-              element={user && user.userType === process.env.REACT_APP_ADMIN_ID ? <AdminManager /> : <Navigate to="/admin" />}
+              element={
+                user && user.userType === process.env.REACT_APP_ADMIN_ID ? (
+                  <AdminManager />
+                ) : (
+                  <Navigate to="/admin" />
+                )
+              }
             />
           </Routes>
         </div>

@@ -1,0 +1,11 @@
+:root {
+    --main: #90AFC5;
+    --dark-gray: #3E363F;
+    --light-gray: #bdb4be;
+    --light: #C4DFE6;
+  }
+
+.MarketSelect .dropdown-container {
+    text-align: center;
+    margin-bottom: 50px;
+}
