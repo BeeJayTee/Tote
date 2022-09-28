@@ -1,0 +1,22 @@
+:root {
+    --main: #90AFC5;
+    --dark-gray: #3E363F;
+    --light-gray: #bdb4be;
+    --light: #C4DFE6;
+  }
+
+.MarketSelect form {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.MarketSelect select {
+    padding: 20px 25px;
+    border: 2px solid var(--dark-gray);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.MarketSelect select:hover {
+    border: 2px solid var(--light-gray)
+}

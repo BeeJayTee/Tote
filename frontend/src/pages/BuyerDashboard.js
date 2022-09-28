@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import ProductTypesContext from '../context/ProductTypesContext'
 import ProductTable from '../components/buyerComponents/ProductTable'
+import MarketSelect from '../components/buyerComponents/MarketSelect'
+import './styles/buyer-dashboard.css'
 
 const BuyerDashboard = () => {
     const [allProducts, setAllProducts] = useState([])
@@ -11,6 +13,8 @@ const BuyerDashboard = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [productType, setProductType] = useState('')
     const [productsMessage, setProductsMessage] = useState(null)
+    const [marketID, setMarketID] = useState('')
+    const [hidden, setHidden] = useState('')
 
     const { user } = useAuthContext()
     const { types } = useContext(ProductTypesContext)
@@ -23,8 +27,11 @@ const BuyerDashboard = () => {
                 }
             })
             const json = await response.json()
-            setAllProducts(json)
-            setDisplayProducts(json)
+            const filteredProducts = json.filter(product => {
+                return product.marketID === marketID
+            })
+            setAllProducts(filteredProducts)
+            setDisplayProducts(filteredProducts)
         }
 
         const fetchProducers = async () => {
@@ -42,7 +49,24 @@ const BuyerDashboard = () => {
             fetchProducts()
             fetchProducers()
         }
-    }, [user])
+    }, [user, marketID])
+
+    useEffect(() => {
+        if (displayProducts.length === 0) {
+            return setProductsMessage('There are no products to display.')
+        }
+        setProductsMessage(null)
+    }, [displayProducts])
+
+    // changes when marketID is changed
+    useEffect(() => {
+        if (!marketID) {
+            return setHidden('hidden')
+        }
+        setTimeout(() => {
+            setHidden('')
+        }, 100);
+    }, [marketID])
 
     const handleChange = (type, input) => {
         const setDisplayProductsReducer = (query=null, producer=null, type=null) => {
@@ -65,12 +89,7 @@ const BuyerDashboard = () => {
                 })
                 setProductsMessage(null)
             }
-            console.log(products)
-            if (products.length === 0) {
-                setProductsMessage('No Products Matching Your Search Parameters')
-            } else {
-                setProductsMessage(null)
-            }
+
             setDisplayProducts(products)
         }
 
@@ -96,7 +115,8 @@ const BuyerDashboard = () => {
 
     return (
         <div className="BuyerDashboard">
-            <form>
+            <MarketSelect marketID={marketID} setMarketID={setMarketID}/>
+            <form className={hidden}>
                 <input
                     type="text"
                     onChange={(e) => {
@@ -136,7 +156,7 @@ const BuyerDashboard = () => {
                         ))}
                 </select>
             </form>
-            <ProductTable products={displayProducts} productsMessage={productsMessage}/>
+            <ProductTable hidden={hidden} products={displayProducts} productsMessage={productsMessage}/>
         </div>
     )
 }

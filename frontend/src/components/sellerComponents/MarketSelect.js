@@ -72,7 +72,7 @@ const MarketSelect = ({user, setMarketID}) => {
     }
 
     return (
-        <div className='market-select'>
+        <div className='marketSelect'>
             <form className='select-market-form'>
                 <label>
                     Select Market: 
