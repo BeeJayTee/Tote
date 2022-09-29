@@ -28,7 +28,7 @@ const MarketSelect = ({ marketID, setMarketID }) => {
 
   return (
     <div className="MarketSelect">
-      <div className="dropdown-container">
+      <div className="dropdown-container text-center mb-50">
         <div className="dropdown dropdown-hover">
           <label
             tabIndex={0}
@@ -50,13 +50,11 @@ const MarketSelect = ({ marketID, setMarketID }) => {
               ))}
           </ul>
         </div>
-        <div className="market-viewing-container w-fit border-2 border-primary px-10 py-10 m-auto mt-5 rounded">
+        <div className="market-viewing-container w-fit border-2 border-primary px-10 py-10 m-auto my-5 rounded">
           {marketName && (
-            <p className="text-base">
-              You are currently viewing products for:{" "}
-            </p>
+            <p className="text-xl">You are currently viewing products for: </p>
           )}
-          <h2 className="text-lg font-bold text-neutral">{marketName}</h2>
+          <h2 className="text-xl font-bold text-neutral">{marketName}</h2>
         </div>
       </div>
     </div>

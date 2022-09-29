@@ -25,7 +25,7 @@ function App() {
   const { user } = useAuthContext();
 
   return (
-    <div className="App container">
+    <div className="App container m-auto">
       <Router>
         <Navbar />
         <div className="pages">
