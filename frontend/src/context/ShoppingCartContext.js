@@ -5,7 +5,11 @@ export const ShoppingCartContext = createContext();
 export const shoppingCartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_PRODUCT":
-      return { cartProducts: [action.payload, ...state.cartProducts] };
+      if (state.cartProducts) {
+        return { cartProducts: [action.payload, ...state.cartProducts] };
+      } else {
+        return { cartProducts: [action.payload] };
+      }
     case "DELETE_PRODUCT":
       return {
         cartProducts: state.cartProducts.filter(

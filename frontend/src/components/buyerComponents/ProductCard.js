@@ -1,22 +1,29 @@
+import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useShoppingCartContext } from "../../hooks/useShoppingCartContext";
 
 const ProductCard = ({ product, index }) => {
+  const [productQuantity, setProductQuantity] = useState(0);
+
   const { user } = useAuthContext();
+  const { cartProducts, dispatch } = useShoppingCartContext();
 
   const handleClick = (e, action, index) => {
     let input = document.querySelector(`#card-input-${index}`);
     if (action === "inc") {
-      return (input.value = Number(input.value) + 1);
+      return setProductQuantity(productQuantity + 1);
     }
     if (action === "dec" && input.value > 0) {
-      return (input.value = Number(input.value) - 1);
+      return setProductQuantity(productQuantity - 1);
     }
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch("http://localhost:4141");
+    dispatch({
+      type: "ADD_PRODUCT",
+      payload: { product, quantiy: productQuantity },
+    });
+    console.log(cartProducts);
   };
 
   return (
@@ -43,6 +50,8 @@ const ProductCard = ({ product, index }) => {
               className="w-full text-center px-12 input input-bordered"
               id={`card-input-${index}`}
               placeholder="0"
+              value={productQuantity}
+              readOnly
             />
             <button
               className="absolute right-0 top-0 rounded-l-none btn btn-square"
@@ -53,7 +62,9 @@ const ProductCard = ({ product, index }) => {
           </div>
           <div className="card-actions justify-end">
             <div>
-              <button className={`btn`}>add to cart</button>
+              <button className={`btn`} onClick={handleSubmit}>
+                add to cart
+              </button>
             </div>
           </div>
         </div>
