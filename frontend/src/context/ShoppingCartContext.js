@@ -18,11 +18,11 @@ export const shoppingCartReducer = (state, action) => {
       };
     case "EDIT_PRODUCT":
       let productToReplace = state.cartProducts.filter(
-        (p) => p._id === action.payload._id
+        (p) => p.product._id === action.payload.product._id
       );
       productToReplace = action.payload;
       const remainingProducts = state.cartProducts.filter(
-        (p) => p._id !== action.payload._id
+        (p) => p.product._id !== action.payload.product._id
       );
       return { cartProducts: [productToReplace, ...remainingProducts] };
     default:

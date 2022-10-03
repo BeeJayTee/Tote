@@ -19,15 +19,35 @@ const ProductCard = ({ product, index }) => {
   };
 
   const handleSubmit = async (e) => {
-    dispatch({
-      type: "ADD_PRODUCT",
-      payload: { product, quantiy: productQuantity },
-    });
     console.log(cartProducts);
+    if (!cartProducts) {
+      dispatch({
+        type: "ADD_PRODUCT",
+        payload: { product, quantity: productQuantity },
+      });
+      ////// need to add to user model in DB
+      return;
+    } else {
+      // check to see if the product is in cartProducts context
+      const existingProduct = cartProducts.filter((item) => {
+        return item.product._id === product._id;
+      });
+      if (existingProduct) {
+        const newQuantity = existingProduct[0].quantity + productQuantity;
+        dispatch({
+          type: "EDIT_PRODUCT",
+          payload: {
+            product,
+            quantity: newQuantity,
+          },
+        });
+      }
+    }
   };
 
   return (
     <div className="ProductCard">
+      {cartProducts && <h1>number: {cartProducts.length}</h1>}
       <div className="card w-96 bg-base-100 text-neutral border border-neutral shadow-xl pb-2">
         <div className="badge badge-outline badge-primary py-3 ml-5 mt-5 hover:bg-primary hover:text-white cursor-pointer">
           {product.type}
