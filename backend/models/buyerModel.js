@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const Schema = mongoose.Schema;
-const Market = require("../models/marketModel");
 
-const userSchema = new Schema({
+const buyerSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -14,61 +13,16 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  organization: {
-    type: String,
-    unique: true,
-  },
-  address: {
-    street: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    apt: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    postalCode: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    province: {
-      type: String,
-      required: false,
-      default: null,
-    },
-  },
-  phone: {
-    type: Number,
-    required: false,
-    default: null,
-  },
-  isBuyer: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  isSeller: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  sellerMarketIDs: [
-    {
-      type: String,
-    },
-  ],
   buyerCartProducts: [
     {
       type: Object,
+      default: null,
     },
   ],
 });
 
 // static signup method
-userSchema.statics.signup = async function (
+buyerSchema.statics.signup = async function (
   email,
   password,
   retypePassword,
@@ -80,13 +34,7 @@ userSchema.statics.signup = async function (
   marketID
 ) {
   // validation
-  if (
-    !email ||
-    !password ||
-    (isSeller && !organization) ||
-    (!isBuyer && !isSeller) ||
-    (isSeller && !marketID)
-  ) {
+  if (!email || !password) {
     throw Error("All fields must be filled");
   }
 
@@ -108,37 +56,19 @@ userSchema.statics.signup = async function (
     throw Error("Email already in use");
   }
 
-  // check to see if organization exists
-  const orgExists = await this.findOne({ organization });
-  if (orgExists) {
-    throw Error("Organization already exists in system");
-  }
-
-  // check to see if market ID exists
-  const marketExists = await Market.findOne({ marketID: marketID });
-  if (!marketExists) {
-    throw Error("Market Does not exist, please check market ID: ", marketID);
-  }
-
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
   const user = await this.create({
     email,
     password: hash,
-    organization,
-    address,
-    phone,
-    isBuyer,
-    isSeller,
-    sellerMarketIDs: [marketID],
   });
 
   return user;
 };
 
 // static login method
-userSchema.statics.login = async function (email, password) {
+buyerSchema.statics.login = async function (email, password) {
   if (!email || !password) {
     throw Error("All fields must be filled");
   }
@@ -161,4 +91,4 @@ userSchema.statics.login = async function (email, password) {
   return user;
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Buyer", buyerSchema);

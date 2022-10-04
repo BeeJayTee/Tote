@@ -4,7 +4,7 @@ const validator = require("validator");
 const Schema = mongoose.Schema;
 const Market = require("../models/marketModel");
 
-const userSchema = new Schema({
+const sellerSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -45,48 +45,25 @@ const userSchema = new Schema({
     required: false,
     default: null,
   },
-  isBuyer: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  isSeller: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
   sellerMarketIDs: [
     {
       type: String,
     },
   ],
-  buyerCartProducts: [
-    {
-      type: Object,
-    },
-  ],
 });
 
 // static signup method
-userSchema.statics.signup = async function (
+sellerSchema.statics.signup = async function (
   email,
   password,
   retypePassword,
   organization,
   address,
   phone,
-  isBuyer,
-  isSeller,
   marketID
 ) {
   // validation
-  if (
-    !email ||
-    !password ||
-    (isSeller && !organization) ||
-    (!isBuyer && !isSeller) ||
-    (isSeller && !marketID)
-  ) {
+  if (!email || !password || !marketID || !organization || !marketID) {
     throw Error("All fields must be filled");
   }
 
@@ -129,8 +106,6 @@ userSchema.statics.signup = async function (
     organization,
     address,
     phone,
-    isBuyer,
-    isSeller,
     sellerMarketIDs: [marketID],
   });
 
@@ -138,7 +113,7 @@ userSchema.statics.signup = async function (
 };
 
 // static login method
-userSchema.statics.login = async function (email, password) {
+sellerSchema.statics.login = async function (email, password) {
   if (!email || !password) {
     throw Error("All fields must be filled");
   }
@@ -161,4 +136,4 @@ userSchema.statics.login = async function (email, password) {
   return user;
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Seller", sellerSchema);
