@@ -1,33 +1,46 @@
 import { useState } from "react";
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const useLogin = () => {
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(null)
-    const {dispatch} = useAuthContext()
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
+  const { dispatch } = useAuthContext();
 
-    const login = async (email, password) => {
-        setIsLoading(true)
-        setError(null)
+  const login = async (email, password) => {
+    setIsLoading(true);
+    setError(null);
 
-        const response = await fetch('http://localhost:4141/user/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email, password})
-        })
-        const json = await response.json()
-        if (!response.ok) {
-            setIsLoading(false)
-            setError(json.error)
-        }
-        if (response.ok) {
-            // save user to local storage
-            localStorage.setItem('user', JSON.stringify(json))
+    const buyerResponse = await fetch("http://localhost:4141/buyer/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const buyer = await buyerResponse.json();
+    if (buyerResponse.ok) {
+      // save user to local storage
+      localStorage.setItem("user", JSON.stringify(buyer));
 
-            // update auth context
-            await dispatch({type: 'LOGIN', payload: json})
-        }
+      // update auth context
+      await dispatch({ type: "LOGIN", payload: buyer });
+    } else if (!buyerResponse.ok) {
+      const sellerResponse = await fetch("http://localhost:4141/seller/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const seller = await sellerResponse.json();
+      if (sellerResponse.ok) {
+        // save user to local storage
+        localStorage.setItem("user", JSON.stringify(seller));
+
+        // update auth context
+        await dispatch({ type: "LOGIN", payload: seller });
+      } else if (!sellerResponse.ok) {
+        setIsLoading(false);
+        setError(seller.error);
+      }
     }
+  };
 
-    return { login, isLoading, error }
-}
+  return { login, isLoading, error };
+};
