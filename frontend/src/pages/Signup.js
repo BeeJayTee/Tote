@@ -1,108 +1,124 @@
-import { useState } from 'react'
-import { useSignup } from '../hooks/useSignup'
+import { useState } from "react";
+import { useSellerSignup } from "../hooks/useSellerSignup";
+import { useBuyerSignup } from "../hooks/useBuyerSignup";
 
 const Signup = () => {
-    const [email, setEmail] = useState('')
-    const [organization, setOrganization] = useState('')
-    const [password, setPassword] = useState('')
-    const [retypePassword, setRetypePassword] = useState('')
-    const [isBuyer, setIsBuyer] = useState(false)
-    const [isSeller, setIsSeller] = useState(false)
-    const [marketID, setMarketID] = useState('')
-    const {signup, error, isLoading} = useSignup()
+  const [email, setEmail] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [password, setPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
+  const [isBuyer, setIsBuyer] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
+  const [marketID, setMarketID] = useState("");
+  const { sellerSignup, sellerError, isSellerLoading } = useSellerSignup();
+  const { buyerSignup, buyerError, isBuyerLoading } = useBuyerSignup();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        
-        await signup(email, password, retypePassword, organization, isBuyer, isSeller, marketID)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isSeller) {
+      await sellerSignup(
+        email,
+        password,
+        retypePassword,
+        organization,
+        marketID
+      );
     }
-
-    const handleChange = (e) => {
-         if (e.target.value === 'isSeller') {
-            setIsSeller(true)
-            setIsBuyer(false)
-        }
-        if (e.target.value === 'isBuyer') {
-            setIsSeller(false)
-            setIsBuyer(true)
-        }
+    if (isBuyer) {
+      await buyerSignup(email, password, retypePassword);
     }
+  };
 
-    return (
-        <form className="signup-form" onSubmit={handleSubmit}>
-            <h3>Sign Up</h3>
+  const handleChange = (e) => {
+    if (e.target.value === "isSeller") {
+      setIsSeller(true);
+      setIsBuyer(false);
+    }
+    if (e.target.value === "isBuyer") {
+      setIsSeller(false);
+      setIsBuyer(true);
+    }
+  };
 
-            <label>Email:</label>
+  return (
+    <form className="signup-form" onSubmit={handleSubmit}>
+      <h3>Sign Up</h3>
+
+      <label>Email:</label>
+      <input
+        type="email"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+      />
+
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="org-type"
+            value="isBuyer"
+            id="isBuyer"
+            onChange={handleChange}
+            checked={isBuyer === true}
+          />
+          Shopper
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="org-type"
+            value="isSeller"
+            id="isSeller"
+            onChange={handleChange}
+            checked={isSeller === true}
+          />
+          Seller
+        </label>
+      </div>
+      {isSeller && (
+        <div>
+          <label>
+            Business/Organization Name:
             <input
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}    
+              type="text"
+              onChange={(e) => setOrganization(e.target.value)}
+              value={organization}
             />
+          </label>
+          <label>
+            Market ID Code:
+            <input
+              type="text"
+              onChange={(e) => setMarketID(e.target.value)}
+              value={marketID}
+            />
+          </label>
+        </div>
+      )}
+      <label>
+        Password:
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+      </label>
+      <label>
+        Retype Password:
+        <input
+          type="password"
+          onChange={(e) => setRetypePassword(e.target.value)}
+          value={retypePassword}
+        />
+      </label>
+      {sellerError && <div className="error">{sellerError}</div>}
+      {buyerError && <div className="error">{buyerError}</div>}
+      <button disabled={isBuyerLoading || isSellerLoading}>Submit</button>
+    </form>
+  );
+};
 
-            <div>
-                <label>
-                    <input
-                        type="radio"
-                        name="org-type"
-                        value="isBuyer" 
-                        id="isBuyer"
-                        onChange={handleChange}
-                        checked={isBuyer === true}/>
-                        Shopper
-                    </label>
-            </div>
-            <div>
-                <label>
-                    <input 
-                        type="radio" 
-                        name="org-type"
-                        value="isSeller"
-                        id="isSeller"
-                        onChange={handleChange}
-                        checked={isSeller === true}/>
-                        Seller
-                        </label>
-            </div>
-            {isSeller && (
-                <div>
-                    <label>
-                        Business/Organization Name:
-                        <input
-                            type="text"
-                            onChange={(e) => setOrganization(e.target.value)}
-                            value={organization}    
-                        />
-                    </label>
-                    <label>
-                        Market ID Code:
-                        <input
-                            type="text"
-                            onChange={(e) => setMarketID(e.target.value)}
-                            value={marketID}    
-                        />
-                    </label>
-                </div>
-            )}
-            <label>
-                Password:
-                <input
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}    
-                />
-            </label>
-            <label>
-                Retype Password:
-                <input
-                    type="password"
-                    onChange={(e) => setRetypePassword(e.target.value)}
-                    value={retypePassword}    
-                />
-            </label>
-            {error && <div className='error'>{error}</div>}
-            <button disabled={isLoading}>Submit</button>
-        </form>
-    )
-}
-
-export default Signup
+export default Signup;

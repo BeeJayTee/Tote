@@ -58,14 +58,16 @@ sellerSchema.statics.signup = async function (
   password,
   retypePassword,
   organization,
-  address,
-  phone,
   marketID
 ) {
+  console.log("made it to signup method");
+  console.log([email, password, retypePassword, organization, marketID]);
   // validation
-  if (!email || !password || !marketID || !organization || !marketID) {
+  if (!email || !password || !organization || !marketID) {
     throw Error("All fields must be filled");
   }
+
+  console.log("made it past all fields error");
 
   if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
@@ -104,8 +106,6 @@ sellerSchema.statics.signup = async function (
     email,
     password: hash,
     organization,
-    address,
-    phone,
     sellerMarketIDs: [marketID],
   });
 

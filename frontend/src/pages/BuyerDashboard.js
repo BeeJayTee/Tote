@@ -43,6 +43,8 @@ const BuyerDashboard = () => {
       setProducerNames(json);
     };
 
+    ////// fetch cart here
+
     if (user) {
       fetchProducts();
       fetchProducers();

@@ -26,23 +26,14 @@ const loginSeller = async (req, res) => {
 
 // signup user
 const signupSeller = async (req, res) => {
-  const {
-    email,
-    password,
-    retypePassword,
-    organization,
-    address,
-    phone,
-    marketID,
-  } = req.body;
+  const { email, password, retypePassword, organization, marketID } = req.body;
+  console.log(req.body);
   try {
     const seller = await Seller.signup(
       email,
       password,
       retypePassword,
       organization,
-      address,
-      phone,
       marketID
     );
 
