@@ -60,8 +60,6 @@ sellerSchema.statics.signup = async function (
   organization,
   marketID
 ) {
-  console.log("made it to signup method");
-  console.log([email, password, retypePassword, organization, marketID]);
   // validation
   if (!email || !password || !organization || !marketID) {
     throw Error("All fields must be filled");

@@ -28,26 +28,7 @@ html {
 
 .add-product-form {
   flex-basis: 20%;
-}
-
-table {
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid var(--light-gray);
-}
-
-th, td {
-  padding: 20px;
-}
-
-th {
-  text-align: left;
-}
-
-.dark-row {
-  background: rgb(235, 235, 235);
-}
+} 
 
 /* form */
 
@@ -76,38 +57,6 @@ th {
 
 .error {
   color: red;
-}
-
-/* Edit Modal Styling */
-.modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  width: 500px;
-  background-color: #fff;
-}
-
-.modal-header, .modal-footer {
-  padding: 10px;
-}
-
-.modal-title {
-  margin: 0;
-}
-
-.modal-body {
-  padding: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 }
 
 /* select market stylings */

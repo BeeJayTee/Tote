@@ -40,6 +40,6 @@ router.post("/", addProduct);
 router.delete("/:productID", deleteProduct);
 
 // update a product
-router.put("/", updateProduct);
+router.put("/:productID", updateProduct);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const Product = require("../models/productModel");
-const User = require("../models/userModel");
+const Seller = require("../models/userModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
@@ -26,19 +26,19 @@ const getProducerProducts = async (req, res) => {
 
 // get all producer names for filter dropdown
 const getProducers = async (req, res) => {
-  const producers = await User.find({ isSeller: true });
+  const sellers = await Seller.find({ isSeller: true });
 
-  if (!producers) {
+  if (!sellers) {
     return res.status(404).json({ error: "no producers available" });
   }
-  const newProducers = producers.map((producer) => {
-    const id = producer._id;
-    const producerObj = {};
-    producerObj[id] = producer.organization;
-    producerObj["_id"] = producer._id;
-    return producerObj;
+  const newSellers = sellers.map((seller) => {
+    const id = seller._id;
+    const sellerObj = {};
+    sellerObj[id] = seller.organization;
+    sellerObj["_id"] = seller._id;
+    return sellerObj;
   });
-  res.status(200).json(newProducers);
+  res.status(200).json(newSellers);
 };
 
 // get a single product
@@ -145,38 +145,24 @@ const deleteProduct = async (req, res) => {
 
 // update product
 const updateProduct = async (req, res) => {
-  const {
-    producerID,
-    productID,
-    name,
-    type,
-    amount,
-    unit,
-    pricePerUnit,
-    minPurchase,
-  } = req.body;
+  const { productID } = req.params;
+  const { newName, newType, newAmount, newUnit, newPricePerUnit } = req.body;
   let emptyFields = [];
 
-  if (!producerID) {
-    emptyFields.push("producerID");
-  }
-  if (!name) {
+  if (!newName) {
     emptyFields.push("name");
   }
-  if (!type) {
+  if (!newType) {
     emptyFields.push("type");
   }
-  if (!amount) {
+  if (!newAmount) {
     emptyFields.push("amount");
   }
-  if (!unit) {
+  if (!newUnit) {
     emptyFields.push("unit");
   }
-  if (!pricePerUnit) {
+  if (!newPricePerUnit) {
     emptyFields.push("pricePerUnit");
-  }
-  if (!minPurchase) {
-    emptyFields.push("minPurchase");
   }
   if (emptyFields.length > 0) {
     return res
@@ -186,13 +172,11 @@ const updateProduct = async (req, res) => {
 
   try {
     const product = await Product.findByIdAndUpdate(productID, {
-      producerID,
-      name,
-      type,
-      amount,
-      unit,
-      pricePerUnit,
-      minPurchase,
+      newName,
+      newType,
+      newAmount,
+      newUnit,
+      newPricePerUnit,
     });
     res.status(200).json(product);
   } catch (err) {
