@@ -1,15 +1,17 @@
-const express = require('express')
+const express = require("express");
 
-const requireAuth = require('../middleware/requireAuth')
+const requireAdminAuth = require("../middleware/requireAdminAuth");
 
-const { addMarket, getMarkets } = require('../controllers/marketController')
+const requireSellerAuth = require("../middleware/requireSellerAuth");
 
-const router = express.Router()
+const { addMarket, getMarkets } = require("../controllers/marketController");
+
+const router = express.Router();
 
 // get all markets
-router.get('/', requireAuth, getMarkets)
+router.get("/", requireSellerAuth, getMarkets);
 
 // create market
-router.post('/add', addMarket)
+router.post("/add", requireAdminAuth, addMarket);
 
-module.exports = router
+module.exports = router;

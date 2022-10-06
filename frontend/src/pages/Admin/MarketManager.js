@@ -158,134 +158,243 @@ const MarketManager = () => {
     <div>
       <h1>Market Manager</h1>
       <h3>Add New Market</h3>
-      <form onSubmit={handleSubmit} className="add-market-form">
-        <div className="form-container">
-          <div>
+      <form
+        onSubmit={handleSubmit}
+        className="form-control w-fit items-center m-auto"
+      >
+        <div className="form-control flex flex-row gap-10 mb-10">
+          <div className="form-control w-full max-w-xs gap-1.5">
             <legend>Contact Info</legend>
-            <input
-              type="text"
-              value={adminName}
-              onChange={(e) => setAdminName(e.target.value)}
-              placeholder="Market Director"
-            />
-            <input
-              type="text"
-              value={adminEmail}
-              onChange={(e) => setAdminEmail(e.target.value)}
-              placeholder="Market Director Email"
-            />
-            <input
-              type="text"
-              value={marketName}
-              onChange={(e) => setMarketName(e.target.value)}
-              placeholder="Market Name"
-            />
-            <input
-              type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone Number"
-            />
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Market Director Name</span>
+              </label>
+              <input
+                type="text"
+                value={adminName}
+                onChange={(e) => setAdminName(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Market Director Email</span>
+              </label>
+              <input
+                type="text"
+                value={adminEmail}
+                onChange={(e) => setAdminEmail(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Market Name</span>
+              </label>
+              <input
+                type="text"
+                value={marketName}
+                onChange={(e) => setMarketName(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Phone Number</span>
+              </label>
+              <input
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
           </div>
 
-          <div>
+          <div className="form-control w-full max-w-xs gap-1.5">
             <legend>Market Address</legend>
-            <input
-              type="text"
-              value={marketStreetAddress}
-              onChange={(e) => setMarketStreetAddress(e.target.value)}
-              placeholder="Market Street Address"
-            />
-            <input
-              type="text"
-              value={marketStreetAddressSec}
-              onChange={(e) => setMarketStreetAddressSec(e.target.value)}
-              placeholder="Market Street Adress Cont'd"
-            />
-            <select onChange={handleMarketCountryChange} value={marketCountry}>
-              <option value="">Select The Country</option>
-              <option value="canada">Canada</option>
-              <option value="united states">United States</option>
-            </select>
-            <input
-              type="text"
-              value={marketCity}
-              onChange={(e) => setMarketCity(e.target.value)}
-              placeholder="Market City"
-            />
-            <select
-              disabled={marketProvDisabled}
-              onChange={(e) => setMarketProv(e.target.value)}
-              value={marketProv}
-            >
-              <option value="">Select State / Province</option>
-              {marketDisplayProv}
-            </select>
-            <input
-              type="text"
-              value={marketPostal}
-              onChange={(e) => setMarketPostal(e.target.value)}
-              placeholder="Market Postal Code"
-            />
-            <div id="same-address-container">
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Street Address</span>
+              </label>
               <input
-                type="checkbox"
-                name="same-address"
-                id="same-address"
-                onChange={handleCheckboxChange}
+                type="text"
+                value={marketStreetAddress}
+                onChange={(e) => setMarketStreetAddress(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
               />
-              <label htmlFor="same-address">
-                Mailing addess is same as market address?
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Street Address Cont'd</span>
+              </label>
+              <input
+                type="text"
+                value={marketStreetAddressSec}
+                onChange={(e) => setMarketStreetAddressSec(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Country</span>
+              </label>
+              <select
+                onChange={handleMarketCountryChange}
+                value={marketCountry}
+                className="select select-sm select-primary"
+              >
+                <option selected>Country</option>
+                <option value="canada">Canada</option>
+                <option value="united states">United States</option>
+              </select>
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">City</span>
+              </label>
+              <input
+                type="text"
+                value={marketCity}
+                onChange={(e) => setMarketCity(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">State / Province</span>
+              </label>
+              <select
+                disabled={marketProvDisabled}
+                onChange={(e) => setMarketProv(e.target.value)}
+                value={marketProv}
+                className="select select-sm select-primary"
+              >
+                <option disabled selected>
+                  Select State / Province
+                </option>
+                {marketDisplayProv}
+              </select>
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Postal Code</span>
+              </label>
+              <input
+                type="text"
+                value={marketPostal}
+                onChange={(e) => setMarketPostal(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">Same As Mailing Address</span>
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  onChange={handleCheckboxChange}
+                />
               </label>
             </div>
           </div>
 
-          <div className={mailingHidden}>
+          <div
+            className={`${mailingHidden} form-control w-full max-w-xs gap-1.5`}
+          >
             <legend>Mailing Address</legend>
-            <input
-              type="text"
-              value={mailingStreetAddress}
-              onChange={(e) => setMailingStreetAddress(e.target.value)}
-              placeholder="Mailing Street Address"
-            />
-            <input
-              type="text"
-              value={mailingStreetAddressSec}
-              onChange={(e) => setMailingStreetAddressSec(e.target.value)}
-              placeholder="Mailing Street Adress Cont'd"
-            />
-            <select
-              onChange={handleMailingCountryChange}
-              value={mailingCountry}
-            >
-              <option value="">Select The Country</option>
-              <option value="canada">Canada</option>
-              <option value="united states">United States</option>
-            </select>
-            <input
-              type="text"
-              value={mailingCity}
-              onChange={(e) => setMailingCity(e.target.value)}
-              placeholder="Mailing City"
-            />
-            <select
-              disabled={mailingProvDisabled}
-              onChange={(e) => setMailingProv(e.target.value)}
-              value={mailingProv}
-            >
-              <option value="">Select State / Province</option>
-              {mailingDisplayProv}
-            </select>
-            <input
-              type="text"
-              value={mailingPostal}
-              onChange={(e) => setMailingPostal(e.target.value)}
-              placeholder="Mailing Postal Code"
-            />
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Street Address</span>
+              </label>
+              <input
+                type="text"
+                value={mailingStreetAddress}
+                onChange={(e) => setMailingStreetAddress(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Street Address Cont'd</span>
+              </label>
+              <input
+                type="text"
+                value={mailingStreetAddressSec}
+                onChange={(e) => setMailingStreetAddressSec(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Country</span>
+              </label>
+              <select
+                onChange={handleMailingCountryChange}
+                value={mailingCountry}
+                className="select select-sm select-primary"
+              >
+                <option selected>Country</option>
+                <option value="canada">Canada</option>
+                <option value="united states">United States</option>
+              </select>
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">City</span>
+              </label>
+              <input
+                type="text"
+                value={mailingCity}
+                onChange={(e) => setMailingCity(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">State / Province</span>
+              </label>
+              <select
+                disabled={mailingProvDisabled}
+                onChange={(e) => setMailingProv(e.target.value)}
+                value={mailingProv}
+                className="select select-sm select-primary"
+              >
+                <option disabled selected>
+                  Select State / Province
+                </option>
+                {mailingDisplayProv}
+              </select>
+            </div>
+
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Postal Code</span>
+              </label>
+              <input
+                type="text"
+                value={mailingPostal}
+                onChange={(e) => setMailingPostal(e.target.value)}
+                className="input input-sm input-primary w-full max-w-xs"
+              />
+            </div>
           </div>
         </div>
 
-        <button disabled={isLoading}>Add New Market</button>
+        <button disabled={isLoading} class="btn btn-primary w-fit">
+          Add New Market
+        </button>
         {error && <div className="error">{error}</div>}
         {message && <div>{message}</div>}
       </form>

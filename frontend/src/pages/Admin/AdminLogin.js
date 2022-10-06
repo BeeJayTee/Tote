@@ -1,61 +1,75 @@
-import { useState } from 'react'
-import { useAuthContext } from '../../hooks/useAuthContext'
+import { useState } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const AdminLogin = () => {
-    const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const {dispatch} = useAuthContext()
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { dispatch } = useAuthContext();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        setIsLoading(true)
-        setError(null)
+    setIsLoading(true);
+    setError(null);
 
-        const response = await fetch('http://localhost:4141/admin/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({email, password})
-        })
+    const response = await fetch("http://localhost:4141/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-        const json = await response.json()
+    const json = await response.json();
 
-        if (!response.ok) {
-            setIsLoading(false)
-            setError(json.error)
-        }
-        if (response.ok) {
-            // save user to local storage
-            localStorage.setItem('user', JSON.stringify(json))
-
-            // update auth context
-            dispatch({type: 'LOGIN', payload: json})
-        }
+    if (!response.ok) {
+      setIsLoading(false);
+      setError(json.error);
     }
+    if (response.ok) {
+      // save user to local storage
+      localStorage.setItem("user", JSON.stringify(json));
 
-    return (
-        <div>
-            <h3>Admin Login</h3>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder='email'
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder='password'
-                />
-                <button disabled={isLoading}>go</button>
-                {error && <div>{error}</div>}
-            </form>
+      // update auth context
+      dispatch({ type: "LOGIN", payload: json });
+    }
+  };
+
+  return (
+    <div>
+      <h3 className="text-3xl text-center mb-10">Admin Login</h3>
+      <form onSubmit={handleSubmit} className="m-auto form-control w-fit">
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email"
+            className="input input-primary w-full max-w-xs"
+          />
         </div>
-    )
-}
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+            className="input input-primary w-full max-w-xs"
+          />
+        </div>
+        <button className="btn btn-primary mt-10" disabled={isLoading}>
+          go
+        </button>
+        {error && <div>{error}</div>}
+      </form>
+    </div>
+  );
+};
 
-export default AdminLogin
+export default AdminLogin;

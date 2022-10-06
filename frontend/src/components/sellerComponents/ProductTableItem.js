@@ -1,28 +1,42 @@
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useProductsContext } from "../../hooks/useProductsContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import productTypes from "../../data/productTypes";
 
 const ProductTableItem = ({ product, index }) => {
   const { user } = useAuthContext();
   const { dispatch } = useProductsContext();
 
-  const [name, setName] = useState(product.name);
-  const [type, setType] = useState(product.type);
-  const [amount, setAmount] = useState(product.amount);
-  const [unit, setUnit] = useState(product.unit);
-  const [pricePerUnit, setPricePerUnit] = useState(product.pricePerUnit);
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [amount, setAmount] = useState("");
+  const [unit, setUnit] = useState("");
+  const [pricePerUnit, setPricePerUnit] = useState("");
 
-  const [newName, setNewName] = useState(product.name);
-  const [newType, setNewType] = useState(product.type);
-  const [newAmount, setNewAmount] = useState(product.amount);
-  const [newUnit, setNewUnit] = useState(product.unit);
-  const [newPricePerUnit, setNewPricePerUnit] = useState(product.pricePerUnit);
+  const [newName, setNewName] = useState("");
+  const [newType, setNewType] = useState("");
+  const [newAmount, setNewAmount] = useState("");
+  const [newUnit, setNewUnit] = useState("");
+  const [newPricePerUnit, setNewPricePerUnit] = useState("");
 
   const [emptyFields, setEmptyFields] = useState([]);
   const [error, setError] = useState(null);
 
   const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    setName(product.name);
+    setType(product.type);
+    setAmount(product.amount);
+    setUnit(product.unit);
+    setPricePerUnit(product.pricePerUnit);
+
+    setNewName(product.name);
+    setNewType(product.type);
+    setNewAmount(product.amount);
+    setNewUnit(product.unit);
+    setNewPricePerUnit(product.pricePerUnit);
+  }, [product.name]);
 
   const handleEditClick = async () => {
     setIsEdit(true);

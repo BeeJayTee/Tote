@@ -14,7 +14,6 @@ const requireSellerAuth = async (req, res, next) => {
   try {
     const { _id } = jwt.verify(token, process.env.SECRET);
     req.user = await Seller.findOne({ _id });
-    console.log("poop", req.user);
     next();
   } catch (error) {
     console.log(error);

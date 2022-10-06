@@ -1,5 +1,5 @@
 const Product = require("../models/productModel");
-const Seller = require("../models/userModel");
+const Seller = require("../models/sellerModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
@@ -134,7 +134,6 @@ const deleteProduct = async (req, res) => {
     _id: productID,
     producerID: producerID,
   });
-  console.log(product);
 
   if (!product) {
     return res.status(404).json({ msg: "no such product" });
