@@ -18,7 +18,7 @@ const ProducerProduct = () => {
         </thead>
         <tbody>
           {products.map((product, index) => (
-            <ProductTableItem product={product} index={index} />
+            <ProductTableItem product={product} key={product._id} />
           ))}
         </tbody>
       </table>
