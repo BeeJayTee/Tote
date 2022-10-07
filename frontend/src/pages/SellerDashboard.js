@@ -8,6 +8,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const SellerDashboard = () => {
   const [marketID, setMarketID] = useState("");
+  const [marketName, setMarketName] = useState("");
 
   const { products, dispatch } = useProductsContext();
   const { user } = useAuthContext();
@@ -37,10 +38,14 @@ const SellerDashboard = () => {
 
   return (
     <div className="SellerDashboard container">
-      <MarketSelect user={user} setMarketID={setMarketID} />
+      <MarketSelect
+        user={user}
+        setMarketID={setMarketID}
+        setMarketName={setMarketName}
+      />
       <div className="main">
         <div className="products">{products && <ProducerProduct />}</div>
-        <AddProduct marketID={marketID} />
+        <AddProduct marketID={marketID} marketName={marketName} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShop, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const MarketSelect = ({ user, setMarketID }) => {
+const MarketSelect = ({ user, setMarketID, setMarketName }) => {
   const [sellerMarkets, setSellerMarkets] = useState([]);
   const [markets, setMarkets] = useState([]);
   const [addMarketID, setAddMarketID] = useState("");
@@ -27,10 +27,11 @@ const MarketSelect = ({ user, setMarketID }) => {
       const json = await response.json();
       setMarkets(json);
       setMarketID(json[0].marketID);
+      setMarketName(json[0].marketName);
     };
     fetchSellerMarkets();
     fetchAllMarkets();
-  }, [user.token, setMarketID]);
+  }, [user.token, setMarketID, setMarketName]);
 
   const handleMarketClick = () => {
     setAddMarketError(null);
@@ -50,7 +51,7 @@ const MarketSelect = ({ user, setMarketID }) => {
   const handleMarketSubmit = (e) => {
     e.preventDefault();
     const addUserMarket = async () => {
-      const response = await fetch("http://localhost:4141/user/markets", {
+      const response = await fetch("http://localhost:4141/seller/markets", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

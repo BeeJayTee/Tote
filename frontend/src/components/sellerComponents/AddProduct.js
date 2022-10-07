@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useProductsContext } from "../../hooks/useProductsContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import productTypes from "../../data/productTypes";
+import unitTypes from "../../data/unitTypes";
 
-const AddProduct = ({ marketID }) => {
+const AddProduct = ({ marketID, marketName }) => {
   const { dispatch } = useProductsContext();
   // producer id needs to be a dynamic value from the logged in user after auth set up
   const [name, setName] = useState("");
@@ -53,54 +54,96 @@ const AddProduct = ({ marketID }) => {
   };
 
   return (
-    <form className="add-product-form" onSubmit={handleSubmit}>
-      <h3>Add a New Product</h3>
-      <label>Product Name: </label>
-      <input
-        type="text"
-        onChange={(e) => setName(e.target.value)}
-        value={name}
-        className={emptyFields.includes("name") ? "error-input" : ""}
-      />
-      <label>Product Type: </label>
-      <select
-        value={type}
-        onChange={(e) => setType(e.target.value)}
-        className={emptyFields.includes("unit") ? "error-input" : ""}
-      >
-        <option value="">select type</option>
-        {productTypes.map((productType, index) => (
-          <option key={index} value={productType}>
-            {productType}
-          </option>
-        ))}
-      </select>
-      <label>Amount Availbale: </label>
-      <input
-        type="number"
-        onChange={(e) => setAmount(e.target.value)}
-        value={amount}
-        className={emptyFields.includes("amount") ? "error-input" : ""}
-      />
-      <label>Unit: </label>
-      <select
-        value={unit}
-        onChange={(e) => setUnit(e.target.value)}
-        className={emptyFields.includes("unit") ? "error-input" : ""}
-      >
-        <option value="">select unit</option>
-        <option value="lbs">lbs</option>
-        <option value="bunches">bunches</option>
-        <option value="kg">kg</option>
-        <option value="each">each</option>
-      </select>
-      <label>Price Per Unit: </label>
-      <input
-        type="number"
-        onChange={(e) => setPricePerUnit(e.target.value)}
-        value={pricePerUnit}
-        className={emptyFields.includes("pricePerUnit") ? "error-input" : ""}
-      />
+    <form className="add-product-form form-control" onSubmit={handleSubmit}>
+      <h3 className="text-lg font-bold">Add a New Product</h3>
+      <p className="flex items-center gap-2">
+        <span className="text-xs">for: </span>{" "}
+        <span className="uppercase text-primary">{marketName}</span>
+      </p>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Product Name</span>
+        </label>
+        <input
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          className={`input input-sm w-full max-w-xs ${
+            emptyFields.includes("name") ? "input-warning" : "input-primary"
+          }`}
+        />
+      </div>
+
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Product Type</span>
+        </label>
+        <select
+          onChange={(e) => setType(e.target.value)}
+          value={type}
+          className={`select select-sm w-full max-w-xs mb-3 ${
+            emptyFields.includes("type") ? "select-warning" : "select-primary"
+          }`}
+        >
+          <option value="">select type</option>
+          {productTypes.map((productType, index) => (
+            <option key={index} value={productType}>
+              {productType}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Amount Available</span>
+        </label>
+        <input
+          type="number"
+          onChange={(e) => setAmount(e.target.value)}
+          value={amount}
+          className={`input input-sm w-full max-w-xs ${
+            emptyFields.includes("name") ? "input-warning" : "input-primary"
+          }`}
+        />
+      </div>
+
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Product Unit</span>
+        </label>
+        <select
+          onChange={(e) => setUnit(e.target.value)}
+          value={unit}
+          className={`select select-sm w-full max-w-xs mb-3 ${
+            emptyFields.includes("unit") ? "select-warning" : "select-primary"
+          }`}
+        >
+          <option value="">select unit</option>
+          {unitTypes.map((unitType, index) => (
+            <option key={index} value={unitType}>
+              {unitType}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Price Per Unit</span>
+        </label>
+        <input
+          type="number"
+          onChange={(e) => setPricePerUnit(e.target.value)}
+          value={pricePerUnit}
+          className={`input input-sm w-full max-w-xs ${
+            emptyFields.includes("pricePerUnit")
+              ? "input-warning"
+              : "input-primary"
+          }`}
+        />
+      </div>
+
       <button>Add Product</button>
       {error && <div className="error">{error}</div>}
     </form>

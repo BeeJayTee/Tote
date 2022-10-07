@@ -1,3 +1,3 @@
-const productTypes = ['produce', 'meat', 'dairy', 'premade', 'other']
+const productTypes = ["produce", "dairy", "premade", "other"];
 
-export default productTypes
+export default productTypes;
