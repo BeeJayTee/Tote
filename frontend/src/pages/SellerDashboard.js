@@ -41,6 +41,7 @@ const SellerDashboard = () => {
       <MarketSelect
         user={user}
         setMarketID={setMarketID}
+        marketID={marketID}
         setMarketName={setMarketName}
       />
       <div className="main">

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShop, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const MarketSelect = ({ user, setMarketID, setMarketName }) => {
+const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
   const [sellerMarkets, setSellerMarkets] = useState([]);
   const [markets, setMarkets] = useState([]);
   const [addMarketID, setAddMarketID] = useState("");
@@ -75,20 +75,22 @@ const MarketSelect = ({ user, setMarketID, setMarketName }) => {
   return (
     <div className="marketSelect">
       <form className="select-market-form">
-        <label>
-          Select Market:
-          <select onChange={(e) => setMarketID(e.target.value)}>
-            {markets.map((market, index) => {
-              if (sellerMarkets.includes(market.marketID)) {
-                return (
-                  <option key={index} value={market.marketID}>
-                    {market.marketName}
-                  </option>
-                );
-              } else return "";
-            })}
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">Select Market</span>
+          </label>
+          <select
+            onChange={(e) => setMarketID(e.target.value)}
+            value={marketID}
+            className="select select-sm w-full max-w-xs mb-3 select-primary"
+          >
+            {markets.map((market, index) => (
+              <option key={index} value={market.marketID}>
+                {market.marketName}
+              </option>
+            ))}
           </select>
-        </label>
+        </div>
       </form>
       <div className="add-new-market">
         <div className="add-market-icon-container" onClick={handleMarketClick}>
