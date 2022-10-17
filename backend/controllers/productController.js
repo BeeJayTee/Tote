@@ -75,7 +75,8 @@ const updateProductCount = async (req, res) => {
 
 // add a new product
 const addProduct = async (req, res) => {
-  const { name, type, amount, unit, pricePerUnit, marketID } = req.body;
+  const { name, type, amount, unit, pricePerUnit, marketID, description } =
+    req.body;
 
   const _id = req.user._id;
   const organization = req.user.organization;
@@ -97,6 +98,9 @@ const addProduct = async (req, res) => {
   if (!pricePerUnit) {
     emptyFields.push("pricePerUnit");
   }
+  if (!description) {
+    emptyFields.push("description");
+  }
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -113,6 +117,7 @@ const addProduct = async (req, res) => {
       unit,
       pricePerUnit,
       marketID,
+      description,
     });
     res.status(200).json(product);
   } catch (err) {
