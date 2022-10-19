@@ -72,6 +72,14 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
     addUserMarket();
   };
 
+  const handleChange = (e) => {
+    setMarketID(e.target.value);
+    const currentMarket = markets.filter(
+      (market) => market.marketID === e.target.value
+    )[0];
+    setMarketName(currentMarket.marketName);
+  };
+
   return (
     <div className="marketSelect">
       <form className="select-market-form">
@@ -80,7 +88,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
             <span className="label-text">Select Market</span>
           </label>
           <select
-            onChange={(e) => setMarketID(e.target.value)}
+            onChange={handleChange}
             value={marketID}
             className="select select-sm w-full max-w-xs mb-3 select-primary"
           >
