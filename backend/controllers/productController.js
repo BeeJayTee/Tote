@@ -150,7 +150,14 @@ const deleteProduct = async (req, res) => {
 // update product
 const updateProduct = async (req, res) => {
   const { productID } = req.params;
-  const { newName, newType, newAmount, newUnit, newPricePerUnit } = req.body;
+  const {
+    newName,
+    newType,
+    newAmount,
+    newUnit,
+    newPricePerUnit,
+    newDescription,
+  } = req.body;
   let emptyFields = [];
 
   if (!newName) {
@@ -168,6 +175,9 @@ const updateProduct = async (req, res) => {
   if (!newPricePerUnit) {
     emptyFields.push("pricePerUnit");
   }
+  if (!newDescription) {
+    emptyFields.push("description");
+  }
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -181,6 +191,7 @@ const updateProduct = async (req, res) => {
       newAmount,
       newUnit,
       newPricePerUnit,
+      newDescription,
     });
     res.status(200).json(product);
   } catch (err) {

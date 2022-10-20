@@ -13,6 +13,7 @@ const ProducerProduct = () => {
             <th>Type</th>
             <th>Amount</th>
             <th>Price per Unit</th>
+            <th>Description</th>
             <th>&nbsp;</th>
           </tr>
         </thead>

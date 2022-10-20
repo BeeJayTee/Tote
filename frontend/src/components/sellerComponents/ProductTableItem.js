@@ -12,12 +12,14 @@ const ProductTableItem = ({ product, index }) => {
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
   const [pricePerUnit, setPricePerUnit] = useState("");
+  const [description, setDescription] = useState("");
 
   const [newName, setNewName] = useState("");
   const [newType, setNewType] = useState("");
   const [newAmount, setNewAmount] = useState("");
   const [newUnit, setNewUnit] = useState("");
   const [newPricePerUnit, setNewPricePerUnit] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
   const [emptyFields, setEmptyFields] = useState([]);
   const [error, setError] = useState(null);
@@ -30,13 +32,22 @@ const ProductTableItem = ({ product, index }) => {
     setAmount(product.amount);
     setUnit(product.unit);
     setPricePerUnit(product.pricePerUnit);
+    setDescription(product.description);
 
     setNewName(product.name);
     setNewType(product.type);
     setNewAmount(product.amount);
     setNewUnit(product.unit);
     setNewPricePerUnit(product.pricePerUnit);
-  }, [product.name]);
+    setNewDescription(product.description);
+  }, [
+    product.name,
+    product.type,
+    product.amount,
+    product.unit,
+    product.pricePerUnit,
+    product.description,
+  ]);
 
   const handleEditClick = async () => {
     setIsEdit(true);
@@ -73,6 +84,7 @@ const ProductTableItem = ({ product, index }) => {
           newAmount,
           newUnit,
           newPricePerUnit,
+          newDescription,
         }),
       }
     );
@@ -87,6 +99,7 @@ const ProductTableItem = ({ product, index }) => {
       setAmount(newAmount);
       setUnit(newUnit);
       setPricePerUnit(newPricePerUnit);
+      setDescription(newDescription);
       return;
     }
 
@@ -100,6 +113,16 @@ const ProductTableItem = ({ product, index }) => {
 
   const handleCancelClick = () => {
     setIsEdit(false);
+    setError(null);
+    setEmptyFields([]);
+    setNewName(name);
+    setNewType(type);
+    setNewAmount(amount);
+    setNewAmount(amount);
+    setNewUnit(unit);
+    setNewPricePerUnit(pricePerUnit);
+    setNewPricePerUnit(pricePerUnit);
+    setNewDescription(description);
   };
 
   return (
@@ -114,7 +137,7 @@ const ProductTableItem = ({ product, index }) => {
             placeholder={name}
             onChange={(e) => setNewName(e.target.value)}
             className={`input input-xs ${
-              emptyFields.includes("name") ? "input-warning" : "input-primary"
+              emptyFields.includes("name") ? "input-error" : "input-primary"
             }`}
           />
         </td>
@@ -124,7 +147,9 @@ const ProductTableItem = ({ product, index }) => {
       {isEdit && (
         <td>
           <select
-            className="select select-primary select-xs"
+            className={`select select-xs ${
+              emptyFields.includes("type") ? "select-error" : "select-primary"
+            }`}
             value={newType}
             onChange={(e) => setNewType(e.target.value)}
           >
@@ -150,7 +175,7 @@ const ProductTableItem = ({ product, index }) => {
             placeholder={amount}
             onChange={(e) => setNewAmount(e.target.value)}
             className={`input input-xs ${
-              emptyFields.includes("amount") ? "input-warning" : "input-primary"
+              emptyFields.includes("amount") ? "input-error" : "input-primary"
             }`}
           />
           <select
@@ -176,10 +201,26 @@ const ProductTableItem = ({ product, index }) => {
             onChange={(e) => setNewPricePerUnit(e.target.value)}
             className={`input input-xs ${
               emptyFields.includes("pricePerUnit")
-                ? "input-warning"
+                ? "input-error"
                 : "input-primary"
             }`}
           />
+        </td>
+      )}
+      {/* description section */}
+      {!isEdit && <td>{description}</td>}
+      {isEdit && (
+        <td>
+          <textarea
+            onChange={(e) => setNewDescription(e.target.value)}
+            value={newDescription}
+            placeholder={description}
+            className={`textarea h-24 ${
+              emptyFields.includes("description")
+                ? "textarea-error"
+                : "textarea-primary"
+            }`}
+          ></textarea>
         </td>
       )}
       {/* edit and delete buttons section */}
