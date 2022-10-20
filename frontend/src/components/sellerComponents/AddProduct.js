@@ -12,6 +12,7 @@ const AddProduct = ({ marketID, marketName }) => {
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
   const [pricePerUnit, setPricePerUnit] = useState("");
+  const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
   const { user } = useAuthContext();
@@ -24,7 +25,15 @@ const AddProduct = ({ marketID, marketName }) => {
       return;
     }
 
-    const product = { name, type, amount, unit, pricePerUnit, marketID };
+    const product = {
+      name,
+      type,
+      amount,
+      unit,
+      pricePerUnit,
+      description,
+      marketID,
+    };
 
     const response = await fetch("http://localhost:4141/products/", {
       method: "POST",
@@ -49,6 +58,7 @@ const AddProduct = ({ marketID, marketName }) => {
       setUnit("");
       setPricePerUnit("");
       setAmount("");
+      setDescription("");
       dispatch({ type: "CREATE_PRODUCT", payload: json });
     }
   };
@@ -69,7 +79,7 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           className={`input input-sm w-full max-w-xs ${
-            emptyFields.includes("name") ? "input-warning" : "input-primary"
+            emptyFields.includes("name") ? "input-error" : "input-primary"
           }`}
         />
       </div>
@@ -82,7 +92,7 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setType(e.target.value)}
           value={type}
           className={`select select-sm w-full max-w-xs mb-3 ${
-            emptyFields.includes("type") ? "select-warning" : "select-primary"
+            emptyFields.includes("type") ? "select-error" : "select-primary"
           }`}
         >
           <option value="">select type</option>
@@ -103,7 +113,7 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setAmount(e.target.value)}
           value={amount}
           className={`input input-sm w-full max-w-xs ${
-            emptyFields.includes("name") ? "input-warning" : "input-primary"
+            emptyFields.includes("name") ? "input-error" : "input-primary"
           }`}
         />
       </div>
@@ -116,7 +126,7 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setUnit(e.target.value)}
           value={unit}
           className={`select select-sm w-full max-w-xs mb-3 ${
-            emptyFields.includes("unit") ? "select-warning" : "select-primary"
+            emptyFields.includes("unit") ? "select-error" : "select-primary"
           }`}
         >
           <option value="">select unit</option>
@@ -138,10 +148,24 @@ const AddProduct = ({ marketID, marketName }) => {
           value={pricePerUnit}
           className={`input input-sm w-full max-w-xs ${
             emptyFields.includes("pricePerUnit")
-              ? "input-warning"
+              ? "input-error"
               : "input-primary"
           }`}
         />
+      </div>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Short Description</span>
+        </label>
+        <textarea
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
+          className={`textarea h-24 ${
+            emptyFields.includes("description")
+              ? "textarea-error"
+              : "textarea-primary"
+          }`}
+        ></textarea>
       </div>
 
       <button>Add Product</button>
