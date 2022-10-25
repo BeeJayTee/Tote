@@ -6,6 +6,9 @@ const { signupBuyer, loginBuyer } = require("../controllers/buyerController");
 
 const router = express.Router();
 
+// check auth
+router.get("/", requireBuyerAuth);
+
 // login route
 router.post("/login", loginBuyer);
 

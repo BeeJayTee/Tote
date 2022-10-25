@@ -3,6 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import ProductTypesContext from "../context/ProductTypesContext";
 import ProductTable from "../components/buyerComponents/ProductsDisplay";
 import MarketSelect from "../components/buyerComponents/MarketSelect";
+import { useLogout } from "../hooks/useLogout";
 
 const BuyerDashboard = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -17,6 +18,26 @@ const BuyerDashboard = () => {
 
   const { user } = useAuthContext();
   const { types } = useContext(ProductTypesContext);
+  const { logout } = useLogout();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      console.log("checking auth");
+      const response = await fetch("http://localhost:4141/buyer/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+      console.log(response);
+      console.log(json);
+      if (!response.ok) {
+        logout();
+      }
+    };
+
+    checkAuth();
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {

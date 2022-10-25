@@ -60,6 +60,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
         body: JSON.stringify({ marketID: addMarketID }),
       });
       const json = await response.json();
+      console.log("poop", json);
       if (!response.ok) {
         setAddMarketError(json.error);
       }

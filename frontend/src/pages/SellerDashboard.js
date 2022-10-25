@@ -5,6 +5,7 @@ import MarketSelect from "../components/sellerComponents/MarketSelect";
 import { useProductsContext } from "../hooks/useProductsContext";
 import "../styles/seller-dashboard.css";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
 
 const SellerDashboard = () => {
   const [marketID, setMarketID] = useState("");
@@ -12,6 +13,26 @@ const SellerDashboard = () => {
 
   const { products, dispatch } = useProductsContext();
   const { user } = useAuthContext();
+  const { logout } = useLogout();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      console.log("checking auth");
+      const response = await fetch("http://localhost:4141/seller/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+      console.log(response);
+      console.log(json);
+      if (!response.ok) {
+        logout();
+      }
+    };
+
+    checkAuth();
+  });
 
   useEffect(() => {
     const producerID = JSON.parse(localStorage.getItem("user")).token;

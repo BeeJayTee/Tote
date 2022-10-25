@@ -11,6 +11,9 @@ const {
 
 const router = express.Router();
 
+// check token
+router.get("/", requireSellerAuth);
+
 // login route
 router.post("/login", loginSeller);
 
