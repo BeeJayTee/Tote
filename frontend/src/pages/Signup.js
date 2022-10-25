@@ -42,7 +42,7 @@ const Signup = () => {
   };
 
   return (
-    <form className="signup-form" onSubmit={handleSubmit}>
+    <form className="signup-form container" onSubmit={handleSubmit}>
       <h3>Sign Up</h3>
 
       <label>Email:</label>

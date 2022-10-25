@@ -10,7 +10,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import "./styles/app.css";
 
 // pages and components
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./landingPage/LandingPage";
 import SellerDashboard from "./pages/SellerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import Login from "./pages/Login";
@@ -25,16 +25,17 @@ function App() {
   const { user } = useAuthContext();
 
   return (
-    <div className="App container m-auto">
+    <div className="App m-auto">
       <Router>
         <Navbar />
         <div className="pages">
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route
-              path="/"
+              path="/app"
               element={
                 !user ? (
-                  <LandingPage />
+                  <Login />
                 ) : user.userType === process.env.REACT_APP_ADMIN_ID ? (
                   <Navigate to="/admin-dashboard" />
                 ) : (
@@ -43,58 +44,58 @@ function App() {
               }
             />
             <Route
-              path="/login"
+              path="/app/login"
               element={!user ? <Login /> : <Navigate to="/dashboard" />}
             />
             <Route
-              path="/signup"
+              path="/app/signup"
               element={!user ? <Signup /> : <Navigate to="/dashboard" />}
             />
             <Route
-              path="/dashboard"
+              path="/app/dashboard"
               element={
                 user && user.userType === process.env.REACT_APP_SELLER_ID ? (
                   <SellerDashboard />
                 ) : user && user.userType === process.env.REACT_APP_BUYER_ID ? (
                   <BuyerDashboard />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to="/app/login" />
                 )
               }
             />
             <Route
               path="/admin"
               element={
-                !user ? <AdminLogin /> : <Navigate to="/admin-dashboard" />
+                !user ? <AdminLogin /> : <Navigate to="/app/admin-dashboard" />
               }
             />
             <Route
-              path="/admin-dashboard"
+              path="/app/admin-dashboard"
               element={
                 user && user.userType === process.env.REACT_APP_ADMIN_ID ? (
                   <AdminDashboard />
                 ) : (
-                  <Navigate to="/admin" />
+                  <Navigate to="/app/admin" />
                 )
               }
             />
             <Route
-              path="/market-manager"
+              path="/app/market-manager"
               element={
                 user && user.userType === process.env.REACT_APP_ADMIN_ID ? (
                   <MarketManager />
                 ) : (
-                  <Navigate to="/admin" />
+                  <Navigate to="/app/admin" />
                 )
               }
             />
             <Route
-              path="/admin-manager"
+              path="/app/admin-manager"
               element={
                 user && user.userType === process.env.REACT_APP_ADMIN_ID ? (
                   <AdminManager />
                 ) : (
-                  <Navigate to="/admin" />
+                  <Navigate to="/app/admin" />
                 )
               }
             />

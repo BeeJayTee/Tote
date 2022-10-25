@@ -138,7 +138,7 @@ const BuyerDashboard = () => {
   };
 
   return (
-    <div className="BuyerDashboard">
+    <div className="BuyerDashboard container">
       <MarketSelect marketID={marketID} setMarketID={setMarketID} />
       <form
         className={`${
