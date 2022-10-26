@@ -10,11 +10,14 @@ export const useBuyerSignup = () => {
     setIsBuyerLoading(true);
     setBuyerError(null);
 
-    const response = await fetch("http://localhost:4141/buyer/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, retypePassword }),
-    });
+    const response = await fetch(
+      "https://tote.thebrandontucker.com/buyer/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, retypePassword }),
+      }
+    );
     const json = await response.json();
     if (!response.ok) {
       setIsBuyerLoading(false);

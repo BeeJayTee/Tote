@@ -23,7 +23,7 @@ const BuyerDashboard = () => {
   useEffect(() => {
     const checkAuth = async () => {
       console.log("checking auth");
-      const response = await fetch("http://localhost:4141/buyer/", {
+      const response = await fetch("https://tote.thebrandontucker.com/buyer/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -41,11 +41,14 @@ const BuyerDashboard = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("http://localhost:4141/products", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/products",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
       const filteredProducts = json.filter((product) => {
         return product.marketID === marketID;
@@ -55,11 +58,14 @@ const BuyerDashboard = () => {
     };
 
     const fetchProducers = async () => {
-      const response = await fetch("http://localhost:4141/products/producers", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/products/producers",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
       setProducerNames(json);
     };

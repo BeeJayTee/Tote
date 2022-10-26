@@ -35,14 +35,17 @@ const AddProduct = ({ marketID, marketName }) => {
       marketID,
     };
 
-    const response = await fetch("http://localhost:4141/products/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify(product),
-    });
+    const response = await fetch(
+      "https://tote.thebrandontucker.com/products/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(product),
+      }
+    );
 
     const json = await response.json();
     if (!response.ok) {

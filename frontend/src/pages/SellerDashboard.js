@@ -18,11 +18,14 @@ const SellerDashboard = () => {
   useEffect(() => {
     const checkAuth = async () => {
       console.log("checking auth");
-      const response = await fetch("http://localhost:4141/seller/", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/seller/",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
       console.log(response);
       console.log(json);
@@ -39,7 +42,7 @@ const SellerDashboard = () => {
 
     const fetchProducts = async () => {
       const response = await fetch(
-        "http://localhost:4141/products/producer/" + producerID,
+        "https://tote.thebrandontucker.com/products/producer/" + producerID,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

@@ -18,21 +18,24 @@ export const useAddMarket = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4141/markets/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify({
-        adminName,
-        adminEmail,
-        marketName,
-        marketAddress,
-        mailingAddress,
-        phone,
-      }),
-    });
+    const response = await fetch(
+      "https://tote.thebrandontucker.com/markets/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          adminName,
+          adminEmail,
+          marketName,
+          marketAddress,
+          mailingAddress,
+          phone,
+        }),
+      }
+    );
     const json = await response.json();
     console.log(json);
     if (!response.ok) {

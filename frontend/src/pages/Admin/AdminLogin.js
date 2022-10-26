@@ -14,11 +14,14 @@ const AdminLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4141/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      "https://tote.thebrandontucker.com/admin/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
     const json = await response.json();
 

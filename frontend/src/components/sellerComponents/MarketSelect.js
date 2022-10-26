@@ -14,16 +14,22 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
 
   useEffect(() => {
     const fetchSellerMarkets = async () => {
-      const response = await fetch("http://localhost:4141/seller/markets", {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/seller/markets",
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
       const json = await response.json();
       setSellerMarkets(json.markets);
     };
     const fetchAllMarkets = async () => {
-      const response = await fetch("http://localhost:4141/markets/", {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/markets/",
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
       const json = await response.json();
       setMarkets(json);
       setMarketID(json[0].marketID);
@@ -51,14 +57,17 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
   const handleMarketSubmit = (e) => {
     e.preventDefault();
     const addUserMarket = async () => {
-      const response = await fetch("http://localhost:4141/seller/markets", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({ marketID: addMarketID }),
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/seller/markets",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({ marketID: addMarketID }),
+        }
+      );
       const json = await response.json();
       console.log("poop", json);
       if (!response.ok) {

@@ -10,11 +10,14 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const buyerResponse = await fetch("http://localhost:4141/buyer/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    const buyerResponse = await fetch(
+      "https://tote.thebrandontucker.com/buyer/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      }
+    );
     const buyer = await buyerResponse.json();
     if (buyerResponse.ok) {
       // save user to local storage
@@ -23,11 +26,14 @@ export const useLogin = () => {
       // update auth context
       await dispatch({ type: "LOGIN", payload: buyer });
     } else if (!buyerResponse.ok) {
-      const sellerResponse = await fetch("http://localhost:4141/seller/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const sellerResponse = await fetch(
+        "https://tote.thebrandontucker.com/seller/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
       const seller = await sellerResponse.json();
       if (sellerResponse.ok) {
         // save user to local storage

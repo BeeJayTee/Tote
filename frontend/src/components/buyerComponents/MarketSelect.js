@@ -9,9 +9,12 @@ const MarketSelect = ({ marketID, setMarketID }) => {
 
   useEffect(() => {
     const fetchMarkets = async () => {
-      const response = await fetch("http://localhost:4141/markets", {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await fetch(
+        "https://tote.thebrandontucker.com/markets",
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
       const json = await response.json();
       setMarkets(json);
     };
