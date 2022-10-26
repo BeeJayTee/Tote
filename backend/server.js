@@ -11,7 +11,7 @@ const cors = require("cors");
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: process.env.REMOTE_CLIENT_APP, credentials: true }));
 
 // quick custom log middleware
 app.use((req, res, next) => {
