@@ -19,7 +19,7 @@ export const useAddMarket = () => {
     setError(null);
 
     const response = await fetch(
-      "https://tote.thebrandontucker.com/markets/add",
+      "https://tote.api.thebrandontucker.com/markets/add",
       {
         method: "POST",
         headers: {

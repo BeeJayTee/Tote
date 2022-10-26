@@ -9,7 +9,7 @@ export const useAdminSignup = () => {
     setError(null);
 
     const response = await fetch(
-      "https://tote.thebrandontucker.com/admin/signup",
+      "https://tote.api.thebrandontucker.com/admin/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

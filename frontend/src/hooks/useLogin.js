@@ -11,7 +11,7 @@ export const useLogin = () => {
     setError(null);
 
     const buyerResponse = await fetch(
-      "https://tote.thebrandontucker.com/buyer/login",
+      "https://tote.api.thebrandontucker.com/buyer/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,7 +27,7 @@ export const useLogin = () => {
       await dispatch({ type: "LOGIN", payload: buyer });
     } else if (!buyerResponse.ok) {
       const sellerResponse = await fetch(
-        "https://tote.thebrandontucker.com/seller/login",
+        "https://tote.api.thebrandontucker.com/seller/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

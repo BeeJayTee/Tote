@@ -15,7 +15,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
   useEffect(() => {
     const fetchSellerMarkets = async () => {
       const response = await fetch(
-        "https://tote.thebrandontucker.com/seller/markets",
+        "https://tote.api.thebrandontucker.com/seller/markets",
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -25,7 +25,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
     };
     const fetchAllMarkets = async () => {
       const response = await fetch(
-        "https://tote.thebrandontucker.com/markets/",
+        "https://tote.api.thebrandontucker.com/markets/",
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -58,7 +58,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
     e.preventDefault();
     const addUserMarket = async () => {
       const response = await fetch(
-        "https://tote.thebrandontucker.com/seller/markets",
+        "https://tote.api.thebrandontucker.com/seller/markets",
         {
           method: "PATCH",
           headers: {

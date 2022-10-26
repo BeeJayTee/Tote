@@ -19,7 +19,7 @@ export const useSellerSignup = () => {
     console.log([email, password, retypePassword, organization, marketID]);
 
     const response = await fetch(
-      "https://tote.thebrandontucker.com/seller/signup",
+      "https://tote.api.thebrandontucker.com/seller/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

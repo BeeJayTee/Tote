@@ -15,7 +15,7 @@ const AdminLogin = () => {
     setError(null);
 
     const response = await fetch(
-      "https://tote.thebrandontucker.com/admin/login",
+      "https://tote.api.thebrandontucker.com/admin/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

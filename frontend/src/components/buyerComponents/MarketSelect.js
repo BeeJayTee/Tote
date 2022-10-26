@@ -10,7 +10,7 @@ const MarketSelect = ({ marketID, setMarketID }) => {
   useEffect(() => {
     const fetchMarkets = async () => {
       const response = await fetch(
-        "https://tote.thebrandontucker.com/markets",
+        "https://tote.api.thebrandontucker.com/markets",
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }

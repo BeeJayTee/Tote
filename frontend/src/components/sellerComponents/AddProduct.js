@@ -36,7 +36,7 @@ const AddProduct = ({ marketID, marketName }) => {
     };
 
     const response = await fetch(
-      "https://tote.thebrandontucker.com/products/",
+      "https://tote.api.thebrandontucker.com/products/",
       {
         method: "POST",
         headers: {

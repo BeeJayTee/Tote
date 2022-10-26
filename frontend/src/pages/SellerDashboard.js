@@ -19,7 +19,7 @@ const SellerDashboard = () => {
     const checkAuth = async () => {
       console.log("checking auth");
       const response = await fetch(
-        "https://tote.thebrandontucker.com/seller/",
+        "https://tote.api.thebrandontucker.com/seller/",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -42,7 +42,7 @@ const SellerDashboard = () => {
 
     const fetchProducts = async () => {
       const response = await fetch(
-        "https://tote.thebrandontucker.com/products/producer/" + producerID,
+        "https://tote.api.thebrandontucker.com/products/producer/" + producerID,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

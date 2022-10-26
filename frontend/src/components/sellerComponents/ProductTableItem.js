@@ -55,7 +55,7 @@ const ProductTableItem = ({ product, index }) => {
 
   const handleDeleteClick = async () => {
     const response = await fetch(
-      "https://tote.thebrandontucker.com/products/" + product._id,
+      "https://tote.api.thebrandontucker.com/products/" + product._id,
       {
         method: "DELETE",
         headers: {
@@ -71,7 +71,7 @@ const ProductTableItem = ({ product, index }) => {
 
   const handleSubmitClick = async () => {
     const response = await fetch(
-      "https://tote.thebrandontucker.com/products/" + product._id,
+      "https://tote.api.thebrandontucker.com/products/" + product._id,
       {
         method: "PUT",
         headers: {

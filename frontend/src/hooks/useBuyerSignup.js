@@ -11,7 +11,7 @@ export const useBuyerSignup = () => {
     setBuyerError(null);
 
     const response = await fetch(
-      "https://tote.thebrandontucker.com/buyer/signup",
+      "https://tote.api.thebrandontucker.com/buyer/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
