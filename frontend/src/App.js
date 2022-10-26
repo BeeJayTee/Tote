@@ -37,19 +37,19 @@ function App() {
                 !user ? (
                   <Login />
                 ) : user.userType === process.env.REACT_APP_ADMIN_ID ? (
-                  <Navigate to="/admin-dashboard" />
+                  <Navigate to="/app/admin-dashboard" />
                 ) : (
-                  <Navigate to="/dashboard" />
+                  <Navigate to="/app/dashboard" />
                 )
               }
             />
             <Route
               path="/app/login"
-              element={!user ? <Login /> : <Navigate to="/dashboard" />}
+              element={!user ? <Login /> : <Navigate to="/app/dashboard" />}
             />
             <Route
               path="/app/signup"
-              element={!user ? <Signup /> : <Navigate to="/dashboard" />}
+              element={!user ? <Signup /> : <Navigate to="/app/dashboard" />}
             />
             <Route
               path="/app/dashboard"
@@ -64,7 +64,7 @@ function App() {
               }
             />
             <Route
-              path="/admin"
+              path="/app/admin"
               element={
                 !user ? <AdminLogin /> : <Navigate to="/app/admin-dashboard" />
               }
