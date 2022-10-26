@@ -32,10 +32,10 @@ const Navbar = () => {
               {user && user.userType === process.env.REACT_APP_ADMIN_ID && (
                 <ul className="admin-options">
                   <li>
-                    <Link to="/market-manager">Market Manager</Link>
+                    <Link to="/app/market-manager">Market Manager</Link>
                   </li>
                   <li>
-                    <Link to="/admin-manager">Admin Manager</Link>
+                    <Link to="/app/admin-manager">Admin Manager</Link>
                   </li>
                 </ul>
               )}
@@ -46,8 +46,8 @@ const Navbar = () => {
           {/* displays for none logged in users */}
           {!user && (
             <div className="guest-options">
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
+              <Link to="/app/login">Login</Link>
+              <Link to="/app/signup">Signup</Link>
             </div>
           )}
         </nav>
