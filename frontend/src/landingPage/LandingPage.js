@@ -1,8 +1,4 @@
 import heroImg from "../assets/landingPage/hero-img.jpg";
-import marketsSvg from "../assets/landingPage/markets.svg";
-import producersSvg from "../assets/landingPage/producers.svg";
-import shoppersSvg from "../assets/landingPage/shoppers.svg";
-import marketTechImg from "../assets/landingPage/market-technology.jpg";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -25,78 +21,62 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-base-200 py-32">
-        <div className="flex flex-col items-center gap-y-8 container m-auto lg:flex-row lg:justify-around lg:gap-x-8">
-          <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
-            <figure className="px-10 pt-10">
-              <img src={shoppersSvg} alt="Shoppers" className="w-1/4" />
-            </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">Market Goers</h2>
-              <p>
-                Browse the market's online selection and pre-purchase products
-                before arriving at the market.
-              </p>
-              <div className="card-actions mt-4">
-                <button className="btn btn-primary btn-outline">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
-            <figure className="px-10 pt-10">
-              <img src={producersSvg} alt="Producers" className="w-1/4" />
-            </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">Farmers & Producers</h2>
-              <p>
-                Easily list your products available, bundle the items with the
-                label, and we'll come and grab the orders at the market.
-              </p>
-              <div className="card-actions mt-4">
-                <button className="btn btn-primary btn-outline">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
-            <figure className="px-10 pt-10">
-              <img src={marketsSvg} alt="Markets" className="w-1/4" />
-            </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">Market Directors</h2>
-              <p>
-                Learn about the benefits of using Tote and how to register your
-                market.
-              </p>
-              <div className="card-actions mt-4">
-                <button className="btn btn-primary btn-outline">
-                  Learn More
-                </button>
-              </div>
+      <div className="flex flex-col items-center mt-24 gap-y-8 lg:flex-row lg:justify-around container m-auto">
+        <div className="card w-96 bg-base-100 shadow-xl">
+          <figure className="px-10 pt-10">
+            <img
+              src="https://placeimg.com/400/225/arch"
+              alt="Shoes"
+              className="rounded-xl"
+            />
+          </figure>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title">Market Goers</h2>
+            <p>
+              Browse the market's online selection and pre-purchase products
+              before arriving at the market.
+            </p>
+            <div className="card-actions">
+              <button className="btn btn-primary">Learn More</button>
             </div>
           </div>
         </div>
-      </div>
-      <div className="hero min-h-fit bg-base-100 py-32">
-        <div className="hero-content flex-col gap-32 lg:flex-row-reverse">
-          <img
-            src={marketTechImg}
-            alt="Farmers Market in a Digital Age"
-            className="max-w-sm rounded-lg shadow-2xl"
-          />
-          <div>
-            <h2 className="text-5xl font-bold max-w-lg">
-              The Farmer's Market in the Digital Age
-            </h2>
-            <p className="py-6 max-w-lg">
-              We believe Efficiency and Sustainability go hand in hand. Our
-              platform allows market producers to connect with their customers
-              using the simplicity of technology.
+        <div className="card w-96 bg-base-100 shadow-xl">
+          <figure className="px-10 pt-10">
+            <img
+              src="https://placeimg.com/400/225/arch"
+              alt="Shoes"
+              className="rounded-xl"
+            />
+          </figure>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title">Farmers & Producers</h2>
+            <p>
+              Easily list your products available, bundle the items with the
+              label, and we'll come and grab the orders at the market.
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <div className="card-actions">
+              <button className="btn btn-primary">Learn More</button>
+            </div>
+          </div>
+        </div>
+        <div className="card w-96 bg-base-100 shadow-xl">
+          <figure className="px-10 pt-10">
+            <img
+              src="https://placeimg.com/400/225/arch"
+              alt="Shoes"
+              className="rounded-xl"
+            />
+          </figure>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title">Market Directors</h2>
+            <p>
+              Learn about the benefits of using Tote and how to register your
+              market.
+            </p>
+            <div className="card-actions">
+              <button className="btn btn-primary">Learn More</button>
+            </div>
           </div>
         </div>
       </div>
