@@ -42,81 +42,118 @@ const Signup = () => {
   };
 
   return (
-    <form className="signup-form container" onSubmit={handleSubmit}>
-      <h3>Sign Up</h3>
+    <form
+      className="signup-form container m-auto flex flex-col items-center"
+      onSubmit={handleSubmit}
+    >
+      <h3 className="text-xl">Sign Up</h3>
 
-      <label>Email:</label>
-      <input
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
+      <div className="form-control w-full max-w-xs mb-4">
+        <label className="label">
+          <span className="label-text">Email</span>
+        </label>
+        <input
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          placeholder="example@email.com"
+          className="input input-bordered w-full max-w-xs"
+        />
+      </div>
 
       <div>
         <label>
-          <input
-            type="radio"
-            name="org-type"
-            value="isBuyer"
-            id="isBuyer"
-            onChange={handleChange}
-            checked={isBuyer === true}
-          />
-          Shopper
+          <div className="flex mb-4">
+            <input
+              className="radio radio-primary mr-1"
+              type="radio"
+              name="org-type"
+              value="isBuyer"
+              id="isBuyer"
+              onChange={handleChange}
+              checked={isBuyer === true}
+            />
+            <span>Shopper</span>
+          </div>
         </label>
       </div>
       <div>
         <label>
-          <input
-            type="radio"
-            name="org-type"
-            value="isSeller"
-            id="isSeller"
-            onChange={handleChange}
-            checked={isSeller === true}
-          />
-          Seller
+          <div className="flex mb-4">
+            <input
+              className="radio radio-primary mr-1"
+              type="radio"
+              name="org-type"
+              value="isSeller"
+              id="isSeller"
+              onChange={handleChange}
+              checked={isSeller === true}
+            />
+            <span>Grower / Producer</span>
+          </div>
         </label>
       </div>
       {isSeller && (
         <div>
-          <label>
-            Business/Organization Name:
+          <div className="form-control w-full max-w-xs mb-4">
+            <label className="label">
+              <span className="label-text">Business / Organization Name</span>
+            </label>
             <input
               type="text"
               onChange={(e) => setOrganization(e.target.value)}
               value={organization}
+              placeholder="e.g. Tote Farm"
+              className="input input-bordered w-full max-w-xs"
             />
-          </label>
-          <label>
-            Market ID Code:
+          </div>
+          <div className="form-control w-full max-w-xs mb-4">
+            <label className="label">
+              <span className="label-text">Market ID Code</span>
+            </label>
             <input
               type="text"
               onChange={(e) => setMarketID(e.target.value)}
               value={marketID}
+              placeholder="this is given to you by the market"
+              className="input input-bordered w-full max-w-xs"
             />
-          </label>
+          </div>
         </div>
       )}
-      <label>
-        Password:
+      <div className="form-control w-full max-w-xs mb-4">
+        <label className="label">
+          <span className="label-text">Password</span>
+        </label>
         <input
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          placeholder="password"
+          className="input input-bordered w-full max-w-xs"
         />
-      </label>
-      <label>
-        Retype Password:
+      </div>
+
+      <div className="form-control w-full max-w-xs mb-4">
+        <label className="label">
+          <span className="label-text">Retype Password</span>
+        </label>
         <input
           type="password"
           onChange={(e) => setRetypePassword(e.target.value)}
           value={retypePassword}
+          placeholder="type your password again"
+          className="input input-bordered w-full max-w-xs"
         />
-      </label>
+      </div>
       {sellerError && <div className="error">{sellerError}</div>}
       {buyerError && <div className="error">{buyerError}</div>}
-      <button disabled={isBuyerLoading || isSellerLoading}>Submit</button>
+      <button
+        disabled={isBuyerLoading || isSellerLoading}
+        className="btn btn-primary"
+      >
+        Submit
+      </button>
     </form>
   );
 };
