@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const Seller = require("../models/sellerModel");
 
 const requireSellerAuth = async (req, res, next) => {
+  console.log("poop");
   // verify that user is authenticated
   const { authorization } = req.headers;
 

@@ -58,7 +58,7 @@ const SellerDashboard = () => {
   }, [dispatch, user]);
 
   return (
-    <div className="SellerDashboard container">
+    <div className="SellerDashboard container m-auto">
       <MarketSelect
         user={user}
         setMarketID={setMarketID}
