@@ -18,7 +18,7 @@ const SellerDashboard = () => {
 
     const fetchProducts = async () => {
       const response = await fetch(
-        "http://localhost:4141/products/producer/" + producerID,
+        "https://toteapi.onrender.com/products/producer/" + producerID,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

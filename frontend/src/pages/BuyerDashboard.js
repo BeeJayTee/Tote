@@ -23,7 +23,7 @@ const BuyerDashboard = () => {
   useEffect(() => {
     const checkAuth = async () => {
       console.log("checking auth");
-      const response = await fetch("http://localhost:4141/buyer/", {
+      const response = await fetch("https://toteapi.onrender.com/buyer/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

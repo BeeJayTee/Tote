@@ -35,7 +35,7 @@ const AddProduct = ({ marketID, marketName }) => {
       marketID,
     };
 
-    const response = await fetch("http://localhost:4141/products/", {
+    const response = await fetch("https://toteapi.onrender.com/products/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

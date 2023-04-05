@@ -13,10 +13,9 @@ const buyerSchema = new Schema({
     type: String,
     required: true,
   },
-  buyerCartProducts: [
+  items: [
     {
-      type: Object,
-      default: null,
+      type: String,
     },
   ],
 });

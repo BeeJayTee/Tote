@@ -55,7 +55,7 @@ const ProductTableItem = ({ product, index }) => {
 
   const handleDeleteClick = async () => {
     const response = await fetch(
-      "http://localhost:4141/products/" + product._id,
+      "https://toteapi.onrender.com/products/" + product._id,
       {
         method: "DELETE",
         headers: {

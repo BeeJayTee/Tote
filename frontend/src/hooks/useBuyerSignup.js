@@ -10,7 +10,7 @@ export const useBuyerSignup = () => {
     setIsBuyerLoading(true);
     setBuyerError(null);
 
-    const response = await fetch("http://localhost:4141/buyer/signup", {
+    const response = await fetch("https://toteapi.onrender.com/buyer/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, retypePassword }),

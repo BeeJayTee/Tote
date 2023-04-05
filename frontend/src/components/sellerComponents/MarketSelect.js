@@ -14,7 +14,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
 
   useEffect(() => {
     const fetchSellerMarkets = async () => {
-      const response = await fetch("http://localhost:4141/seller/markets", {
+      const response = await fetch("https://toteapi.onrender.com/markets", {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
