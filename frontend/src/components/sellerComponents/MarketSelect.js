@@ -21,7 +21,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
       setSellerMarkets(json.markets);
     };
     const fetchAllMarkets = async () => {
-      const response = await fetch("http://localhost:4141/markets/", {
+      const response = await fetch("https://toteapi.onrender.com/markets/", {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
@@ -51,14 +51,17 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
   const handleMarketSubmit = (e) => {
     e.preventDefault();
     const addUserMarket = async () => {
-      const response = await fetch("http://localhost:4141/seller/markets", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({ marketID: addMarketID }),
-      });
+      const response = await fetch(
+        "https://toteapi.onrender.com/seller/markets",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({ marketID: addMarketID }),
+        }
+      );
       const json = await response.json();
       console.log("poop", json);
       if (!response.ok) {

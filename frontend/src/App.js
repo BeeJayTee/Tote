@@ -30,7 +30,12 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route
+              path="/"
+              element={
+                !user ? <LandingPage /> : <Navigate to="/app/dashboard" />
+              }
+            />
             <Route
               path="/app"
               element={
