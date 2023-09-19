@@ -9,14 +9,16 @@ const MarketSelect = ({ marketID, setMarketID }) => {
 
   useEffect(() => {
     const fetchMarkets = async () => {
-      const response = await fetch("https://toteapi.onrender.com/markets", {
+      const response = await fetch("/markets", {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
       setMarkets(json);
+      setMarketName(json[0].marketName);
+      setMarketID(json[0].marketID);
     };
     fetchMarkets();
-  }, [user.token]);
+  }, [setMarketID, user.token]);
 
   const handleClick = (e) => {
     setMarketID(e.target.value);
@@ -34,7 +36,7 @@ const MarketSelect = ({ marketID, setMarketID }) => {
             tabIndex={0}
             className="btn m-1 bg-primary hover:bg-primary-focus"
           >
-            Select Market
+            {marketName}
           </label>
           <ul
             tabIndex={0}
@@ -49,12 +51,6 @@ const MarketSelect = ({ marketID, setMarketID }) => {
                 </li>
               ))}
           </ul>
-        </div>
-        <div className="market-viewing-container w-fit border-2 border-primary px-10 py-10 m-auto my-5 rounded">
-          {marketName && (
-            <p className="text-xl">You are currently viewing products for: </p>
-          )}
-          <h2 className="text-xl font-bold text-neutral">{marketName}</h2>
         </div>
       </div>
     </div>

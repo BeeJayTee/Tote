@@ -8,7 +8,7 @@ export const useAdminSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("https://toteapi.onrender.com/admin/signup", {
+    const response = await fetch("/admin/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

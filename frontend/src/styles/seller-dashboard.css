@@ -1,13 +1,13 @@
 :root {
-  --main: #90AFC5;
-  --dark-gray: #3E363F;
+  --main: #90afc5;
+  --dark-gray: #3e363f;
   --light-gray: #bdb4be;
-  --light: #C4DFE6;
+  --light: #c4dfe6;
 }
 
 html {
-  font-family: 'Fira Sans', sans-serif;
-  color: var(--dark-gray)
+  font-family: "Fira Sans", sans-serif;
+  color: var(--dark-gray);
 }
 
 .dashboard-menu-container {
@@ -17,7 +17,7 @@ html {
 .main {
   display: flex;
   justify-content: space-between;
-  margin-top: 5rem;
+  margin-top: 2rem;
   padding: 2% 5%;
   background: rgb(250, 250, 250);
 }
@@ -28,11 +28,12 @@ html {
 
 .add-product-form {
   flex-basis: 20%;
-} 
+}
 
 /* form */
 
-.add-product-form label, .add-product-form input {
+.add-product-form label,
+.add-product-form input {
   display: block;
 }
 

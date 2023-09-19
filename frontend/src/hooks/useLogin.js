@@ -12,14 +12,11 @@ export const useLogin = () => {
     console.log("loggin in");
 
     try {
-      const buyerResponse = await fetch(
-        "https://toteapi.onrender.com/buyer/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const buyerResponse = await fetch("/buyer/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
       const buyer = await buyerResponse.json();
       if (buyerResponse.ok) {
         // save user to local storage
@@ -32,14 +29,11 @@ export const useLogin = () => {
       console.log(error);
     }
     try {
-      const sellerResponse = await fetch(
-        "https://toteapi.onrender.com/seller/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const sellerResponse = await fetch("/seller/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
       const seller = await sellerResponse.json();
       if (sellerResponse.ok) {
         // save user to local storage

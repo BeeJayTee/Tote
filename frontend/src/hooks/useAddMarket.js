@@ -18,7 +18,7 @@ export const useAddMarket = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("https://toteapi.onrender.com/markets/add", {
+    const response = await fetch("/markets/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

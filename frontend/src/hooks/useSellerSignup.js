@@ -18,7 +18,7 @@ export const useSellerSignup = () => {
 
     console.log([email, password, retypePassword, organization, marketID]);
 
-    const response = await fetch("https://toteapi.onrender.com/seller/signup", {
+    const response = await fetch("/seller/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

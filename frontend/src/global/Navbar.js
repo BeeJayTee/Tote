@@ -4,8 +4,11 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../styles/navbar.css";
+import { useShoppingCartStore } from "../stores/shoppingCartStore";
 
 const Navbar = () => {
+  const items = useShoppingCartStore((state) => state.items);
+
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
@@ -25,7 +28,7 @@ const Navbar = () => {
               {user && user.userType === process.env.REACT_APP_BUYER_ID && (
                 <div className="buyer-options">
                   <FontAwesomeIcon icon={faCartShopping} />
-                  <span>0</span>
+                  <span>{items.length}</span>
                 </div>
               )}
               {/* displays for admins */}

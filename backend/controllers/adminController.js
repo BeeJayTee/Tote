@@ -1,37 +1,37 @@
-const Admin = require('../models/adminModel')
-const jwt = require('jsonwebtoken')
+const Admin = require("../models/adminModel");
+const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {
-    return jwt.sign({_id}, process.env.SECRET, { expiresIn: '14d' })
-}
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "14d" });
+};
 
 // login admin
 const loginAdmin = async (req, res) => {
-    const {email, password} = req.body
-    try {
-        const admin = await Admin.login(email, password)
-        const token = createToken(admin._id)
-        const userType = process.env.ADMIN_ID
+  const { email, password } = req.body;
+  try {
+    const admin = await Admin.login(email, password);
+    const token = createToken(admin._id);
+    const userType = process.env.ADMIN_ID;
 
-        res.status(200).json({email, token, userType})
-    } catch (error){
-        console.log(error.message)
-        res.status(400).json({error: error.message})
-    }
-}
+    res.status(200).json({ email, token, userType });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
+};
 
 // create admin
 const signupAdmin = async (req, res) => {
-    const { email, password } = req.body
+  const { email, password } = req.body;
 
-    try {
-        const admin = await Admin.signup(email, password)
-        console.log(admin)
+  try {
+    const admin = await Admin.signup(email, password);
+    console.log(admin);
 
-        res.status(200).json(admin)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
+    res.status(200).json(admin);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-module.exports = { loginAdmin, signupAdmin }
+module.exports = { loginAdmin, signupAdmin };

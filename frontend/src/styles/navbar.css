@@ -1,38 +1,39 @@
 .main-header {
-    max-width: 1400px;
-    margin: 50px auto;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+  max-width: 1400px;
+  margin: 25px auto;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-header a {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
 }
 
 .loggedin-container {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .admin-options {
-    display: flex;
-    column-gap: 10px;
+  display: flex;
+  column-gap: 10px;
 }
 
-.admin-options, .buyer-options {
-    margin-right: 50px;
+.admin-options,
+.buyer-options {
+  margin-right: 50px;
 }
 
 .admin-options li {
-    list-style-type: none;
-    column-gap: 10px;
+  list-style-type: none;
+  column-gap: 10px;
 }
 
 .guest-options {
-    display: flex;
-    column-gap: 10px;
+  display: flex;
+  column-gap: 10px;
 }

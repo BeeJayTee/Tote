@@ -17,14 +17,11 @@ const SellerDashboard = () => {
     const producerID = JSON.parse(localStorage.getItem("user")).token;
 
     const fetchProducts = async () => {
-      const response = await fetch(
-        "https://toteapi.onrender.com/products/producer/" + producerID,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch("/products/producer/" + producerID, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {
