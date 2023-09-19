@@ -4,8 +4,9 @@ import ProductTable from "../components/buyerComponents/ProductTable";
 import MarketSelect from "../components/buyerComponents/MarketSelect";
 import FilterForm from "../components/buyerComponents/FilterForm";
 import { useLogout } from "../hooks/useLogout";
+import { useShoppingCartStore } from "../stores/shoppingCartStore";
 
-const BuyerDashboard = ({ setCartList, cartList }) => {
+const BuyerDashboard = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState([]);
   const [producerNames, setProducerNames] = useState([]);
@@ -18,6 +19,7 @@ const BuyerDashboard = ({ setCartList, cartList }) => {
 
   const { user } = useAuthContext();
   const { logout } = useLogout();
+  const getDbItems = useShoppingCartStore((state) => state.getDbItems);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -64,12 +66,13 @@ const BuyerDashboard = ({ setCartList, cartList }) => {
     };
 
     ////// fetch cart here
+    getDbItems(user.token);
 
     if (user) {
       fetchProducts();
       fetchProducers();
     }
-  }, [user, marketID]);
+  }, [user, marketID, getDbItems]);
 
   useEffect(() => {
     if (displayProducts.length === 0) {
@@ -154,8 +157,6 @@ const BuyerDashboard = ({ setCartList, cartList }) => {
         hidden={hidden}
         products={displayProducts}
         productsMessage={productsMessage}
-        setCartList={setCartList}
-        cartList={cartList}
       />
     </div>
   );

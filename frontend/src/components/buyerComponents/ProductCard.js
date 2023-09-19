@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useShoppingCartStore } from "../../stores/shoppingCartStore";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
-const ProductCard = ({ product, index, setCartList, cartList }) => {
+const ProductCard = ({ product, index }) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const [productUnit, setProductUnit] = useState(null);
 
-  const items = useShoppingCartStore((state) => state.items);
-  const setItems = useShoppingCartStore((state) => state.setItems);
+  const { user } = useAuthContext();
 
   useEffect(() => {
     // sets the proper unit for the product card display
@@ -51,37 +50,20 @@ const ProductCard = ({ product, index, setCartList, cartList }) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(items);
     if (productQuantity > 0) {
-      // initialize a reference to cart items
-      const currentCart = [...items];
-
-      // get the current product id
-      const id = product._id;
-
-      // create an object for the current product the user wants to add to cart
-      const currentItem = {
-        amount: productQuantity,
-        product: product,
-      };
-
-      // check to see if the item is already in the cart
-      const itemExists = currentCart.find((item, i) => {
-        if (item.product._id === id) {
-          item.amount += productQuantity;
-          return true;
-        }
-        return false;
+      const item = { product, productQuantity };
+      const response = await fetch("/buyer/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(item),
       });
-
-      // if item is not in the cart add the whole product object to the cart
-      // else modify the amount on the item in the cart
-      if (!itemExists) {
-        currentCart.push(currentItem);
+      if (response.ok) {
+        const json = await response.json();
+        console.log(json);
       }
-
-      setProductQuantity(0);
-      setItems(currentCart);
     }
   };
 

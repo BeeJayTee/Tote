@@ -3,6 +3,24 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const Schema = mongoose.Schema;
 
+const cartItemsArray = new Schema({
+  product: {
+    _id: String,
+    producerID: String,
+    marketID: String,
+    organization: String,
+    name: String,
+    type: String,
+    amount: Number,
+    unit: String,
+    pricePerUnit: Number,
+    description: String,
+    expireAt: String,
+    createdAt: String,
+  },
+  productQuantity: Number,
+});
+
 const buyerSchema = new Schema({
   email: {
     type: String,
@@ -13,25 +31,22 @@ const buyerSchema = new Schema({
     type: String,
     required: true,
   },
-  items: [
+  cartItems: [
     {
-      type: String,
+      _id: { type: Schema.ObjectId },
+      productName: { type: String },
+      productQuantity: { type: Number },
+      pricePerUnit: { type: Number },
+      unit: { type: String },
+      sellerName: { type: String },
+      description: { type: String },
+      marketID: { type: String },
     },
   ],
 });
 
 // static signup method
-buyerSchema.statics.signup = async function (
-  email,
-  password,
-  retypePassword,
-  organization,
-  address,
-  phone,
-  isBuyer,
-  isSeller,
-  marketID
-) {
+buyerSchema.statics.signup = async function (email, password, retypePassword) {
   // validation
   if (!email || !password) {
     throw Error("All fields must be filled");

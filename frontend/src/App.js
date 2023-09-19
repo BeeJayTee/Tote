@@ -20,17 +20,14 @@ import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import MarketManager from "./pages/Admin/MarketManager";
 import AdminManager from "./pages/Admin/AdminManager";
-import { useState } from "react";
 
 function App() {
-  const [cartList, setCartList] = useState([]);
-
   const { user } = useAuthContext();
 
   return (
     <div className="App m-auto">
       <Router>
-        <Navbar cartList={cartList} />
+        <Navbar />
         <div className="pages">
           <Routes>
             <Route
@@ -65,10 +62,7 @@ function App() {
                 user && user.userType === process.env.REACT_APP_SELLER_ID ? (
                   <SellerDashboard />
                 ) : user && user.userType === process.env.REACT_APP_BUYER_ID ? (
-                  <BuyerDashboard
-                    setCartList={setCartList}
-                    cartList={cartList}
-                  />
+                  <BuyerDashboard />
                 ) : (
                   <Navigate to="/app/login" />
                 )
