@@ -40,6 +40,7 @@ const ShoppingCart = () => {
                   <ShoppingCartTableQuantity
                     productQuantity={item.productQuantity}
                     _id={item._id}
+                    storeItems={items}
                   />
                 </td>
                 <td>

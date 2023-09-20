@@ -141,7 +141,7 @@ const addCartItem = async (req, res) => {
 
 const editCartItem = async (req, res) => {
   const buyer_id = req.user._id;
-  const { newAmount, _id } = req.body;
+  const { newAmount, oldAmount, _id } = req.body;
 
   try {
     const buyer = await Buyer.findById(buyer_id);
@@ -151,6 +151,22 @@ const editCartItem = async (req, res) => {
     });
     itemToUpdate.productQuantity = newAmount;
     buyer.save();
+
+    // add items back into the sellers product total
+    const productAmountDifference = newAmount - oldAmount;
+    const productToUpdate = await Product.findById(_id);
+    const productToUpdateAmount = productToUpdate.amount;
+    if (productAmountDifference > productToUpdateAmount) {
+      return res.status(400).json({
+        error: "not enough in stock",
+        maxOrder: productToUpdateAmount,
+      });
+    } else {
+      const updatedProduct = await Product.findByIdAndUpdate(_id, {
+        $inc: { amount: productAmountDifference * -1 },
+      });
+    }
+
     res.status(200).json({ message: "cart item updated" });
   } catch (err) {
     res.status(400).json({ error: err.message });

@@ -1,47 +1,56 @@
 import { useEffect, useState } from "react";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useShoppingCartStore } from "../../stores/shoppingCartStore";
 
-const ShoppingCartTableQuantity = ({ productQuantity, _id }) => {
+const ShoppingCartTableQuantity = ({ productQuantity, _id, storeItems }) => {
+  const [currentProductQuantity, setCurrentProductQuantity] =
+    useState(productQuantity);
   const [localProductQuantity, setLocalProductQuantity] =
     useState(productQuantity);
   const [isEdit, setIsEdit] = useState(false);
 
   const { user } = useAuthContext();
+  const setItems = useShoppingCartStore((state) => state.setItems);
 
   useEffect(() => {
-    if (localProductQuantity !== productQuantity) {
+    if (localProductQuantity !== currentProductQuantity) {
       setIsEdit(true);
     } else {
       setIsEdit(false);
     }
-  }, [localProductQuantity, productQuantity]);
+  }, [currentProductQuantity, localProductQuantity]);
 
   const handleClick = (action) => {
     if (action === "inc") {
-      return setLocalProductQuantity(localProductQuantity + 1);
+      setLocalProductQuantity(localProductQuantity + 1);
     }
     if (action === "dec" && localProductQuantity > 0) {
-      return setLocalProductQuantity(localProductQuantity - 1);
+      setLocalProductQuantity(localProductQuantity - 1);
     }
   };
 
-  const handleSubmit = async (_id) => {
-    console.log("handleSubmit");
-    console.log(_id);
-
+  const handleSubmit = async (id) => {
     const response = await fetch("/buyer/cart/edit", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ newAmount: localProductQuantity, _id: _id }),
+      body: JSON.stringify({
+        newAmount: localProductQuantity,
+        oldAmount: currentProductQuantity,
+        _id: id,
+      }),
     });
-    // eslint-disable-next-line no-unused-vars
     const json = await response.json();
     if (response.ok) {
+      setCurrentProductQuantity(localProductQuantity);
+      setItems(storeItems);
+      setCurrentProductQuantity(localProductQuantity);
       setIsEdit(false);
+    } else {
+      console.log(json);
     }
   };
 
