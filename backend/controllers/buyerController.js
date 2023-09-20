@@ -132,11 +132,28 @@ const addCartItem = async (req, res) => {
         const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
           $inc: { amount: -itemObject.productQuantity },
         });
-        console.log(updatedItem);
       }
 
       return res.status(200).json(updatedItem);
     } catch (error) {}
+  }
+};
+
+const editCartItem = async (req, res) => {
+  const buyer_id = req.user._id;
+  const { newAmount, _id } = req.body;
+
+  try {
+    const buyer = await Buyer.findById(buyer_id);
+    const cartItems = buyer.cartItems;
+    const itemToUpdate = cartItems.find((item) => {
+      return item._id.toString() === _id.toString();
+    });
+    itemToUpdate.productQuantity = newAmount;
+    buyer.save();
+    res.status(200).json({ message: "cart item updated" });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
 
@@ -145,4 +162,5 @@ module.exports = {
   loginBuyer,
   getCartItems,
   addCartItem,
+  editCartItem,
 };

@@ -5,6 +5,7 @@ import MarketSelect from "../components/buyerComponents/MarketSelect";
 import FilterForm from "../components/buyerComponents/FilterForm";
 import { useLogout } from "../hooks/useLogout";
 import { useShoppingCartStore } from "../stores/shoppingCartStore";
+import ShoppingCart from "../components/buyerComponents/ShoppingCart";
 
 const BuyerDashboard = ({ buyerDisplay }) => {
   const [allProducts, setAllProducts] = useState([]);
@@ -168,6 +169,11 @@ const BuyerDashboard = ({ buyerDisplay }) => {
         </div>
       )}
       {/* shopping cart display */}
+      {buyerDisplay === "cart" && (
+        <div>
+          <ShoppingCart />
+        </div>
+      )}
     </div>
   );
 };
