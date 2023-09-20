@@ -1,4 +1,5 @@
 const Buyer = require("../models/buyerModel");
+const Product = require("../models/productModel");
 const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {
@@ -51,10 +52,9 @@ const getCartItems = async (req, res) => {
 const addCartItem = async (req, res) => {
   const _id = req.user._id;
   const item = req.body;
-  console.log(item);
-  const buyer = await Buyer.findById(_id);
-  const buyerCartItems = buyer.cartItems;
 
+  // set up an item object with all of the properties of the request body object item
+  // use this as the new item to be added to the db
   const itemObject = {
     _id: item.product._id,
     productName: item.product.name,
@@ -66,20 +66,78 @@ const addCartItem = async (req, res) => {
     marketID: item.product.marketID,
   };
 
+  const buyer = await Buyer.findById(_id);
+  const buyerCartItems = buyer.cartItems;
+
   // check to see if there is something already in the cart: easy logic execution
   if (buyerCartItems.length === 0) {
+    console.log("no length to the list");
     try {
       const updatedItem = await Buyer.findByIdAndUpdate(_id, {
         $push: { cartItems: itemObject },
       });
-      res.status(200).json({ updatedItem });
+      // if item was successfully updated remove from product total in db
+      if (updatedItem) {
+        const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
+          $inc: { amount: -itemObject.productQuantity },
+        });
+        console.log(updatedItem);
+      }
+      return res.status(200).json({ updatedItem });
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return res.status(400).json({ error: err.message });
     }
   }
 
   // if there are items in the cart, check to see if th item exists, if it exists, add to it, if it doesn't then add the item to the cart
-  console.log("search and find");
+  const itemExist = buyerCartItems.find((item) => {
+    return itemObject._id === item._id.toString();
+  });
+
+  // item does not exist in the db, add the new item
+  if (!itemExist) {
+    console.log("item doesn't exist, adding it to the list");
+    try {
+      const updatedItem = await Buyer.findByIdAndUpdate(_id, {
+        $push: { cartItems: itemObject },
+      });
+      // if item was successfully updated remove from product total in db
+      if (updatedItem) {
+        const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
+          $inc: { amount: -itemObject.productQuantity },
+        });
+        console.log(updatedItem);
+      }
+      return res.status(200).json({ updatedItem });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
+  } else {
+    console.log("item exists in the list, editing the quantity");
+    // update the local instance of buyerCartItems
+    for (let i = 0; i < buyerCartItems.length; i++) {
+      if (buyerCartItems[i]._id.toString() === itemObject._id) {
+        buyerCartItems[i].productQuantity += itemObject.productQuantity;
+        break;
+      }
+    }
+
+    try {
+      const updatedItem = await Buyer.findByIdAndUpdate(_id, {
+        $set: { cartItems: buyerCartItems },
+      });
+
+      // if item was successfully updated remove from product total in db
+      if (updatedItem) {
+        const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
+          $inc: { amount: -itemObject.productQuantity },
+        });
+        console.log(updatedItem);
+      }
+
+      return res.status(200).json(updatedItem);
+    } catch (error) {}
+  }
 };
 
 module.exports = {

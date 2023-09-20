@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useShoppingCartStore } from "../../stores/shoppingCartStore";
 
 const ProductCard = ({ product, index }) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const [productUnit, setProductUnit] = useState(null);
 
   const { user } = useAuthContext();
+  const getDbItems = useShoppingCartStore((state) => state.getDbItems);
 
   useEffect(() => {
     // sets the proper unit for the product card display
@@ -61,8 +63,10 @@ const ProductCard = ({ product, index }) => {
         body: JSON.stringify(item),
       });
       if (response.ok) {
+        // eslint-disable-next-line no-unused-vars
         const json = await response.json();
-        console.log(json);
+        getDbItems(user.token);
+        console.log("cart updated");
       }
     }
   };
