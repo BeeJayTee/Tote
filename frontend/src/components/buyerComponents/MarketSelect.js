@@ -30,18 +30,15 @@ const MarketSelect = ({ marketID, setMarketID }) => {
 
   return (
     <div className="MarketSelect">
-      <div className="dropdown-container text-center mb-50">
-        <div className="dropdown dropdown-hover">
-          <label
-            tabIndex={0}
-            className="btn m-1 bg-primary hover:bg-primary-focus"
-          >
+      <div className="absolute mt-[-15px] ml-[5px] text-xs text-stone-700">
+        select market
+      </div>
+      <div className="dropdown-container text-center">
+        <details className="dropdown">
+          <summary className="m-1 btn bg-primary hover:bg-primary">
             {marketName}
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
+          </summary>
+          <ul className="shadow menu dropdown-content z-[1] rounded-box w-fit bg-secondary-500 text-primary">
             {markets &&
               markets.map((market, index) => (
                 <li key={index}>
@@ -51,7 +48,7 @@ const MarketSelect = ({ marketID, setMarketID }) => {
                 </li>
               ))}
           </ul>
-        </div>
+        </details>
       </div>
     </div>
   );

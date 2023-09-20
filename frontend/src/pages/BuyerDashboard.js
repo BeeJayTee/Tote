@@ -6,7 +6,7 @@ import FilterForm from "../components/buyerComponents/FilterForm";
 import { useLogout } from "../hooks/useLogout";
 import { useShoppingCartStore } from "../stores/shoppingCartStore";
 
-const BuyerDashboard = () => {
+const BuyerDashboard = ({ buyerDisplay }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState([]);
   const [producerNames, setProducerNames] = useState([]);
@@ -100,7 +100,8 @@ const BuyerDashboard = () => {
       let products = allProducts;
       if (query.length) {
         products = products.filter((product) => {
-          return product.name.startsWith(query);
+          const productName = product.name.toLowerCase();
+          return productName.startsWith(query.toLowerCase());
         });
         setProductsMessage(null);
       }
@@ -120,6 +121,7 @@ const BuyerDashboard = () => {
       setDisplayProducts(products);
     };
 
+    // determine the action being executed and call setDisplayProductsReducer with the apporpriate actions secquence
     switch (type) {
       case "query":
         if (input === "") {
@@ -141,23 +143,31 @@ const BuyerDashboard = () => {
 
   return (
     <div className="BuyerDashboard container m-auto">
-      <MarketSelect marketID={marketID} setMarketID={setMarketID} />
+      {buyerDisplay === "market" && (
+        <div>
+          {/* this is the market area to add items to cart */}
+          <div className="flex lg:gap-4 items-center w-fit m-auto">
+            <MarketSelect marketID={marketID} setMarketID={setMarketID} />
 
-      {/* filter form */}
-      <FilterForm
-        hidden={hidden}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        handleChange={handleChange}
-        producerNames={producerNames}
-        setProducerName={setProducerName}
-        setProductType={setProductType}
-      />
-      <ProductTable
-        hidden={hidden}
-        products={displayProducts}
-        productsMessage={productsMessage}
-      />
+            {/* filter form */}
+            <FilterForm
+              hidden={hidden}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              handleChange={handleChange}
+              producerNames={producerNames}
+              setProducerName={setProducerName}
+              setProductType={setProductType}
+            />
+          </div>
+          <ProductTable
+            hidden={hidden}
+            products={displayProducts}
+            productsMessage={productsMessage}
+          />
+        </div>
+      )}
+      {/* shopping cart display */}
     </div>
   );
 };

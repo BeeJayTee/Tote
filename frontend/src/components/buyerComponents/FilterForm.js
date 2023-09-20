@@ -17,12 +17,12 @@ const FilterForm = ({
       <form
         className={`${
           hidden === "hidden" ? "hidden" : "form-control"
-        } flex flex-row justify-center`}
+        } flex flex-col items-center justify-center`}
       >
-        <label className="label">
+        <label className="label text-xs text-stone-500 font-semibold w-fit">
           Search
           <input
-            className="input input-bordered mr-5 ml-2"
+            className="input input-xs lg:input-sm text-stone-700 input-bordered border-primary mr-5 ml-2"
             type="text"
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -33,10 +33,10 @@ const FilterForm = ({
         </label>
 
         {/* producer name dropdown */}
-        <label className="label">
+        <label className="label text-xs text-stone-500 font-semibold w-fit">
           Producer
           <select
-            className="select select-bordered mr-5 ml-2"
+            className="input input-xs lg:input-sm text-stone-700 input-bordered border-primary mr-5 ml-2"
             name="producers"
             onChange={(e) => {
               setProducerName(e.target.value);
@@ -53,10 +53,10 @@ const FilterForm = ({
         </label>
 
         {/* product type dropdown */}
-        <label className="label">
+        <label className="label text-xs text-stone-500 font-semibold w-fit">
           Product Type
           <select
-            className="select select-bordered mr-5 ml-2"
+            className="input input-xs lg:input-sm text-stone-700 input-bordered border-primary mr-5 ml-2"
             name="productTypes"
             onChange={(e) => {
               setProductType(e.target.value);

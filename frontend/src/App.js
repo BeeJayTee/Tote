@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useState } from "react";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 // global styles
@@ -22,12 +23,14 @@ import MarketManager from "./pages/Admin/MarketManager";
 import AdminManager from "./pages/Admin/AdminManager";
 
 function App() {
+  const [buyerDisplay, setBuyerDisplay] = useState("market");
+
   const { user } = useAuthContext();
 
   return (
     <div className="App m-auto">
       <Router>
-        <Navbar />
+        <Navbar setBuyerDisplay={setBuyerDisplay} buyerDisplay={buyerDisplay} />
         <div className="pages">
           <Routes>
             <Route
@@ -62,7 +65,7 @@ function App() {
                 user && user.userType === process.env.REACT_APP_SELLER_ID ? (
                   <SellerDashboard />
                 ) : user && user.userType === process.env.REACT_APP_BUYER_ID ? (
-                  <BuyerDashboard />
+                  <BuyerDashboard buyerDisplay={buyerDisplay} />
                 ) : (
                   <Navigate to="/app/login" />
                 )

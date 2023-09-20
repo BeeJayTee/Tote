@@ -6,7 +6,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../styles/navbar.css";
 import { useShoppingCartStore } from "../stores/shoppingCartStore";
 
-const Navbar = () => {
+const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
   const items = useShoppingCartStore((state) => state.items);
 
   const { logout } = useLogout();
@@ -16,8 +16,12 @@ const Navbar = () => {
     logout();
   };
 
+  const handleCartClick = (display) => {
+    setBuyerDisplay(display);
+  };
+
   return (
-    <header>
+    <header className="px-10 text-xs lg:text-sm">
       <div className="main-header">
         <Link to="/">Home</Link>
         <nav>
@@ -26,9 +30,29 @@ const Navbar = () => {
             <div className="loggedin-container">
               {/* displays if logged in user is a buyer user type */}
               {user && user.userType === process.env.REACT_APP_BUYER_ID && (
-                <div className="buyer-options">
-                  <FontAwesomeIcon icon={faCartShopping} />
-                  <span>{items.length}</span>
+                <div>
+                  {/* this displays when the market is displayed */}
+                  {buyerDisplay === "market" && (
+                    <div
+                      className="buyer-options hover:cursor-pointer text-success-content hover:text-primary"
+                      onClick={() => handleCartClick("cart")}
+                    >
+                      <FontAwesomeIcon icon={faCartShopping} />
+                      <span className="opacity-50 ml-[2px]">
+                        {items.length}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* this displays when the cart is displayed */}
+                  {buyerDisplay === "cart" && (
+                    <div
+                      className="buyer-options hover:cursor-pointer text-success-content hover:text-primary"
+                      onClick={() => handleCartClick("market")}
+                    >
+                      <p className="font-semibold">product select</p>
+                    </div>
+                  )}
                 </div>
               )}
               {/* displays for admins */}
