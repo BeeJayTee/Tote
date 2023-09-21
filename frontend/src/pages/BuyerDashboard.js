@@ -7,7 +7,7 @@ import { useLogout } from "../hooks/useLogout";
 import { useShoppingCartStore } from "../stores/shoppingCartStore";
 import ShoppingCart from "../components/buyerComponents/ShoppingCart";
 
-const BuyerDashboard = ({ buyerDisplay }) => {
+const BuyerDashboard = ({ buyerDisplay, setBuyerDisplay }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState([]);
   const [producerNames, setProducerNames] = useState([]);
@@ -171,7 +171,7 @@ const BuyerDashboard = ({ buyerDisplay }) => {
       {/* shopping cart display */}
       {buyerDisplay === "cart" && (
         <div>
-          <ShoppingCart />
+          <ShoppingCart setBuyerDisplay={setBuyerDisplay} />
         </div>
       )}
     </div>

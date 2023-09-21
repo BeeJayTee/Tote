@@ -25,7 +25,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-base-200 py-32">
+      <div className="bg-primary-focus py-32">
         <div className="flex flex-col items-center gap-y-8 container m-auto lg:flex-row lg:justify-around lg:gap-x-8">
           <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
             <figure className="px-10 pt-10">

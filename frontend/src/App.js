@@ -65,7 +65,10 @@ function App() {
                 user && user.userType === process.env.REACT_APP_SELLER_ID ? (
                   <SellerDashboard />
                 ) : user && user.userType === process.env.REACT_APP_BUYER_ID ? (
-                  <BuyerDashboard buyerDisplay={buyerDisplay} />
+                  <BuyerDashboard
+                    buyerDisplay={buyerDisplay}
+                    setBuyerDisplay={setBuyerDisplay}
+                  />
                 ) : (
                   <Navigate to="/app/login" />
                 )

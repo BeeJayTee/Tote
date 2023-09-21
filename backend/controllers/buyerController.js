@@ -139,6 +139,7 @@ const addCartItem = async (req, res) => {
   }
 };
 
+// edit an item amount in the cart
 const editCartItem = async (req, res) => {
   const buyer_id = req.user._id;
   const { newAmount, oldAmount, _id } = req.body;
@@ -173,10 +174,29 @@ const editCartItem = async (req, res) => {
   }
 };
 
+const deleteCartItem = async (req, res) => {
+  const user_id = req.user._id;
+  const { _id } = req.body;
+
+  try {
+    const buyer = await Buyer.findById(user_id);
+    const cartItems = buyer.cartItems;
+    const cartItemsAfterDelete = cartItems.filter((item) => {
+      return item._id.toString() !== _id.toString();
+    });
+    buyer.cartItems = cartItemsAfterDelete;
+    buyer.save();
+    res.status(200).json({ message: "item successfully removed from cart" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   signupBuyer,
   loginBuyer,
   getCartItems,
   addCartItem,
   editCartItem,
+  deleteCartItem,
 };

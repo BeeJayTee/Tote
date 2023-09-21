@@ -8,6 +8,7 @@ const {
   getCartItems,
   addCartItem,
   editCartItem,
+  deleteCartItem,
 } = require("../controllers/buyerController");
 
 const router = express.Router();
@@ -26,6 +27,9 @@ router.get("/cart", requireBuyerAuth, getCartItems);
 
 // add item to shopping cart
 router.post("/cart", requireBuyerAuth, addCartItem);
+
+// delete item from shopping cart
+router.delete("/cart", requireBuyerAuth, deleteCartItem);
 
 // edit a current cart item from the shopping cart
 router.patch("/cart/edit", requireBuyerAuth, editCartItem);
