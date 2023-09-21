@@ -11,7 +11,7 @@ const ShoppingCartTableQuantity = ({ productQuantity, _id, storeItems }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const { user } = useAuthContext();
-  const setItems = useShoppingCartStore((state) => state.setItems);
+  const getDbItems = useShoppingCartStore((state) => state.getDbItems);
 
   useEffect(() => {
     if (localProductQuantity !== currentProductQuantity) {
@@ -46,8 +46,7 @@ const ShoppingCartTableQuantity = ({ productQuantity, _id, storeItems }) => {
     const json = await response.json();
     if (response.ok) {
       setCurrentProductQuantity(localProductQuantity);
-      setItems(storeItems);
-      setCurrentProductQuantity(localProductQuantity);
+      getDbItems(user.token);
       setIsEdit(false);
     } else {
       console.log(json);

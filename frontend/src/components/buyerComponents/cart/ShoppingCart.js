@@ -2,6 +2,7 @@ import ShoppingCartTableQuantity from "./ShoppingCartTableQuantity";
 
 import { useShoppingCartStore } from "../../../stores/shoppingCartStore";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import ShoppingCartTotal from "./ShoppingCartTotal";
 
 const ShoppingCart = ({ setBuyerDisplay }) => {
   const items = useShoppingCartStore((state) => state.items);
@@ -31,65 +32,70 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
   };
 
   return (
-    <div className="ShoppingCart mt-24">
+    <div className="ShoppingCart mt-24 mx-2 lg:mx-0">
       {/* renders if there are items in the shopping cart */}
-
       {items.length > 0 && (
-        <div className="lg:w-[65%]">
-          <div className="overflow-x-auto">
-            <table className="table table-zebra w-full">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th></th>
-                  <th className="flex flex-col">
-                    <span>Product Name</span>
-                    <span className="text-primary lowercase font-normal">
-                      Seller Name
-                    </span>
-                  </th>
-                  <th>Quantity</th>
-                  <th className="flex flex-col">
-                    <span>Price</span>
-                    <span className="text-primary lowercase font-normal">
-                      per unit
-                    </span>
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((item, index) => (
-                  <tr key={item._id}>
-                    <th>{index + 1}</th>
-                    <td className="flex flex-col">
-                      <span>{item.productName}</span>
-                      <span className="text-xs">{item.sellerName}</span>
-                    </td>
-                    <td>
-                      <ShoppingCartTableQuantity
-                        productQuantity={item.productQuantity}
-                        _id={item._id}
-                        storeItems={items}
-                      />
-                    </td>
-                    <td>
-                      ${(Math.round(item.pricePerUnit * 100) / 100).toFixed(2)}
-                    </td>
-                    <td>
-                      <button
-                        className="p-2"
-                        onClick={() => {
-                          handleDelete(item._id);
-                        }}
-                      >
-                        x
-                      </button>
-                    </td>
+        <div className="flex flex-col gap-8 lg:flex-row justify-between">
+          <div className="lg:w-[65%]">
+            <div className="overflow-x-auto">
+              <table className="table table-zebra w-full">
+                {/* head */}
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th className="flex flex-col">
+                      <span>Product Name</span>
+                      <span className="text-primary lowercase font-normal">
+                        Seller Name
+                      </span>
+                    </th>
+                    <th>Quantity</th>
+                    <th className="flex flex-col">
+                      <span>Price</span>
+                      <span className="text-primary lowercase font-normal">
+                        per unit
+                      </span>
+                    </th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {items.map((item, index) => (
+                    <tr key={item._id}>
+                      <th>{index + 1}</th>
+                      <td className="flex flex-col">
+                        <span>{item.productName}</span>
+                        <span className="text-xs">{item.sellerName}</span>
+                      </td>
+                      <td>
+                        <ShoppingCartTableQuantity
+                          productQuantity={item.productQuantity}
+                          _id={item._id}
+                          storeItems={items}
+                        />
+                      </td>
+                      <td>
+                        $
+                        {(Math.round(item.pricePerUnit * 100) / 100).toFixed(2)}
+                      </td>
+                      <td>
+                        <button
+                          className="p-2"
+                          onClick={() => {
+                            handleDelete(item._id);
+                          }}
+                        >
+                          x
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <ShoppingCartTotal />
           </div>
         </div>
       )}
