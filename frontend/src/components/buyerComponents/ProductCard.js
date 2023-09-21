@@ -62,11 +62,13 @@ const ProductCard = ({ product, index }) => {
         },
         body: JSON.stringify(item),
       });
+      const json = await response.json();
       if (response.ok) {
-        // eslint-disable-next-line no-unused-vars
-        const json = await response.json();
         getDbItems(user.token);
+        setProductQuantity(0);
         console.log("cart updated");
+      } else {
+        console.log(json);
       }
     }
   };

@@ -95,15 +95,19 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
       )}
 
       {/* renders if there are no items in the shopping cart */}
-      <div className="text-center border-4 border-stone-300 w-fit m-auto px-12 py-12">
-        <h4 className="text-2xl">There are no items in your shopping cart!</h4>
-        <button
-          className="text-primary hover:text-primary-focus font-bold"
-          onClick={() => setBuyerDisplay("market")}
-        >
-          Add Some Items
-        </button>
-      </div>
+      {items.length === 0 && (
+        <div className="text-center border-4 border-stone-300 w-fit m-auto px-12 py-12">
+          <h4 className="text-2xl">
+            There are no items in your shopping cart!
+          </h4>
+          <button
+            className="text-primary hover:text-primary-focus font-bold"
+            onClick={() => setBuyerDisplay("market")}
+          >
+            Add Some Items
+          </button>
+        </div>
+      )}
     </div>
   );
 };

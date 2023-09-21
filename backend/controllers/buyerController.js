@@ -68,8 +68,15 @@ const addCartItem = async (req, res) => {
 
   const buyer = await Buyer.findById(_id);
   const buyerCartItems = buyer.cartItems;
+  const product = await Product.findById(itemObject._id);
 
-  // check to see if there is something already in the cart: easy logic execution
+  if (itemObject.productQuantity > product.amount) {
+    return res
+      .status(400)
+      .json({ error: "not enough of this product in stock" });
+  }
+
+  // check to see if cart is empty: easy logic
   if (buyerCartItems.length === 0) {
     console.log("no length to the list");
     try {
@@ -78,12 +85,10 @@ const addCartItem = async (req, res) => {
       });
       // if item was successfully updated remove from product total in db
       if (updatedItem) {
-        const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
-          $inc: { amount: -itemObject.productQuantity },
-        });
-        console.log(updatedItem);
+        product.amount = product.amount - itemObject.productQuantity;
+        product.save();
       }
-      return res.status(200).json({ updatedItem });
+      return res.status(200).json({ message: "item added to cart" });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }
@@ -98,17 +103,16 @@ const addCartItem = async (req, res) => {
   if (!itemExist) {
     console.log("item doesn't exist, adding it to the list");
     try {
+      // if item was successfully updated remove from product total in db
       const updatedItem = await Buyer.findByIdAndUpdate(_id, {
         $push: { cartItems: itemObject },
       });
-      // if item was successfully updated remove from product total in db
+
       if (updatedItem) {
-        const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
-          $inc: { amount: -itemObject.productQuantity },
-        });
-        console.log(updatedItem);
+        product.amount = product.amount - itemObject.productQuantity;
+        product.save();
       }
-      return res.status(200).json({ updatedItem });
+      return res.status(200).json({ message: "item added to cart" });
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }
@@ -129,12 +133,11 @@ const addCartItem = async (req, res) => {
 
       // if item was successfully updated remove from product total in db
       if (updatedItem) {
-        const updatedProduct = await Product.findByIdAndUpdate(itemObject._id, {
-          $inc: { amount: -itemObject.productQuantity },
-        });
+        product.amount = product.amount - itemObject.productQuantity;
+        product.save();
       }
 
-      return res.status(200).json(updatedItem);
+      return res.status(200).json({ message: "cart quantity updated" });
     } catch (error) {}
   }
 };
@@ -181,11 +184,23 @@ const deleteCartItem = async (req, res) => {
   try {
     const buyer = await Buyer.findById(user_id);
     const cartItems = buyer.cartItems;
+    let itemToDelete;
+
+    // create a local image of the shopping cart where the item to delete is filtered out
     const cartItemsAfterDelete = cartItems.filter((item) => {
+      // sets itemToDelete variable to give us access to it later
+      if (item._id.toString() === _id.toString()) {
+        itemToDelete = item;
+      }
       return item._id.toString() !== _id.toString();
     });
     buyer.cartItems = cartItemsAfterDelete;
     buyer.save();
+
+    // add quantity back to product stock
+    const product = await Product.findById(_id);
+    product.amount += itemToDelete.productQuantity;
+    product.save();
     res.status(200).json({ message: "item successfully removed from cart" });
   } catch (error) {
     res.status(400).json({ error: error.message });
