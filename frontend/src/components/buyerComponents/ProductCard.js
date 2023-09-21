@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useShoppingCartStore } from "../../stores/shoppingCartStore";
+import { useCapitalize } from "../../hooks/useCapitalize";
 
 const ProductCard = ({ product, index }) => {
   const [productQuantity, setProductQuantity] = useState(0);
@@ -8,6 +9,7 @@ const ProductCard = ({ product, index }) => {
 
   const { user } = useAuthContext();
   const getDbItems = useShoppingCartStore((state) => state.getDbItems);
+  const { capitalize } = useCapitalize();
 
   useEffect(() => {
     // sets the proper unit for the product card display
@@ -75,9 +77,9 @@ const ProductCard = ({ product, index }) => {
 
   return (
     <div className="ProductCard">
-      <div className="card min-w-[400px] lg:min-w-none bg-base-100 text-neutral border border-neutral shadow-xl py-3 px-3">
+      <div className="card min-w-[400px] lg:min-w-none bg-base-100 text-neutral border border-neutral shadow-xl py-3 px-3 border-4 border-primary-focus">
         {/* product type badge */}
-        <div className="badge badge-outline badge-primary py-3 mb-3 hover:bg-primary hover:text-white cursor-pointer">
+        <div className="badge badge-xs badge-outline badge-primary py-3 mb-3 hover:bg-primary hover:text-white cursor-pointer">
           {product.type}
         </div>
         <div className="flex flex-row items-center justify-between gap-8">
@@ -85,11 +87,14 @@ const ProductCard = ({ product, index }) => {
             {/* organization name */}
             <p className="text-xs">{product.organization}</p>
             {/* product name */}
-            <h2 className="card-title text-xl">{product.name}</h2>
+            <h2 className="card-title text-xl font-extrabold">
+              {capitalize(product.name)}
+            </h2>
           </div>
           <div>
-            <p>
-              ${product.pricePerUnit} / {productUnit}
+            <p className="text-sm">
+              ${(Math.round(product.pricePerUnit * 100) / 100).toFixed(2)} /{" "}
+              {productUnit}
             </p>
           </div>
 

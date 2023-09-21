@@ -35,7 +35,7 @@ const MarketSelect = ({ marketID, setMarketID }) => {
       </div>
       <div className="dropdown-container text-center">
         <details className="dropdown">
-          <summary className="m-1 btn bg-primary hover:bg-primary">
+          <summary className="m-1 btn bg-primary hover:bg-primary text-xs md:text-sm">
             {marketName}
           </summary>
           <ul className="shadow menu dropdown-content z-[1] rounded-box w-fit bg-secondary-500 text-primary">

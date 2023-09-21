@@ -34,7 +34,7 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
                   {/* this displays when the market is displayed */}
                   {buyerDisplay === "market" && (
                     <div
-                      className="buyer-options hover:cursor-pointer text-success-content hover:text-primary"
+                      className="buyer-options hover:cursor-pointer text-primary hover:text-primary-focus text-base"
                       onClick={() => handleCartClick("cart")}
                     >
                       <FontAwesomeIcon icon={faCartShopping} />
@@ -47,7 +47,7 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
                   {/* this displays when the cart is displayed */}
                   {buyerDisplay === "cart" && (
                     <div
-                      className="buyer-options hover:cursor-pointer text-success-content hover:text-primary"
+                      className="buyer-options hover:cursor-pointer text-primary hover:text-primary-focus"
                       onClick={() => handleCartClick("market")}
                     >
                       <p className="font-semibold">product select</p>

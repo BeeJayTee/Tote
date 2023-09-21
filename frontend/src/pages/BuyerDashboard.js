@@ -5,7 +5,7 @@ import MarketSelect from "../components/buyerComponents/MarketSelect";
 import FilterForm from "../components/buyerComponents/FilterForm";
 import { useLogout } from "../hooks/useLogout";
 import { useShoppingCartStore } from "../stores/shoppingCartStore";
-import ShoppingCart from "../components/buyerComponents/ShoppingCart";
+import ShoppingCart from "../components/buyerComponents/cart/ShoppingCart";
 
 const BuyerDashboard = ({ buyerDisplay, setBuyerDisplay }) => {
   const [allProducts, setAllProducts] = useState([]);
@@ -147,7 +147,7 @@ const BuyerDashboard = ({ buyerDisplay, setBuyerDisplay }) => {
       {buyerDisplay === "market" && (
         <div>
           {/* this is the market area to add items to cart */}
-          <div className="flex lg:gap-4 items-center w-fit m-auto">
+          <div className="flex gap-2 lg:gap-12 items-center w-fit m-auto">
             <MarketSelect marketID={marketID} setMarketID={setMarketID} />
 
             {/* filter form */}

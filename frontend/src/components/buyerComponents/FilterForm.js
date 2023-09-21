@@ -17,7 +17,7 @@ const FilterForm = ({
       <form
         className={`${
           hidden === "hidden" ? "hidden" : "form-control"
-        } flex flex-col items-center justify-center`}
+        } flex flex-col md:items-start items-end`}
       >
         <label className="label text-xs text-stone-500 font-semibold w-fit">
           Search

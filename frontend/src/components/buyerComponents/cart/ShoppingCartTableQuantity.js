@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { useShoppingCartStore } from "../../stores/shoppingCartStore";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useShoppingCartStore } from "../../../stores/shoppingCartStore";
 
 const ShoppingCartTableQuantity = ({ productQuantity, _id, storeItems }) => {
   const [currentProductQuantity, setCurrentProductQuantity] =

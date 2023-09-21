@@ -1,7 +1,7 @@
 import ShoppingCartTableQuantity from "./ShoppingCartTableQuantity";
 
-import { useShoppingCartStore } from "../../stores/shoppingCartStore";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useShoppingCartStore } from "../../../stores/shoppingCartStore";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const ShoppingCart = ({ setBuyerDisplay }) => {
   const items = useShoppingCartStore((state) => state.items);
@@ -35,7 +35,7 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
       {/* renders if there are items in the shopping cart */}
 
       {items.length > 0 && (
-        <div className="w-[65%]">
+        <div className="lg:w-[65%]">
           <div className="overflow-x-auto">
             <table className="table table-zebra w-full">
               {/* head */}
