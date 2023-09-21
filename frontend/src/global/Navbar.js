@@ -23,7 +23,11 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
   return (
     <header className="px-10 text-xs lg:text-sm">
       <div className="main-header">
-        <Link to="/">Home</Link>
+        <Link to="/">
+          <p className="text-2xl font-['Helvetica'] text-primary-focus hover:text-primary">
+            Tote
+          </p>
+        </Link>
         <nav>
           {/* display options logged in users */}
           {user && (
@@ -33,15 +37,15 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
                 <div>
                   {/* this displays when the market is displayed */}
                   {buyerDisplay === "market" && (
-                    <div
-                      className="buyer-options hover:cursor-pointer text-primary hover:text-primary-focus text-base"
+                    <button
+                      className="btn btn-primary btn-sm buyer-options hover:cursor-pointer text-primary hover:text-primary-focus text-base"
                       onClick={() => handleCartClick("cart")}
                     >
-                      <FontAwesomeIcon icon={faCartShopping} />
-                      <span className="opacity-50 ml-[2px]">
-                        {items.length}
-                      </span>
-                    </div>
+                      <div className="text-primary-content">
+                        <FontAwesomeIcon icon={faCartShopping} />
+                        <span className="text-xs ml-2">{items.length}</span>
+                      </div>
+                    </button>
                   )}
 
                   {/* this displays when the cart is displayed */}
@@ -50,7 +54,9 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
                       className="buyer-options hover:cursor-pointer text-primary hover:text-primary-focus"
                       onClick={() => handleCartClick("market")}
                     >
-                      <p className="font-semibold">product select</p>
+                      <button className="btn btn-sm btn-primary text-xs">
+                        product select
+                      </button>
                     </div>
                   )}
                 </div>
@@ -66,15 +72,24 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
                   </li>
                 </ul>
               )}
-              <span>{user.email}</span>
-              <button onClick={handleClick}>Logout</button>
+              <span className="font-extralight">{user.email}</span>
+              <button
+                onClick={handleClick}
+                className="font-bold text-primary hover:text-primary-focus"
+              >
+                Logout
+              </button>
             </div>
           )}
           {/* displays for none logged in users */}
           {!user && (
             <div className="guest-options">
-              <Link to="/app/login">Login</Link>
-              <Link to="/app/signup">Signup</Link>
+              <Link to="/app/login">
+                <p className="text-primary hover:text-primary-focus">Login</p>
+              </Link>
+              <Link to="/app/signup">
+                <p className="text-primary hover:text-primary-focus">Signup</p>
+              </Link>
             </div>
           )}
         </nav>

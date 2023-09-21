@@ -21,7 +21,7 @@ const ShoppingCartTotal = () => {
   }, [items]);
 
   return (
-    <div className="border-4 border-base-200 rounded-md px-8 py-4 text-secondary-content">
+    <div className="border-4 border-primary-focus rounded-md px-8 md:px-32 lg:px-8 py-4 text-secondary-content xl:mr-32">
       <h4 className="font-bold text-lg mb-8">Order Summary</h4>
       <div className="flex gap-12 text-sm justify-between mb-4">
         <span className="font-extralight">Number of Items</span>

@@ -146,6 +146,10 @@ const BuyerDashboard = ({ buyerDisplay, setBuyerDisplay }) => {
     <div className="BuyerDashboard container m-auto">
       {buyerDisplay === "market" && (
         <div>
+          <h2 className="font-['Helvetica'] text-center text-3xl font-thin">
+            Tote Marketplace
+          </h2>
+          <div className="divider"></div>
           {/* this is the market area to add items to cart */}
           <div className="flex gap-2 lg:gap-12 items-center w-fit m-auto">
             <MarketSelect marketID={marketID} setMarketID={setMarketID} />
@@ -171,6 +175,10 @@ const BuyerDashboard = ({ buyerDisplay, setBuyerDisplay }) => {
       {/* shopping cart display */}
       {buyerDisplay === "cart" && (
         <div>
+          <h2 className="font-['Helvetica'] text-center text-3xl font-thin">
+            Shopping Cart
+          </h2>
+          <div className="divider"></div>
           <ShoppingCart setBuyerDisplay={setBuyerDisplay} />
         </div>
       )}

@@ -35,14 +35,18 @@ const MarketSelect = ({ marketID, setMarketID }) => {
       </div>
       <div className="dropdown-container text-center">
         <details className="dropdown">
-          <summary className="m-1 btn bg-primary hover:bg-primary text-xs md:text-sm">
+          <summary className="m-1 btn bg-primary hover:bg-primary-focus text-xs md:text-sm">
             {marketName}
           </summary>
           <ul className="shadow menu dropdown-content z-[1] rounded-box w-fit bg-secondary-500 text-primary">
             {markets &&
               markets.map((market, index) => (
                 <li key={index}>
-                  <option value={market.marketID} onClick={handleClick}>
+                  <option
+                    value={market.marketID}
+                    onClick={handleClick}
+                    className="hover:text-primary-focus hover:bg-base-100"
+                  >
                     {market.marketName}
                   </option>
                 </li>

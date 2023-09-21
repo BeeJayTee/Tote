@@ -32,10 +32,16 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
   };
 
   return (
-    <div className="ShoppingCart mt-24 mx-2 lg:mx-0">
+    <div className="ShoppingCart mt-8 mx-2 lg:mx-0">
+      <button
+        className="mb-4 text-primary hover:text-primary-focus"
+        onClick={() => setBuyerDisplay("market")}
+      >
+        ← back to market
+      </button>
       {/* renders if there are items in the shopping cart */}
       {items.length > 0 && (
-        <div className="flex flex-col gap-8 lg:flex-row justify-between">
+        <div className="flex flex-col-reverse gap-8 lg:flex-row justify-between">
           <div className="lg:w-[65%]">
             <div className="overflow-x-auto">
               <table className="table table-zebra w-full">

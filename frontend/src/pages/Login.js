@@ -16,7 +16,9 @@ const Login = () => {
       className="login-form container m-auto flex flex-col items-center"
       onSubmit={handleSubmit}
     >
-      <h3 className="text-xl">Log In</h3>
+      <h3 className="font-['Helvetica'] text-center text-3xl font-thin">
+        Log In
+      </h3>
 
       <div className="form-control w-full max-w-xs mb-4">
         <label className="label">
