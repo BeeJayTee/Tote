@@ -1,8 +1,9 @@
 const Admin = require("../models/adminModel");
+const Market = require("../models/marketModel");
 const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "14d" });
+  return jwt.sign({ _id }, process.env.ADMIN_SECRET, { expiresIn: "14d" });
 };
 
 // login admin
@@ -34,4 +35,16 @@ const signupAdmin = async (req, res) => {
   }
 };
 
-module.exports = { loginAdmin, signupAdmin };
+// get all markets
+const getMarkets = async (req, res) => {
+  console.log("getMarkets");
+  try {
+    const markets = await Market.find({}).sort({ createdAt: -1 });
+
+    res.status(200).json(markets);
+  } catch (err) {
+    res.status(400).json({ message: "could not get market list" });
+  }
+};
+
+module.exports = { loginAdmin, signupAdmin, getMarkets };

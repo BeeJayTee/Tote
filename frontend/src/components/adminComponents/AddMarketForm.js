@@ -242,7 +242,7 @@ const AddMarketForm = () => {
               value={marketCountry}
               className="select select-sm select-primary"
             >
-              <option selected>Country</option>
+              <option defaultValue>Country</option>
               <option value="canada">Canada</option>
               <option value="united states">United States</option>
             </select>
@@ -270,7 +270,7 @@ const AddMarketForm = () => {
               value={marketProv}
               className="select select-sm select-primary"
             >
-              <option disabled selected>
+              <option disabled defaultValue>
                 Select State / Province
               </option>
               {marketDisplayProv}
@@ -339,7 +339,7 @@ const AddMarketForm = () => {
               value={mailingCountry}
               className="select select-sm select-primary"
             >
-              <option selected>Country</option>
+              <option defaultValue>Country</option>
               <option value="canada">Canada</option>
               <option value="united states">United States</option>
             </select>
@@ -367,7 +367,7 @@ const AddMarketForm = () => {
               value={mailingProv}
               className="select select-sm select-primary"
             >
-              <option disabled selected>
+              <option disabled defaultValue>
                 Select State / Province
               </option>
               {mailingDisplayProv}
@@ -388,7 +388,7 @@ const AddMarketForm = () => {
         </div>
       </div>
 
-      <button disabled={isLoading} class="btn btn-primary w-fit">
+      <button disabled={isLoading} className="btn btn-primary w-fit">
         Add New Market
       </button>
       {error && <div className="error">{error}</div>}

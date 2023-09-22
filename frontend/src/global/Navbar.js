@@ -65,10 +65,18 @@ const Navbar = ({ setBuyerDisplay, buyerDisplay }) => {
               {user && user.userType === process.env.REACT_APP_ADMIN_ID && (
                 <ul className="admin-options">
                   <li>
-                    <Link to="/app/market-manager">Market Manager</Link>
+                    <Link to="/app/market-manager">
+                      <span className="text-primary-focus hover:text-primary text-base">
+                        Market Manager
+                      </span>
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/app/admin-manager">Admin Manager</Link>
+                    <Link to="/app/admin-manager">
+                      <span className="text-primary-focus hover:text-primary text-base">
+                        Admin Manager
+                      </span>
+                    </Link>
                   </li>
                 </ul>
               )}

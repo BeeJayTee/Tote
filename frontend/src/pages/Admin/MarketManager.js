@@ -1,6 +1,7 @@
 import "../../styles/market-manager.css";
 import AddMarketForm from "../../components/adminComponents/AddMarketForm";
 import { useState } from "react";
+import ViewMarkets from "../../components/adminComponents/ViewMarkets";
 
 const MarketManager = () => {
   const [display, setDisplay] = useState("form");
@@ -30,6 +31,7 @@ const MarketManager = () => {
         </div>
       </div>
       {display === "form" && <AddMarketForm />}
+      {display === "markets" && <ViewMarkets />}
     </div>
   );
 };
