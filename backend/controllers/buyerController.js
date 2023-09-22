@@ -1,5 +1,6 @@
 const Buyer = require("../models/buyerModel");
 const Product = require("../models/productModel");
+const Seller = require("../models/sellerModel");
 const jwt = require("jsonwebtoken");
 
 const createToken = (_id) => {
@@ -57,6 +58,7 @@ const addCartItem = async (req, res) => {
   // use this as the new item to be added to the db
   const itemObject = {
     _id: item.product._id,
+    producer_id: item.product.producerID,
     productName: item.product.name,
     productQuantity: item.productQuantity,
     pricePerUnit: item.product.pricePerUnit,
@@ -210,10 +212,44 @@ const deleteCartItem = async (req, res) => {
 const submitOrder = async (req, res) => {
   const user_id = req.user;
   try {
+    // update buyer moving all items from the cart to the order field
     const buyer = await Buyer.findById(user_id);
+    const cartItems = buyer.cartItems;
     buyer.order = [...buyer.cartItems];
     buyer.cartItems = [];
     await buyer.save();
+
+    // update sellers moving all items for the buyer to the orders field
+    let sellerId;
+    let seller;
+    for (let i = 0; i < cartItems.length; i++) {
+      sellerId = cartItems[i].producer_id;
+      seller = await Seller.findById(sellerId);
+
+      const orderObj = {
+        email: buyer.email,
+        item: {
+          itemName: cartItems[i].productName,
+          quantity: cartItems[i].productQuantity,
+        },
+        itemTotal: cartItems[i].productQuantity * cartItems[i].pricePerUnit,
+      };
+
+      if (seller.orders.items) {
+        seller.orders.push({
+          email: orderObj.email,
+          items: [...seller.orders.items, orderObj.item],
+          total: seller.orders.total + orderObj.itemTotal,
+        });
+      } else {
+        seller.orders.push({
+          email: orderObj.email,
+          items: [orderObj.item],
+          total: orderObj.itemTotal,
+        });
+      }
+      await seller.save();
+    }
 
     res.status(200).json({ message: "success" });
   } catch (error) {

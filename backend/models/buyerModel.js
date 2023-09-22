@@ -3,24 +3,6 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const Schema = mongoose.Schema;
 
-const cartItemsArray = new Schema({
-  product: {
-    _id: String,
-    producerID: String,
-    marketID: String,
-    organization: String,
-    name: String,
-    type: String,
-    amount: Number,
-    unit: String,
-    pricePerUnit: Number,
-    description: String,
-    expireAt: String,
-    createdAt: String,
-  },
-  productQuantity: Number,
-});
-
 const buyerSchema = new Schema({
   email: {
     type: String,
@@ -34,6 +16,7 @@ const buyerSchema = new Schema({
   cartItems: [
     {
       _id: { type: Schema.ObjectId },
+      producer_id: { type: String },
       productName: { type: String },
       productQuantity: { type: Number },
       pricePerUnit: { type: Number },

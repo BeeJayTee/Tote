@@ -50,6 +50,18 @@ const sellerSchema = new Schema({
       type: String,
     },
   ],
+  orders: [
+    {
+      email: { type: String },
+      items: [
+        {
+          itemName: { type: String },
+          quantity: { type: Number },
+        },
+      ],
+      total: { type: Number, default: 0 },
+    },
+  ],
 });
 
 // static signup method

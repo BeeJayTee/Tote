@@ -31,8 +31,9 @@ const ShoppingCartTotal = ({ setOrderSubmitted }) => {
       },
     });
     const json = await response.json();
+    console.log(json);
     if (response.ok) {
-      console.log(json.message);
+      console.log(json);
       getDbItems();
       setOrderSubmitted(true);
     }
