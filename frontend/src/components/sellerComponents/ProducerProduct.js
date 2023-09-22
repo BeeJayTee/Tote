@@ -5,7 +5,7 @@ const ProducerProduct = ({ marketID, marketName }) => {
   const { products } = useProductsContext();
 
   return (
-    <div className="producer-products overflow-x-auto">
+    <div className="producer-products overflow-x-auto w-full">
       <table className="table table-zebra w-full">
         <thead>
           <tr>

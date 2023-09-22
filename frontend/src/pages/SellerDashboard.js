@@ -41,7 +41,7 @@ const SellerDashboard = () => {
         marketID={marketID}
         setMarketName={setMarketName}
       />
-      <div className="main">
+      <div className="main flex flex-col lg:flex-row items-center lg:items-start">
         <div className="products">
           {products && (
             <ProducerProduct marketID={marketID} marketName={marketName} />
