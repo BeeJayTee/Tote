@@ -31,8 +31,8 @@ const ViewMarkets = () => {
     <div className="container m-auto max-h-[400px] w-fit px-8 py-4 border-4 border-primary-focus overflow-y-scroll">
       <div className="m-auto w-fit">
         {isLoading && <div>Loading Markets</div>}
-        {markets.map((market) => (
-          <div className="mb-4">
+        {markets.map((market, index) => (
+          <div key={index} className="mb-4">
             <h4 className="font-bold">{market.marketName}</h4>
             <p className="text-xs">
               Market ID:{" "}

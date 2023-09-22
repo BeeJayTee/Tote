@@ -152,7 +152,7 @@ const BuyerDashboard = ({ buyerDisplay, setBuyerDisplay }) => {
           <div className="divider"></div>
           {/* this is the market area to add items to cart */}
           <div className="flex gap-2 lg:gap-12 items-center w-fit m-auto">
-            <MarketSelect marketID={marketID} setMarketID={setMarketID} />
+            <MarketSelect setMarketID={setMarketID} />
 
             {/* filter form */}
             <FilterForm

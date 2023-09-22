@@ -39,17 +39,7 @@ html {
 
 .add-product-form input {
   padding: 5px;
-  margin-top: 5px;
   margin-bottom: 10px;
-}
-
-.add-product-form button {
-  background: var(--dark-gray);
-  border: 0;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .error-input {

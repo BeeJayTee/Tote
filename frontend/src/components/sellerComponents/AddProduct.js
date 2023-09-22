@@ -66,12 +66,12 @@ const AddProduct = ({ marketID, marketName }) => {
   return (
     <form className="add-product-form form-control" onSubmit={handleSubmit}>
       <h3 className="text-lg font-bold">Add a New Product</h3>
-      <p className="flex items-center gap-2">
+      <p className="flex items-center gap-2 mb-2">
         <span className="text-xs">for: </span>{" "}
         <span className="uppercase text-primary">{marketName}</span>
       </p>
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label p-0">
           <span className="label-text">Product Name</span>
         </label>
         <input
@@ -85,7 +85,7 @@ const AddProduct = ({ marketID, marketName }) => {
       </div>
 
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label p-0">
           <span className="label-text">Product Type</span>
         </label>
         <select
@@ -105,7 +105,7 @@ const AddProduct = ({ marketID, marketName }) => {
       </div>
 
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label p-0">
           <span className="label-text">Amount Available</span>
         </label>
         <input
@@ -119,7 +119,7 @@ const AddProduct = ({ marketID, marketName }) => {
       </div>
 
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label p-0">
           <span className="label-text">Product Unit</span>
         </label>
         <select
@@ -139,7 +139,7 @@ const AddProduct = ({ marketID, marketName }) => {
       </div>
 
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label p-0">
           <span className="label-text">Price Per Unit</span>
         </label>
         <input
@@ -154,7 +154,7 @@ const AddProduct = ({ marketID, marketName }) => {
         />
       </div>
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label p-0">
           <span className="label-text">Short Description</span>
         </label>
         <textarea
@@ -168,7 +168,7 @@ const AddProduct = ({ marketID, marketName }) => {
         ></textarea>
       </div>
 
-      <button>Add Product</button>
+      <button className="mt-4 btn btn-primary">Add Product</button>
       {error && <div className="error">{error}</div>}
     </form>
   );

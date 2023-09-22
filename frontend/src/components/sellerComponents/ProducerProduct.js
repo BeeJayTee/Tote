@@ -1,7 +1,7 @@
 import { useProductsContext } from "../../hooks/useProductsContext";
 import ProductTableItem from "./ProductTableItem";
 
-const ProducerProduct = () => {
+const ProducerProduct = ({ marketID, marketName }) => {
   const { products } = useProductsContext();
 
   return (
@@ -18,9 +18,11 @@ const ProducerProduct = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product, index) => (
-            <ProductTableItem product={product} key={product._id} />
-          ))}
+          {products.map((product, index) => {
+            if (marketID === product.marketID) {
+              return <ProductTableItem product={product} key={product._id} />;
+            } else return null;
+          })}
         </tbody>
       </table>
     </div>

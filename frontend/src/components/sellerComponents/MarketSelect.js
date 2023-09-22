@@ -14,17 +14,18 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
 
   useEffect(() => {
     const fetchSellerMarkets = async () => {
-      const response = await fetch("/markets", {
+      const response = await fetch("/seller/markets", {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
       setSellerMarkets(json.markets);
     };
     const fetchAllMarkets = async () => {
-      const response = await fetch("/markets/", {
+      const response = await fetch("/markets", {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
+      console.log(json);
       setMarkets(json);
       setMarketID(json[0].marketID);
       setMarketName(json[0].marketName);
@@ -52,7 +53,7 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
     e.preventDefault();
     const addUserMarket = async () => {
       const response = await fetch("/seller/markets", {
-        method: "PATCH",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
@@ -93,11 +94,17 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
               value={marketID}
               className="select select-sm w-full max-w-xs mb-3 select-primary"
             >
-              {markets.map((market, index) => (
-                <option key={index} value={market.marketID}>
-                  {market.marketName}
-                </option>
-              ))}
+              {markets.map((market, index) => {
+                console.log(sellerMarkets, market.marketID);
+                console.log(sellerMarkets.includes(market.marketID));
+                if (sellerMarkets.includes(market.marketID)) {
+                  return (
+                    <option key={index} value={market.marketID}>
+                      {market.marketName}
+                    </option>
+                  );
+                } else return null;
+              })}
             </select>
           </div>
         </form>
@@ -108,16 +115,21 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
           >
             <FontAwesomeIcon icon={faShop} />
             <FontAwesomeIcon icon={icon} />
-            <span className="ml-2">add market</span>
+            <span className="ml-2">
+              {icon === faPlus ? "add market" : "close"}
+            </span>
           </button>
           <form className={addMarketDisplayClass} onSubmit={handleMarketSubmit}>
             <input
+              className="input input-xs input-primary mt-2 mr-2"
               type="text"
               value={addMarketID}
               onChange={(e) => setAddMarketID(e.target.value)}
               ref={inputEl}
             />
-            <button>Add Market</button>
+            <button className="text-primary hover:text-primary-content border border-primary hover:bg-primary px-2 py-1 rounded-md">
+              Add Market
+            </button>
             {addMarketError && <div className="error">{addMarketError}</div>}
           </form>
         </div>

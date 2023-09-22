@@ -24,6 +24,6 @@ router.post("/signup", signupSeller);
 router.get("/markets", requireSellerAuth, getSellerMarkets);
 
 // add new market to user
-router.patch("/markets", requireSellerAuth, addSellerMarket);
+router.post("/markets", requireSellerAuth, addSellerMarket);
 
 module.exports = router;

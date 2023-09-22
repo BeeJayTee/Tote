@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-const MarketSelect = ({ marketID, setMarketID }) => {
+const MarketSelect = ({ setMarketID }) => {
   const [markets, setMarkets] = useState([]);
   const [marketName, setMarketName] = useState(null);
   const { user } = useAuthContext();
@@ -21,6 +21,7 @@ const MarketSelect = ({ marketID, setMarketID }) => {
   }, [setMarketID, user.token]);
 
   const handleClick = (e) => {
+    console.log("clicked");
     setMarketID(e.target.value);
     const market = markets.filter((market) => {
       return market.marketID === e.target.value;
@@ -34,25 +35,27 @@ const MarketSelect = ({ marketID, setMarketID }) => {
         select market
       </div>
       <div className="dropdown-container text-center">
-        <details className="dropdown">
-          <summary className="m-1 btn bg-primary hover:bg-primary-focus text-xs md:text-sm">
+        <div className="dropdown">
+          <label tabIndex={0} className="btn m-1 btn-primary">
             {marketName}
-          </summary>
-          <ul className="shadow menu dropdown-content z-[1] rounded-box w-fit bg-secondary-500 text-primary">
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-primary rounded-box w-52 "
+          >
             {markets &&
               markets.map((market, index) => (
-                <li key={index}>
+                <li key={index} onClick={handleClick}>
                   <option
                     value={market.marketID}
-                    onClick={handleClick}
-                    className="hover:text-primary-focus hover:bg-base-100"
+                    className="bg-primary hover:bg-primary-focus text-white"
                   >
                     {market.marketName}
                   </option>
                 </li>
               ))}
           </ul>
-        </details>
+        </div>
       </div>
     </div>
   );

@@ -42,7 +42,11 @@ const SellerDashboard = () => {
         setMarketName={setMarketName}
       />
       <div className="main">
-        <div className="products">{products && <ProducerProduct />}</div>
+        <div className="products">
+          {products && (
+            <ProducerProduct marketID={marketID} marketName={marketName} />
+          )}
+        </div>
         <AddProduct marketID={marketID} marketName={marketName} />
       </div>
     </div>
