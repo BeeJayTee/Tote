@@ -208,7 +208,11 @@ const ProductTableItem = ({ product, index }) => {
         </td>
       )}
       {/* description section */}
-      {!isEdit && <td>{description}</td>}
+      {!isEdit && (
+        <td>
+          <span className="max-w-[100px]">{description}</span>
+        </td>
+      )}
       {isEdit && (
         <td>
           <textarea

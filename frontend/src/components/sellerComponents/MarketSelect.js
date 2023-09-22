@@ -60,7 +60,6 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
         body: JSON.stringify({ marketID: addMarketID }),
       });
       const json = await response.json();
-      console.log("poop", json);
       if (!response.ok) {
         setAddMarketError(json.error);
       }
@@ -102,15 +101,15 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
             </select>
           </div>
         </form>
-        <div className="add-new-market">
-          <div
-            className="add-market-icon-container"
+        <div className="text-primary">
+          <button
+            className="btn btn-sm text-xs btn-primary"
             onClick={handleMarketClick}
           >
             <FontAwesomeIcon icon={faShop} />
             <FontAwesomeIcon icon={icon} />
-            <span> add market</span>
-          </div>
+            <span className="ml-2">add market</span>
+          </button>
           <form className={addMarketDisplayClass} onSubmit={handleMarketSubmit}>
             <input
               type="text"

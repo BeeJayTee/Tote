@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const AdminLogin = () => {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("ABCabc123!");
+  const [email, setEmail] = useState("admin@email.com");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { dispatch } = useAuthContext();
@@ -14,7 +14,7 @@ const AdminLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("https://toteapi.onrender.com/admin/login", {
+    const response = await fetch("/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -37,7 +37,9 @@ const AdminLogin = () => {
 
   return (
     <div>
-      <h3 className="text-3xl text-center mb-10">Admin Login</h3>
+      <h3 className="text-3xl text-center font-thin mb-10 font-['Helvetica']">
+        Admin Login
+      </h3>
       <form onSubmit={handleSubmit} className="m-auto form-control w-fit">
         <div className="form-control w-full max-w-xs">
           <label className="label">

@@ -36,7 +36,13 @@ function App() {
             <Route
               path="/"
               element={
-                !user ? <LandingPage /> : <Navigate to="/app/dashboard" />
+                !user ? (
+                  <LandingPage />
+                ) : user.userType === process.env.REACT_APP_ADMIN_ID ? (
+                  <Navigate to="/app/admin-dashboard" />
+                ) : (
+                  <Navigate to="/app/dashboard" />
+                )
               }
             />
             <Route
