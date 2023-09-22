@@ -207,6 +207,20 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
+const submitOrder = async (req, res) => {
+  const user_id = req.user;
+  try {
+    const buyer = await Buyer.findById(user_id);
+    buyer.order = [...buyer.cartItems];
+    buyer.cartItems = [];
+    await buyer.save();
+
+    res.status(200).json({ message: "success" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   signupBuyer,
   loginBuyer,
@@ -214,4 +228,5 @@ module.exports = {
   addCartItem,
   editCartItem,
   deleteCartItem,
+  submitOrder,
 };

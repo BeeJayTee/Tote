@@ -43,6 +43,18 @@ const buyerSchema = new Schema({
       marketID: { type: String },
     },
   ],
+  order: [
+    {
+      _id: { type: Schema.ObjectId },
+      productName: { type: String },
+      productQuantity: { type: Number },
+      pricePerUnit: { type: Number },
+      unit: { type: String },
+      sellerName: { type: String },
+      description: { type: String },
+      marketID: { type: String },
+    },
+  ],
 });
 
 // static signup method

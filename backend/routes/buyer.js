@@ -9,6 +9,7 @@ const {
   addCartItem,
   editCartItem,
   deleteCartItem,
+  submitOrder,
 } = require("../controllers/buyerController");
 
 const router = express.Router();
@@ -33,5 +34,8 @@ router.delete("/cart", requireBuyerAuth, deleteCartItem);
 
 // edit a current cart item from the shopping cart
 router.patch("/cart/edit", requireBuyerAuth, editCartItem);
+
+// submit a buyer's order
+router.post("/submit", requireBuyerAuth, submitOrder);
 
 module.exports = router;

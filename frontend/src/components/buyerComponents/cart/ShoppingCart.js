@@ -1,10 +1,13 @@
 import ShoppingCartTableQuantity from "./ShoppingCartTableQuantity";
+import ShoppingCartTotal from "./ShoppingCartTotal";
 
 import { useShoppingCartStore } from "../../../stores/shoppingCartStore";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import ShoppingCartTotal from "./ShoppingCartTotal";
+import { useState } from "react";
 
 const ShoppingCart = ({ setBuyerDisplay }) => {
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
+
   const items = useShoppingCartStore((state) => state.items);
   const getDbItems = useShoppingCartStore((state) => state.getDbItems);
   const { user } = useAuthContext();
@@ -29,6 +32,11 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
     } else {
       console.log(json.error);
     }
+  };
+
+  const handleClick = () => {
+    setBuyerDisplay("market");
+    setOrderSubmitted(false);
   };
 
   return (
@@ -101,7 +109,7 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
             </div>
           </div>
           <div>
-            <ShoppingCartTotal />
+            <ShoppingCartTotal setOrderSubmitted={setOrderSubmitted} />
           </div>
         </div>
       )}
@@ -110,13 +118,15 @@ const ShoppingCart = ({ setBuyerDisplay }) => {
       {items.length === 0 && (
         <div className="text-center border-4 border-stone-300 w-fit m-auto px-12 py-12">
           <h4 className="text-2xl">
-            There are no items in your shopping cart!
+            {orderSubmitted
+              ? "Thank you! Your order has been submitted."
+              : "There are no items in your shopping cart!"}
           </h4>
           <button
             className="text-primary hover:text-primary-focus font-bold"
-            onClick={() => setBuyerDisplay("market")}
+            onClick={handleClick}
           >
-            Add Some Items
+            {orderSubmitted ? "Back To The Market" : "Add Some Items"}
           </button>
         </div>
       )}

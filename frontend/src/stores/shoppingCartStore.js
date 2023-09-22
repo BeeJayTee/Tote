@@ -11,6 +11,10 @@ export const useShoppingCartStore = create((set) => ({
     });
     const json = await response.json();
     const cartItems = json.cartItems;
-    set({ items: cartItems });
+    if (cartItems) {
+      set({ items: cartItems });
+    } else {
+      set({ items: [] });
+    }
   },
 }));
