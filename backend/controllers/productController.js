@@ -75,8 +75,16 @@ const updateProductCount = async (req, res) => {
 
 // add a new product
 const addProduct = async (req, res) => {
-  const { name, type, amount, unit, pricePerUnit, marketID, description } =
-    req.body;
+  const {
+    name,
+    type,
+    amount,
+    unit,
+    pricePerUnit,
+    marketID,
+    marketName,
+    description,
+  } = req.body;
 
   const _id = req.user._id;
   const organization = req.user.organization;
@@ -117,6 +125,7 @@ const addProduct = async (req, res) => {
       unit,
       pricePerUnit,
       marketID,
+      marketName,
       description,
     });
     res.status(200).json(product);

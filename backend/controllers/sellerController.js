@@ -28,12 +28,15 @@ const loginSeller = async (req, res) => {
 const signupSeller = async (req, res) => {
   const { email, password, retypePassword, organization, marketID } = req.body;
   try {
+    const market = await Market.findOne({ marketID: marketID });
+
     const seller = await Seller.signup(
       email,
       password,
       retypePassword,
       organization,
-      marketID
+      market.marketID,
+      market.marketName
     );
 
     // identify type of user (buyer or seller)
@@ -52,14 +55,15 @@ const signupSeller = async (req, res) => {
 const getSellerMarkets = async (req, res) => {
   const id = req.user._id;
   const seller = await Seller.findById(id);
-  const sellerMarkets = seller.sellerMarketIDs;
-  if (sellerMarkets.length > 0) {
-    return res.status(200).json({ markets: sellerMarkets });
+  const markets = seller.markets;
+  if (markets.length > 0) {
+    return res.status(200).json({ markets });
   }
   res.status(404).json({ msg: "Could not find markets for this user" });
 };
 
 // add user market
+// ********** this needs to be updated with news makets field schema***********
 const addSellerMarket = async (req, res) => {
   const { marketID } = req.body;
   const userID = req.user._id;
@@ -67,14 +71,32 @@ const addSellerMarket = async (req, res) => {
   if (!market) {
     return res.status(404).json({ error: "market not found" });
   }
-  const userCheck = await Seller.findById(userID);
-  if (userCheck.sellerMarketIDs.includes(marketID)) {
-    return res.status(409).json({ error: "market already exists" });
-  }
-  const user = await Seller.findByIdAndUpdate(userID, {
-    $push: { sellerMarketIDs: marketID },
+
+  //
+  // const userCheck = await Seller.findById(userID);
+  // if (userCheck.sellerMarketIDs.includes(marketID)) {
+  //   return res.status(409).json({ error: "market already exists" });
+  // }
+  // const user = await Seller.findByIdAndUpdate(userID, {
+  //   $push: { markets: marketID },
+  // });
+  //
+
+  const seller = await Seller.findById(userID);
+  const markets = seller.markets;
+  const marketExists = markets.find((market) => {
+    return market.id === marketID;
   });
-  res.status(200).json(user);
+  if (marketExists) {
+    return res.status(409).json({ error: "market already exists" });
+  } else {
+    markets.push({ id: market.marketID, name: market.marketName });
+    seller.save();
+  }
+
+  res
+    .status(200)
+    .json({ id: market.marketID, name: market.marketName, _id: market._id });
 };
 
 module.exports = {

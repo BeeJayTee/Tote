@@ -33,6 +33,7 @@ const AddProduct = ({ marketID, marketName }) => {
       pricePerUnit,
       description,
       marketID,
+      marketName,
     };
 
     const response = await fetch("/products/", {
@@ -79,7 +80,9 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           className={`input input-sm w-full max-w-xs ${
-            emptyFields.includes("name") ? "input-error" : "input-primary"
+            emptyFields && emptyFields.includes("name")
+              ? "input-error"
+              : "input-primary"
           }`}
         />
       </div>
@@ -92,7 +95,9 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setType(e.target.value)}
           value={type}
           className={`select select-sm w-full max-w-xs mb-3 ${
-            emptyFields.includes("type") ? "select-error" : "select-primary"
+            emptyFields && emptyFields.includes("type")
+              ? "select-error"
+              : "select-primary"
           }`}
         >
           <option value="">select type</option>
@@ -113,7 +118,9 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setAmount(e.target.value)}
           value={amount}
           className={`input input-sm w-full max-w-xs ${
-            emptyFields.includes("name") ? "input-error" : "input-primary"
+            emptyFields && emptyFields.includes("name")
+              ? "input-error"
+              : "input-primary"
           }`}
         />
       </div>
@@ -126,7 +133,9 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setUnit(e.target.value)}
           value={unit}
           className={`select select-sm w-full max-w-xs mb-3 ${
-            emptyFields.includes("unit") ? "select-error" : "select-primary"
+            emptyFields && emptyFields.includes("unit")
+              ? "select-error"
+              : "select-primary"
           }`}
         >
           <option value="">select unit</option>
@@ -147,7 +156,7 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setPricePerUnit(e.target.value)}
           value={pricePerUnit}
           className={`input input-sm w-full max-w-xs ${
-            emptyFields.includes("pricePerUnit")
+            emptyFields && emptyFields.includes("pricePerUnit")
               ? "input-error"
               : "input-primary"
           }`}
@@ -161,7 +170,7 @@ const AddProduct = ({ marketID, marketName }) => {
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           className={`textarea h-24 ${
-            emptyFields.includes("description")
+            emptyFields && emptyFields.includes("description")
               ? "textarea-error"
               : "textarea-primary"
           }`}

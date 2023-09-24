@@ -45,9 +45,10 @@ const sellerSchema = new Schema({
     required: false,
     default: null,
   },
-  sellerMarketIDs: [
+  markets: [
     {
-      type: String,
+      id: { type: String },
+      name: { type: String },
     },
   ],
   orders: [
@@ -70,7 +71,8 @@ sellerSchema.statics.signup = async function (
   password,
   retypePassword,
   organization,
-  marketID
+  marketID,
+  marketName
 ) {
   // validation
   if (!email || !password || !organization || !marketID) {
@@ -116,7 +118,7 @@ sellerSchema.statics.signup = async function (
     email,
     password: hash,
     organization,
-    sellerMarketIDs: [marketID],
+    markets: [{ id: marketID, name: marketName }],
   });
 
   return user;

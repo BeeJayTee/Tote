@@ -14,6 +14,10 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  marketName: {
+    type: String,
+    required: true,
+  },
   organization: {
     type: String,
     required: true,

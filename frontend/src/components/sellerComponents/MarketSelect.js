@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShop, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
-  const [sellerMarkets, setSellerMarkets] = useState([]);
+  // const [sellerMarkets, setSellerMarkets] = useState([]);
   const [markets, setMarkets] = useState([]);
   const [addMarketID, setAddMarketID] = useState("");
   const [addMarketDisplayClass, setAddMarketDisplayClass] = useState("hidden");
@@ -18,20 +18,22 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
-      setSellerMarkets(json.markets);
+      setMarketID(json.markets[0].id);
+      setMarketName(json.markets[0].name);
+      setMarkets(json.markets);
     };
-    const fetchAllMarkets = async () => {
-      const response = await fetch("/markets", {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
-      const json = await response.json();
-      console.log(json);
-      setMarkets(json);
-      setMarketID(json[0].marketID);
-      setMarketName(json[0].marketName);
-    };
+    // const fetchAllMarkets = async () => {
+    //   const response = await fetch("/markets", {
+    //     headers: { Authorization: `Bearer ${user.token}` },
+    //   });
+    //   const json = await response.json();
+    //   // console.log(json);
+    //   setMarkets(json);
+    //   setMarketID(json[0].marketID);
+    //   setMarketName(json[0].marketName);
+    // };
     fetchSellerMarkets();
-    fetchAllMarkets();
+    // fetchAllMarkets();
   }, [user.token, setMarketID, setMarketName]);
 
   const handleMarketClick = () => {
@@ -66,7 +68,10 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
       }
       if (response.ok) {
         setAddMarketError(null);
-        setSellerMarkets([...sellerMarkets, addMarketID]);
+        setMarkets([
+          ...markets,
+          { id: json.id, name: json.name, _id: json._id },
+        ]);
         setAddMarketID("");
       }
     };
@@ -75,10 +80,13 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
 
   const handleChange = (e) => {
     setMarketID(e.target.value);
+    console.log(markets);
     const currentMarket = markets.filter(
-      (market) => market.marketID === e.target.value
+      (market) => market.id === e.target.value
     )[0];
-    setMarketName(currentMarket.marketName);
+    console.log(currentMarket);
+    setMarketName(currentMarket.name);
+    setMarketID(currentMarket.id);
   };
 
   return (
@@ -95,15 +103,11 @@ const MarketSelect = ({ user, marketID, setMarketID, setMarketName }) => {
               className="select select-sm w-full max-w-xs mb-3 select-primary"
             >
               {markets.map((market, index) => {
-                console.log(sellerMarkets, market.marketID);
-                console.log(sellerMarkets.includes(market.marketID));
-                if (sellerMarkets.includes(market.marketID)) {
-                  return (
-                    <option key={index} value={market.marketID}>
-                      {market.marketName}
-                    </option>
-                  );
-                } else return null;
+                return (
+                  <option key={index} value={market.id}>
+                    {market.name}
+                  </option>
+                );
               })}
             </select>
           </div>

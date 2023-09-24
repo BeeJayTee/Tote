@@ -3,7 +3,7 @@ import { useProductsContext } from "../../hooks/useProductsContext";
 import { useState, useEffect } from "react";
 import productTypes from "../../data/productTypes";
 
-const ProductTableItem = ({ product, index }) => {
+const ProductTableItem = ({ product, setIsItemEdit }) => {
   const { user } = useAuthContext();
   const { dispatch } = useProductsContext();
 
@@ -51,6 +51,7 @@ const ProductTableItem = ({ product, index }) => {
 
   const handleEditClick = async () => {
     setIsEdit(true);
+    setIsItemEdit(true);
   };
 
   const handleDeleteClick = async () => {
@@ -123,6 +124,8 @@ const ProductTableItem = ({ product, index }) => {
     setNewPricePerUnit(pricePerUnit);
     setNewPricePerUnit(pricePerUnit);
     setNewDescription(description);
+
+    setIsItemEdit(false);
   };
 
   return (
@@ -209,8 +212,8 @@ const ProductTableItem = ({ product, index }) => {
       )}
       {/* description section */}
       {!isEdit && (
-        <td>
-          <span className="max-w-[100px]">{description}</span>
+        <td className="">
+          <span className="">{description}</span>
         </td>
       )}
       {isEdit && (
@@ -219,7 +222,7 @@ const ProductTableItem = ({ product, index }) => {
             onChange={(e) => setNewDescription(e.target.value)}
             value={newDescription}
             placeholder={description}
-            className={`textarea h-24 ${
+            className={`textarea h-24 text-xs ${
               emptyFields.includes("description")
                 ? "textarea-error"
                 : "textarea-primary"
@@ -230,14 +233,33 @@ const ProductTableItem = ({ product, index }) => {
       {/* edit and delete buttons section */}
       {!isEdit && (
         <td>
-          <button onClick={handleEditClick}>Edit</button> |{" "}
-          <button onClick={handleDeleteClick}>Delete</button>
+          <button
+            onClick={handleEditClick}
+            className="text-semibold text-primary hover:text-primary-focus"
+          >
+            Edit
+          </button>{" "}
+          |{" "}
+          <button
+            onClick={handleDeleteClick}
+            className="text-semibold text-red-600 opacity-50 hover:opacity-100"
+          >
+            Delete
+          </button>
         </td>
       )}
       {isEdit && (
         <td>
-          <button onClick={handleSubmitClick}>Submit</button> |{" "}
-          <button onClick={handleCancelClick}>X</button>
+          <button
+            onClick={handleSubmitClick}
+            className="text-semibold text-primary hover:text-primary-focus"
+          >
+            Submit
+          </button>{" "}
+          |{" "}
+          <button onClick={handleCancelClick} className="text-semibold">
+            X
+          </button>
           {error && <p className="text-error">{error}</p>}
         </td>
       )}
