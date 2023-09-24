@@ -195,12 +195,12 @@ const updateProduct = async (req, res) => {
 
   try {
     const product = await Product.findByIdAndUpdate(productID, {
-      newName,
-      newType,
-      newAmount,
-      newUnit,
-      newPricePerUnit,
-      newDescription,
+      name: newName,
+      type: newType,
+      amount: newAmount,
+      unit: newUnit,
+      pricePerUnit: newPricePerUnit,
+      description: newDescription,
     });
     res.status(200).json(product);
   } catch (err) {

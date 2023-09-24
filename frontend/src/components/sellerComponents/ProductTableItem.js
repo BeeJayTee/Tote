@@ -101,6 +101,8 @@ const ProductTableItem = ({ product, setIsItemEdit }) => {
       setUnit(newUnit);
       setPricePerUnit(newPricePerUnit);
       setDescription(newDescription);
+
+      setIsItemEdit(false);
       return;
     }
 

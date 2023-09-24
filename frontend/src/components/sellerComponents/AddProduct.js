@@ -69,7 +69,9 @@ const AddProduct = ({ marketID, marketName }) => {
       <h3 className="text-lg font-bold">Add a New Product</h3>
       <p className="flex items-center gap-2 mb-2">
         <span className="text-xs">for: </span>{" "}
-        <span className="uppercase text-primary">{marketName}</span>
+        <span className="uppercase text-primary text-sm font-semibold">
+          {marketName}
+        </span>
       </p>
       <div className="form-control w-full max-w-xs">
         <label className="label p-0">

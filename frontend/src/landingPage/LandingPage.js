@@ -14,11 +14,11 @@ const LandingPage = () => {
       >
         <div className="hero-overlay bg-opacity-80"></div>
         <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">
-              Welcome to <span className="text-secondary">Tote</span>
+          <div className="border border-white p-12 bg-[rgba(1,1,1,.15)]">
+            <h1 className="mb-5 text-6xl font-thin font-['Helvetica']">
+              Welcome to <span className="text-secondary-focus">Tote</span>
             </h1>
-            <p className="mb-5">Farmers Market Pre-Ordering</p>
+            <p className="mb-5 font-bold">Farmers Market Pre-Ordering</p>
             <Link to="/app">
               <button className="btn btn-primary">Get Started</button>
             </Link>

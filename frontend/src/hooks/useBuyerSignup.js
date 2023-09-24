@@ -13,7 +13,11 @@ export const useBuyerSignup = () => {
     const response = await fetch("/buyer/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, retypePassword }),
+      body: JSON.stringify({
+        email: email.toLowerCase(),
+        password,
+        retypePassword,
+      }),
     });
     const json = await response.json();
     if (!response.ok) {

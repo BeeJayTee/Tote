@@ -43,7 +43,7 @@ const FilterForm = ({
               handleChange("producer", e.target.value);
             }}
           >
-            <option value="">No Producer Selected</option>
+            <option value="">All Producers</option>
             {producerNames.map((producer) => (
               <option key={producer._id} value={producer._id}>
                 {producer[producer._id]}
@@ -63,7 +63,7 @@ const FilterForm = ({
               handleChange("type", e.target.value);
             }}
           >
-            <option value="">No Product Type Selected</option>
+            <option value="">All Types</option>
             {types.map((type) => (
               <option key={type} value={type}>
                 {type}

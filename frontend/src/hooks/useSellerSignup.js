@@ -16,13 +16,11 @@ export const useSellerSignup = () => {
     setIsSellerLoading(true);
     setSellerError(null);
 
-    console.log([email, password, retypePassword, organization, marketID]);
-
     const response = await fetch("/seller/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email,
+        email: email.toLowerCase(),
         organization,
         password,
         retypePassword,
