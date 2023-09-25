@@ -179,6 +179,7 @@ const editCartItem = async (req, res) => {
   }
 };
 
+// delete item from cart
 const deleteCartItem = async (req, res) => {
   const user_id = req.user._id;
   const { _id } = req.body;
@@ -209,6 +210,7 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
+// submit an order
 const submitOrder = async (req, res) => {
   const user_id = req.user;
   try {
