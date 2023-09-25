@@ -63,7 +63,6 @@ const getSellerMarkets = async (req, res) => {
 };
 
 // add user market
-// ********** this needs to be updated with news makets field schema***********
 const addSellerMarket = async (req, res) => {
   const { marketID } = req.body;
   const userID = req.user._id;
@@ -71,16 +70,6 @@ const addSellerMarket = async (req, res) => {
   if (!market) {
     return res.status(404).json({ error: "market not found" });
   }
-
-  //
-  // const userCheck = await Seller.findById(userID);
-  // if (userCheck.sellerMarketIDs.includes(marketID)) {
-  //   return res.status(409).json({ error: "market already exists" });
-  // }
-  // const user = await Seller.findByIdAndUpdate(userID, {
-  //   $push: { markets: marketID },
-  // });
-  //
 
   const seller = await Seller.findById(userID);
   const markets = seller.markets;
