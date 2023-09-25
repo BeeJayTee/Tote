@@ -22,7 +22,7 @@ const LandingPage = () => {
               Welcome to <span className="text-secondary-focus">Tote</span>
             </h1>
             <p className="mb-5 font-bold">Farmers Market Pre-Ordering</p>
-            <Link to="/app">
+            <Link to="/app/signup">
               <button className="btn btn-primary">Get Started</button>
             </Link>
           </div>
