@@ -1,7 +1,10 @@
 import heroImg from "../assets/landingPage/hero-img.jpg";
-import marketsSvg from "../assets/landingPage/markets.svg";
-import producersSvg from "../assets/landingPage/producers.svg";
-import shoppersSvg from "../assets/landingPage/shoppers.svg";
+// import marketsSvg from "../assets/landingPage/markets.svg";
+import { FaPeopleLine } from "react-icons/fa6";
+import { GiFarmer } from "react-icons/gi";
+import { BsPersonBoundingBox } from "react-icons/bs";
+// import producersSvg from "../assets/landingPage/producers.svg";
+// import shoppersSvg from "../assets/landingPage/shoppers.svg";
 import marketTechImg from "../assets/landingPage/market-technology.jpg";
 import { Link } from "react-router-dom";
 
@@ -29,7 +32,8 @@ const LandingPage = () => {
         <div className="flex flex-col items-center gap-y-8 container m-auto lg:flex-row lg:justify-around lg:gap-x-8">
           <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
             <figure className="px-10 pt-10">
-              <img src={shoppersSvg} alt="Shoppers" className="w-1/4" />
+              {/* <img src={shoppersSvg} alt="Shoppers" className="w-1/4" /> */}
+              <FaPeopleLine color="#4a6652" size="5em" />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">Market Goers</h2>
@@ -46,7 +50,8 @@ const LandingPage = () => {
           </div>
           <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
             <figure className="px-10 pt-10">
-              <img src={producersSvg} alt="Producers" className="w-1/4" />
+              {/* <img src={producersSvg} alt="Producers" className="w-1/4" /> */}
+              <GiFarmer color="#4a6652" size="5em" />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">Farmers & Producers</h2>
@@ -63,7 +68,8 @@ const LandingPage = () => {
           </div>
           <div className="card w-96 bg-base-100 shadow-xl lg:self-stretch">
             <figure className="px-10 pt-10">
-              <img src={marketsSvg} alt="Markets" className="w-1/4" />
+              {/* <img src={marketsSvg} alt="Markets" className="w-1/4" /> */}
+              <BsPersonBoundingBox color="#4a6652" size="5em" />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">Market Directors</h2>
